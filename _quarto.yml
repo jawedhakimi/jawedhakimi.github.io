@@ -12,6 +12,7 @@ website:
     search: true
     contents:
       - index.qmd
+      - about.qmd
       - section: "Electrical engineering basics"
         contents:
           - electrical-engineering/index.qmd
@@ -23,6 +24,13 @@ website:
       - section: "Magnetics"
         contents:
           - magnetics/solenoid.qmd
+      - section: "Power electronics"
+        contents:
+          - power-electronics/index.qmd
+          - power-electronics/buck-converter.qmd
+          - power-electronics/boost-converter.qmd
+          - power-electronics/buck-boost-converter.qmd
+          - power-electronics/lc-filter-design.qmd
       - section: "Integrated circuits"
         contents:
           - integrated-circuits/index.qmd
@@ -41,6 +49,6 @@ format:
     number-sections: false
     smooth-scroll: true
     grid:
-      sidebar-width: 220px
+      sidebar-width: 240px
       body-width: 760px
       margin-width: 200px

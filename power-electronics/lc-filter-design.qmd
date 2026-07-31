@@ -1,0 +1,89 @@
+---
+title: "LC and RC filter design"
+subtitle: "Power electronics"
+toc: true
+---
+
+The two filters you reach for constantly: a simple RC low-pass for signal-level filtering, and an LC low-pass for power-stage or EMI filtering where you can't afford a resistor's power loss.
+
+## RC low-pass
+
+A single resistor and capacitor to ground give a first-order (−20 dB/decade) low-pass with cutoff:
+
+$$
+f_c = \frac{1}{2\pi R C}
+$$
+
+Simple, but the resistor dissipates power continuously — fine for a signal line, not for filtering a DC-DC converter's output current.
+
+### Calculator
+
+```{=html}
+<div id="rc-filter-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "rc-filter-calc",
+  inputs: [
+    { id: "R", label: "R (kΩ)", value: 1.6, min: 0.001, step: 0.1 },
+    { id: "C", label: "C (nF)", value: 100, min: 0.001, step: 1 }
+  ],
+  outputs: [
+    { id: "fc", label: "Cutoff fc" }
+  ],
+  compute: function (v) {
+    var R = v.R * 1000;
+    var C = v.C * 1e-9;
+    var fc = R > 0 && C > 0 ? 1 / (2 * Math.PI * R * C) : 0;
+    var fcTxt = fc >= 1000 ? (fc / 1000).toFixed(2) + " kHz" : fc.toFixed(1) + " Hz";
+    return { fc: fcTxt };
+  }
+});
+</script>
+```
+
+## LC low-pass
+
+Replacing the resistor with an inductor removes the continuous power loss — the standard choice at a converter's output or as an input EMI filter. Second-order (−40 dB/decade) response:
+
+$$
+f_c = \frac{1}{2\pi\sqrt{LC}}
+$$
+
+For a target cutoff, there's a free parameter — usually chosen via the filter's characteristic impedance $Z_0 = \sqrt{L/C}$, which should roughly match the source/load impedance to avoid ringing:
+
+$$
+L = \frac{Z_0}{2\pi f_c}, \qquad C = \frac{1}{2\pi f_c Z_0}
+$$
+
+A too-low $Z_0$ makes for a large capacitor and a peaky, underdamped response without added series resistance; too high makes for a large, lossy inductor. Real designs also check the $Q$ at $f_c$ against the source/load resistance and add damping if it rings.
+
+### Calculator
+
+```{=html}
+<div id="lc-filter-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "lc-filter-calc",
+  inputs: [
+    { id: "fc", label: "Target fc (kHz)", value: 100, min: 0.001, step: 1 },
+    { id: "Z0", label: "Z0 (Ω)", value: 10, min: 0.001, step: 0.5 }
+  ],
+  outputs: [
+    { id: "L", label: "L" },
+    { id: "C", label: "C" }
+  ],
+  compute: function (v) {
+    var fc = v.fc * 1000;
+    if (fc <= 0 || v.Z0 <= 0) return { L: "-", C: "-" };
+    var L = v.Z0 / (2 * Math.PI * fc);
+    var C = 1 / (2 * Math.PI * fc * v.Z0);
+    return {
+      L: (L * 1e6).toFixed(2) + " µH",
+      C: (C * 1e6).toFixed(3) + " µF"
+    };
+  }
+});
+</script>
+```

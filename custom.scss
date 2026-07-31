@@ -6,28 +6,73 @@ $font-family-sans-serif: -apple-system, "Segoe UI", Roboto, sans-serif;
 $font-family-serif: Georgia, "Times New Roman", serif;
 $font-family-base: $font-family-serif;
 $headings-font-family: $font-family-serif;
-$headings-font-weight: normal;
+$headings-font-weight: 500;
 $border-color: #ded9cc;
 $navbar-bg: #faf9f5;
 $sidebar-bg: #faf9f5;
 $code-bg: #f2f0e8;
 
 /*-- scss:rules --*/
+$accent-warm: #c1440e;
+
 .sidebar-title {
   font-family: $font-family-serif;
-  font-size: 1.05rem;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #2c2c2a;
 }
-.sidebar nav[role="doc-toc"] a,
+
 #quarto-sidebar a {
   font-family: $font-family-sans-serif;
   font-size: 0.85rem;
   color: #5f5e5a;
 }
 #quarto-sidebar a:hover { color: $link-color; }
-h1.title { font-weight: normal; }
+
+/* chapter (section) headers in the sidebar: bigger, bolder, serif, one color per chapter */
+.sidebar-item-section > .sidebar-item-container .menu-text {
+  font-family: $font-family-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: #2c2c2a;
+  letter-spacing: 0.01em;
+}
+.sidebar-item-section {
+  margin-top: 0.9rem;
+  padding-left: 0.6rem;
+  border-left: 3px solid $border-color;
+}
+/* order matches _quarto.yml sidebar sections: EE, Magnetics, Power electronics, ICs, Microcontrollers, Software */
+li.sidebar-item-section:nth-of-type(2) { border-left-color: #185fa5; }
+li.sidebar-item-section:nth-of-type(3) { border-left-color: $accent-warm; }
+li.sidebar-item-section:nth-of-type(4) { border-left-color: #b45309; }
+li.sidebar-item-section:nth-of-type(5) { border-left-color: #0f6e56; }
+li.sidebar-item-section:nth-of-type(6) { border-left-color: #534ab7; }
+li.sidebar-item-section:nth-of-type(7) { border-left-color: #3b6d11; }
+
+h1.title {
+  font-weight: 500;
+  font-size: 2.1rem;
+  line-height: 1.25;
+}
+p.subtitle.lead {
+  font-family: $font-family-sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: $accent-warm;
+  opacity: 1;
+  margin-bottom: 1rem;
+}
+h2 {
+  border-bottom: 2px solid #ede8da;
+  padding-bottom: 0.3rem;
+}
 figcaption {
   font-family: $font-family-sans-serif;
   font-size: 0.8rem;
   color: #5f5e5a;
   font-style: italic;
 }
+a { text-decoration-color: #cdd6dd; }

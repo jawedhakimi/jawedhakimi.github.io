@@ -1,0 +1,11 @@
+---
+title: "Power electronics"
+toc: false
+---
+
+DC-DC converter topologies and the filter math that goes with them. All formulas here are ideal (lossless, continuous conduction mode) — good for a first-pass component selection, not a final loss/efficiency analysis.
+
+- [Buck converter](buck-converter.qmd)
+- [Boost converter](boost-converter.qmd)
+- [Buck-boost converter](buck-boost-converter.qmd)
+- [LC and RC filter design](lc-filter-design.qmd)

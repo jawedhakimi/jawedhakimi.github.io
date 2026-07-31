@@ -1,0 +1,70 @@
+---
+title: "Buck-boost converter"
+subtitle: "Power electronics"
+toc: true
+---
+
+The classic (inverting) buck-boost can step the output above *or* below the input, at the cost of an inverted polarity — the output is referenced negative to the input's ground. Same ideal CCM treatment as the buck and boost pages.
+
+## Duty cycle
+
+$$
+\frac{|V_{out}|}{V_{in}} = \frac{D}{1-D} \quad \Rightarrow \quad D = \frac{|V_{out}|}{V_{in} + |V_{out}|}
+$$
+
+$D < 0.5$ steps down, $D > 0.5$ steps up — the same switch duty cycle range covers both directions, which is the whole appeal of the topology.
+
+## Inductor current
+
+The inductor is charged from $V_{in}$ only, during the on-time — same charging behavior as a boost:
+
+$$
+\Delta I_L = \frac{V_{in} D}{f_{sw} L} \quad \Rightarrow \quad L = \frac{V_{in} D}{f_{sw}\, \Delta I_L}
+$$
+
+And the output only sees current during the off-time, so — again like a boost —
+
+$$
+I_{L,avg} = \frac{I_{out}}{1-D}
+$$
+
+This is the least efficient of the three topologies in practice: the inductor carries both the input and output current duty cycles, so RMS current (and core/copper loss) tends to be the highest of the three for a given output power.
+
+## Calculator
+
+```{=html}
+<div id="buckboost-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "buckboost-calc",
+  inputs: [
+    { id: "Vin", label: "Vin (V)", value: 12, min: 0.01, step: 0.1 },
+    { id: "Vout", label: "|Vout| (V)", value: 12, min: 0.01, step: 0.1 },
+    { id: "fsw", label: "fsw (kHz)", value: 500, min: 1, step: 10 },
+    { id: "Iout", label: "Iout (A)", value: 1, min: 0.001, step: 0.1 },
+    { id: "ripplePct", label: "Ripple (% of IL,avg)", value: 30, min: 1, step: 1 }
+  ],
+  outputs: [
+    { id: "D", label: "Duty cycle D" },
+    { id: "ILavg", label: "IL,avg" },
+    { id: "dIL", label: "ΔIL" },
+    { id: "L", label: "L required" }
+  ],
+  compute: function (v) {
+    if (v.Vin <= 0 || v.Vout < 0) return { D: "invalid", ILavg: "-", dIL: "-", L: "-" };
+    var D = v.Vout / (v.Vin + v.Vout);
+    var fsw = v.fsw * 1000;
+    var ILavg = v.Iout / (1 - D);
+    var dIL = (v.ripplePct / 100) * ILavg;
+    var L = dIL > 0 ? (v.Vin * D) / (fsw * dIL) : 0;
+    return {
+      D: D.toFixed(3),
+      ILavg: ILavg.toFixed(3) + " A",
+      dIL: dIL.toFixed(3) + " A",
+      L: (L * 1e6).toFixed(2) + " µH"
+    };
+  }
+});
+</script>
+```

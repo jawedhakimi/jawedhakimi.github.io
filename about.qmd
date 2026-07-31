@@ -1,0 +1,10 @@
+---
+title: "About"
+toc: false
+---
+
+I'm a hardware engineer, and on any given day I might be reading about magnetics, debugging an IC datasheet, tuning a microcontroller peripheral, or writing the software that ties it all together. For a long time the notes from that ended up scattered across notebooks and apps on different devices, half-findable at best.
+
+This site is where those notes live now — one place, organized by topic, with the math written out rather than just the result. Most pages carry a small calculator next to the derivation, so a formula isn't just something to read but something to actually use on a real design.
+
+It's a running project: chapters get added as I work through new topics, and existing notes get revised as I learn more or find a cleaner way to derive something.

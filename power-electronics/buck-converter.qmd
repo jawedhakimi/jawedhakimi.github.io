@@ -1,0 +1,79 @@
+---
+title: "Buck converter"
+subtitle: "Power electronics"
+toc: true
+---
+
+A buck converter steps a DC input down to a lower DC output by switching an inductor between the input and ground, then filtering the result. This is the ideal, continuous-conduction-mode (CCM) analysis — enough to pick a starting inductor and output capacitor.
+
+## Duty cycle
+
+Ignoring losses, the output is set entirely by duty cycle:
+
+$$
+D = \frac{V_{out}}{V_{in}}
+$$
+
+## Inductor selection
+
+While the switch is on, the inductor sees $(V_{in} - V_{out})$ across it for time $D/f_{sw}$; while off, it sees $-V_{out}$ for $(1-D)/f_{sw}$. Either way gives the same ripple current:
+
+$$
+\Delta I_L = \frac{V_{out}(1 - D)}{f_{sw} L}
+$$
+
+Solving for $L$ at a target ripple (commonly 20–40% of $I_{out}$):
+
+$$
+L = \frac{V_{out}(1-D)}{f_{sw}\, \Delta I_L}
+$$
+
+## Output capacitor
+
+Assuming the ripple is dominated by capacitance (not ESR), the output voltage ripple is approximately:
+
+$$
+\Delta V_{out} \approx \frac{\Delta I_L}{8\, f_{sw}\, C_{out}} \quad \Rightarrow \quad C_{out} = \frac{\Delta I_L}{8\, f_{sw}\, \Delta V_{out}}
+$$
+
+Real capacitors also add ESR-driven ripple ($\Delta V_{ESR} = \Delta I_L \cdot R_{ESR}$) on top of this — worth checking separately against the datasheet ESR once a part is chosen.
+
+## Calculator
+
+```{=html}
+<div id="buck-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "buck-calc",
+  inputs: [
+    { id: "Vin", label: "Vin (V)", value: 12, min: 0.01, step: 0.1 },
+    { id: "Vout", label: "Vout (V)", value: 5, min: 0.01, step: 0.1 },
+    { id: "fsw", label: "fsw (kHz)", value: 500, min: 1, step: 10 },
+    { id: "Iout", label: "Iout (A)", value: 2, min: 0.001, step: 0.1 },
+    { id: "ripplePct", label: "Ripple (% of Iout)", value: 30, min: 1, step: 1 },
+    { id: "Vripple", label: "Target Vripple (mV)", value: 50, min: 1, step: 1 }
+  ],
+  outputs: [
+    { id: "D", label: "Duty cycle D" },
+    { id: "dIL", label: "ΔIL" },
+    { id: "L", label: "L required" },
+    { id: "Cout", label: "Cout required" }
+  ],
+  compute: function (v) {
+    if (v.Vin <= 0 || v.Vout > v.Vin) return { D: "invalid", dIL: "-", L: "-", Cout: "-" };
+    var D = v.Vout / v.Vin;
+    var fsw = v.fsw * 1000;
+    var dIL = (v.ripplePct / 100) * v.Iout;
+    var L = dIL > 0 ? (v.Vout * (1 - D)) / (fsw * dIL) : 0;
+    var Cout = v.Vripple > 0 ? dIL / (8 * fsw * (v.Vripple / 1000)) : 0;
+    return {
+      D: D.toFixed(3),
+      dIL: dIL.toFixed(3) + " A",
+      L: (L * 1e6).toFixed(2) + " µH",
+      Cout: (Cout * 1e6).toFixed(2) + " µF"
+    };
+  }
+});
+</script>
+```

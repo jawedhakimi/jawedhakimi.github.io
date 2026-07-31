@@ -1,0 +1,66 @@
+---
+title: "Boost converter"
+subtitle: "Power electronics"
+toc: true
+---
+
+A boost converter steps a DC input up to a higher DC output by storing energy in an inductor while a switch is closed, then dumping it into the output (through a diode or synchronous switch) once it opens. Ideal CCM analysis again.
+
+## Duty cycle
+
+$$
+D = 1 - \frac{V_{in}}{V_{out}}
+$$
+
+## Inductor current
+
+While the switch is on, the full input voltage sits across the inductor, so ripple current is:
+
+$$
+\Delta I_L = \frac{V_{in} D}{f_{sw} L} \quad \Rightarrow \quad L = \frac{V_{in} D}{f_{sw}\, \Delta I_L}
+$$
+
+Unlike a buck, the inductor carries the *input* current, not the output current — this is why boost converters need bulkier inductors for the same output power. By power balance ($V_{in}I_{in} = V_{out}I_{out}$, ideal):
+
+$$
+I_{L,avg} = I_{in} = \frac{I_{out}}{1-D}
+$$
+
+## Calculator
+
+```{=html}
+<div id="boost-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "boost-calc",
+  inputs: [
+    { id: "Vin", label: "Vin (V)", value: 5, min: 0.01, step: 0.1 },
+    { id: "Vout", label: "Vout (V)", value: 12, min: 0.01, step: 0.1 },
+    { id: "fsw", label: "fsw (kHz)", value: 500, min: 1, step: 10 },
+    { id: "Iout", label: "Iout (A)", value: 1, min: 0.001, step: 0.1 },
+    { id: "ripplePct", label: "Ripple (% of IL,avg)", value: 30, min: 1, step: 1 }
+  ],
+  outputs: [
+    { id: "D", label: "Duty cycle D" },
+    { id: "ILavg", label: "IL,avg" },
+    { id: "dIL", label: "ΔIL" },
+    { id: "L", label: "L required" }
+  ],
+  compute: function (v) {
+    if (v.Vout <= v.Vin || v.Vin <= 0) return { D: "invalid", ILavg: "-", dIL: "-", L: "-" };
+    var D = 1 - v.Vin / v.Vout;
+    var fsw = v.fsw * 1000;
+    var ILavg = v.Iout / (1 - D);
+    var dIL = (v.ripplePct / 100) * ILavg;
+    var L = dIL > 0 ? (v.Vin * D) / (fsw * dIL) : 0;
+    return {
+      D: D.toFixed(3),
+      ILavg: ILavg.toFixed(3) + " A",
+      dIL: dIL.toFixed(3) + " A",
+      L: (L * 1e6).toFixed(2) + " µH"
+    };
+  }
+});
+</script>
+```

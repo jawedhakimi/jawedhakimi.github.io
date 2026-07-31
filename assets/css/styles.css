@@ -1,9 +1,19 @@
+:root {
+  --cat-ee: #185fa5;
+  --cat-magnetics: #c1440e;
+  --cat-power: #b45309;
+  --cat-ic: #0f6e56;
+  --cat-mcu: #534ab7;
+  --cat-sw: #3b6d11;
+}
+
 .calc {
   border: 1px solid #ded9cc;
   background: #fff;
   padding: 1.5rem 1.75rem;
   margin: 1.5rem 0;
   font-family: -apple-system, sans-serif;
+  border-radius: 6px;
 }
 .calc label { font-size: 13px; color: #5f5e5a; display: block; margin-bottom: 4px; }
 .calc input {
@@ -12,24 +22,43 @@
   border: 1px solid #ded9cc;
   font-size: 14px;
   font-family: -apple-system, sans-serif;
+  border-radius: 4px;
 }
 .calc .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
 .calc .out-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
-.calc .out { border-left: 2px solid #0c447c; padding-left: 0.9rem; }
-.calc .out .num { font-size: 22px; }
+.calc .out { border-left: 3px solid #0c447c; padding-left: 0.9rem; }
+.calc .out .num { font-size: 22px; font-weight: 600; }
 .calc .out .lbl { font-size: 12px; color: #5f5e5a; }
+
 .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2rem; }
 .card-grid .card {
-  border: 1px solid #ded9cc; padding: 1.25rem 1.4rem; background: #fff;
+  border: 1px solid #ded9cc;
+  border-top: 4px solid #ded9cc;
+  padding: 1.25rem 1.4rem;
+  background: #fff;
   font-family: -apple-system, sans-serif;
+  border-radius: 6px;
 }
 .card-grid .card .tag {
-  font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: #5f5e5a;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; color: #5f5e5a;
 }
-.card-grid .card h3 { font-family: Georgia, serif; font-weight: normal; font-size: 19px; margin: 0.4rem 0 0.5rem; }
+.card-grid .card h3 { font-family: Georgia, serif; font-weight: 500; font-size: 20px; margin: 0.4rem 0 0.5rem; }
 .card-grid .card p { font-size: 13.5px; color: #5f5e5a; line-height: 1.5; margin: 0 0 1rem; }
-.card-grid .card a.open { font-size: 13px; color: #0c447c; text-decoration: none; }
-.card-grid .card.disabled { opacity: 0.5; }
+.card-grid .card a.open { font-size: 13px; font-weight: 600; color: #0c447c; text-decoration: none; }
+.card-grid .card.disabled { opacity: 0.55; }
 .card-grid .badge {
-  font-size: 11px; color: #5f5e5a; border: 1px solid #ded9cc; padding: 2px 8px; display: inline-block;
+  font-size: 11px; color: #5f5e5a; border: 1px solid #ded9cc; padding: 2px 8px; display: inline-block; border-radius: 4px;
 }
+
+.card-grid .card.cat-ee { border-top-color: var(--cat-ee); }
+.card-grid .card.cat-ee .tag { color: var(--cat-ee); }
+.card-grid .card.cat-magnetics { border-top-color: var(--cat-magnetics); }
+.card-grid .card.cat-magnetics .tag { color: var(--cat-magnetics); }
+.card-grid .card.cat-power { border-top-color: var(--cat-power); }
+.card-grid .card.cat-power .tag { color: var(--cat-power); }
+.card-grid .card.cat-ic { border-top-color: var(--cat-ic); }
+.card-grid .card.cat-ic .tag { color: var(--cat-ic); }
+.card-grid .card.cat-mcu { border-top-color: var(--cat-mcu); }
+.card-grid .card.cat-mcu .tag { color: var(--cat-mcu); }
+.card-grid .card.cat-sw { border-top-color: var(--cat-sw); }
+.card-grid .card.cat-sw .tag { color: var(--cat-sw); }

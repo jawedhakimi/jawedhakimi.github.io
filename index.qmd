@@ -5,11 +5,11 @@ page-layout: full
 toc: false
 ---
 
-A running notebook of what I'm learning — electrical engineering fundamentals, magnetics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.
+A running notebook of what I'm learning — electrical engineering fundamentals, magnetics, power electronics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.
 
 ::: {.card-grid}
 
-::: {.card}
+::: {.card .cat-ee}
 [Electrical engineering]{.tag}
 
 ### Basics
@@ -19,7 +19,7 @@ Ohm's law, series/parallel resistance, voltage dividers, RC charging, and R/L/C 
 [Open chapter →](electrical-engineering/index.qmd){.open}
 :::
 
-::: {.card}
+::: {.card .cat-magnetics}
 [Magnetics]{.tag}
 
 ### Solenoid inductance
@@ -29,7 +29,17 @@ Deriving inductance from Ampere's law, then correcting for a finite coil with Wh
 [Open note →](magnetics/solenoid.qmd){.open}
 :::
 
-::: {.card .disabled}
+::: {.card .cat-power}
+[Power electronics]{.tag}
+
+### Buck, boost, buck-boost, filters
+
+Duty cycle, inductor selection, and output filtering for the three core DC-DC topologies, plus RC/LC filter design.
+
+[Open chapter →](power-electronics/index.qmd){.open}
+:::
+
+::: {.card .cat-ic .disabled}
 [Integrated circuits]{.tag}
 
 ### Op-amp noise budgets
@@ -39,7 +49,7 @@ Working through input-referred noise for a transimpedance front end.
 [Coming soon]{.badge}
 :::
 
-::: {.card .disabled}
+::: {.card .cat-mcu .disabled}
 [Microcontrollers]{.tag}
 
 ### Timer/PWM resolution
@@ -49,7 +59,7 @@ Choosing prescaler and ARR values for a target frequency and duty resolution.
 [Coming soon]{.badge}
 :::
 
-::: {.card .disabled}
+::: {.card .cat-sw .disabled}
 [Software]{.tag}
 
 ### Fixed-point vs. float on MCUs

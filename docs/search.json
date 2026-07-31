@@ -121,11 +121,98 @@
     ]
   },
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "I’m a hardware engineer, and on any given day I might be reading about magnetics, debugging an IC datasheet, tuning a microcontroller peripheral, or writing the software that ties it all together. For a long time the notes from that ended up scattered across notebooks and apps on different devices, half-findable at best.\nThis site is where those notes live now — one place, organized by topic, with the math written out rather than just the result. Most pages carry a small calculator next to the derivation, so a formula isn’t just something to read but something to actually use on a real design.\nIt’s a running project: chapters get added as I work through new topics, and existing notes get revised as I learn more or find a cleaner way to derive something.",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
+    "objectID": "power-electronics/buck-boost-converter.html",
+    "href": "power-electronics/buck-boost-converter.html",
+    "title": "Buck-boost converter",
+    "section": "",
+    "text": "The classic (inverting) buck-boost can step the output above or below the input, at the cost of an inverted polarity — the output is referenced negative to the input’s ground. Same ideal CCM treatment as the buck and boost pages.",
+    "crumbs": [
+      "Power electronics",
+      "Buck-boost converter"
+    ]
+  },
+  {
+    "objectID": "power-electronics/buck-boost-converter.html#duty-cycle",
+    "href": "power-electronics/buck-boost-converter.html#duty-cycle",
+    "title": "Buck-boost converter",
+    "section": "Duty cycle",
+    "text": "Duty cycle\n\\[\n\\frac{|V_{out}|}{V_{in}} = \\frac{D}{1-D} \\quad \\Rightarrow \\quad D = \\frac{|V_{out}|}{V_{in} + |V_{out}|}\n\\]\n\\(D &lt; 0.5\\) steps down, \\(D &gt; 0.5\\) steps up — the same switch duty cycle range covers both directions, which is the whole appeal of the topology.",
+    "crumbs": [
+      "Power electronics",
+      "Buck-boost converter"
+    ]
+  },
+  {
+    "objectID": "power-electronics/buck-boost-converter.html#inductor-current",
+    "href": "power-electronics/buck-boost-converter.html#inductor-current",
+    "title": "Buck-boost converter",
+    "section": "Inductor current",
+    "text": "Inductor current\nThe inductor is charged from \\(V_{in}\\) only, during the on-time — same charging behavior as a boost:\n\\[\n\\Delta I_L = \\frac{V_{in} D}{f_{sw} L} \\quad \\Rightarrow \\quad L = \\frac{V_{in} D}{f_{sw}\\, \\Delta I_L}\n\\]\nAnd the output only sees current during the off-time, so — again like a boost —\n\\[\nI_{L,avg} = \\frac{I_{out}}{1-D}\n\\]\nThis is the least efficient of the three topologies in practice: the inductor carries both the input and output current duty cycles, so RMS current (and core/copper loss) tends to be the highest of the three for a given output power.",
+    "crumbs": [
+      "Power electronics",
+      "Buck-boost converter"
+    ]
+  },
+  {
+    "objectID": "power-electronics/buck-boost-converter.html#calculator",
+    "href": "power-electronics/buck-boost-converter.html#calculator",
+    "title": "Buck-boost converter",
+    "section": "Calculator",
+    "text": "Calculator",
+    "crumbs": [
+      "Power electronics",
+      "Buck-boost converter"
+    ]
+  },
+  {
+    "objectID": "power-electronics/lc-filter-design.html",
+    "href": "power-electronics/lc-filter-design.html",
+    "title": "LC and RC filter design",
+    "section": "",
+    "text": "The two filters you reach for constantly: a simple RC low-pass for signal-level filtering, and an LC low-pass for power-stage or EMI filtering where you can’t afford a resistor’s power loss.",
+    "crumbs": [
+      "Power electronics",
+      "LC and RC filter design"
+    ]
+  },
+  {
+    "objectID": "power-electronics/lc-filter-design.html#rc-low-pass",
+    "href": "power-electronics/lc-filter-design.html#rc-low-pass",
+    "title": "LC and RC filter design",
+    "section": "RC low-pass",
+    "text": "RC low-pass\nA single resistor and capacitor to ground give a first-order (−20 dB/decade) low-pass with cutoff:\n\\[\nf_c = \\frac{1}{2\\pi R C}\n\\]\nSimple, but the resistor dissipates power continuously — fine for a signal line, not for filtering a DC-DC converter’s output current.\n\nCalculator",
+    "crumbs": [
+      "Power electronics",
+      "LC and RC filter design"
+    ]
+  },
+  {
+    "objectID": "power-electronics/lc-filter-design.html#lc-low-pass",
+    "href": "power-electronics/lc-filter-design.html#lc-low-pass",
+    "title": "LC and RC filter design",
+    "section": "LC low-pass",
+    "text": "LC low-pass\nReplacing the resistor with an inductor removes the continuous power loss — the standard choice at a converter’s output or as an input EMI filter. Second-order (−40 dB/decade) response:\n\\[\nf_c = \\frac{1}{2\\pi\\sqrt{LC}}\n\\]\nFor a target cutoff, there’s a free parameter — usually chosen via the filter’s characteristic impedance \\(Z_0 = \\sqrt{L/C}\\), which should roughly match the source/load impedance to avoid ringing:\n\\[\nL = \\frac{Z_0}{2\\pi f_c}, \\qquad C = \\frac{1}{2\\pi f_c Z_0}\n\\]\nA too-low \\(Z_0\\) makes for a large capacitor and a peaky, underdamped response without added series resistance; too high makes for a large, lossy inductor. Real designs also check the \\(Q\\) at \\(f_c\\) against the source/load resistance and add damping if it rings.\n\nCalculator",
+    "crumbs": [
+      "Power electronics",
+      "LC and RC filter design"
+    ]
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "The Bench Notebook",
     "section": "",
-    "text": "A running notebook of what I’m learning — electrical engineering fundamentals, magnetics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.\n\n\nElectrical engineering\n\nBasics\nOhm’s law, series/parallel resistance, voltage dividers, RC charging, and R/L/C impedance — five notes, each with a calculator.\nOpen chapter →\n\n\n\nMagnetics\n\nSolenoid inductance\nDeriving inductance from Ampere’s law, then correcting for a finite coil with Wheeler’s formula. Includes a live calculator.\nOpen note →\n\n\n\nIntegrated circuits\n\nOp-amp noise budgets\nWorking through input-referred noise for a transimpedance front end.\nComing soon\n\n\n\nMicrocontrollers\n\nTimer/PWM resolution\nChoosing prescaler and ARR values for a target frequency and duty resolution.\nComing soon\n\n\n\nSoftware\n\nFixed-point vs. float on MCUs\nWhen Q-format fixed point actually beats software float on a Cortex-M0.\nComing soon",
+    "text": "A running notebook of what I’m learning — electrical engineering fundamentals, magnetics, power electronics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.\n\n\nElectrical engineering\n\nBasics\nOhm’s law, series/parallel resistance, voltage dividers, RC charging, and R/L/C impedance — five notes, each with a calculator.\nOpen chapter →\n\n\n\nMagnetics\n\nSolenoid inductance\nDeriving inductance from Ampere’s law, then correcting for a finite coil with Wheeler’s formula. Includes a live calculator.\nOpen note →\n\n\n\nPower electronics\n\nBuck, boost, buck-boost, filters\nDuty cycle, inductor selection, and output filtering for the three core DC-DC topologies, plus RC/LC filter design.\nOpen chapter →\n\n\n\nIntegrated circuits\n\nOp-amp noise budgets\nWorking through input-referred noise for a transimpedance front end.\nComing soon\n\n\n\nMicrocontrollers\n\nTimer/PWM resolution\nChoosing prescaler and ARR values for a target frequency and duty resolution.\nComing soon\n\n\n\nSoftware\n\nFixed-point vs. float on MCUs\nWhen Q-format fixed point actually beats software float on a Cortex-M0.\nComing soon",
     "crumbs": [
       "The Bench Notebook"
     ]
@@ -205,6 +292,116 @@
     "crumbs": [
       "Magnetics",
       "Single-layer air-core solenoid: inductance"
+    ]
+  },
+  {
+    "objectID": "power-electronics/buck-converter.html",
+    "href": "power-electronics/buck-converter.html",
+    "title": "Buck converter",
+    "section": "",
+    "text": "A buck converter steps a DC input down to a lower DC output by switching an inductor between the input and ground, then filtering the result. This is the ideal, continuous-conduction-mode (CCM) analysis — enough to pick a starting inductor and output capacitor.",
+    "crumbs": [
+      "Power electronics",
+      "Buck converter"
+    ]
+  },
+  {
+    "objectID": "power-electronics/buck-converter.html#duty-cycle",
+    "href": "power-electronics/buck-converter.html#duty-cycle",
+    "title": "Buck converter",
+    "section": "Duty cycle",
+    "text": "Duty cycle\nIgnoring losses, the output is set entirely by duty cycle:\n\\[\nD = \\frac{V_{out}}{V_{in}}\n\\]",
+    "crumbs": [
+      "Power electronics",
+      "Buck converter"
+    ]
+  },
+  {
+    "objectID": "power-electronics/buck-converter.html#inductor-selection",
+    "href": "power-electronics/buck-converter.html#inductor-selection",
+    "title": "Buck converter",
+    "section": "Inductor selection",
+    "text": "Inductor selection\nWhile the switch is on, the inductor sees \\((V_{in} - V_{out})\\) across it for time \\(D/f_{sw}\\); while off, it sees \\(-V_{out}\\) for \\((1-D)/f_{sw}\\). Either way gives the same ripple current:\n\\[\n\\Delta I_L = \\frac{V_{out}(1 - D)}{f_{sw} L}\n\\]\nSolving for \\(L\\) at a target ripple (commonly 20–40% of \\(I_{out}\\)):\n\\[\nL = \\frac{V_{out}(1-D)}{f_{sw}\\, \\Delta I_L}\n\\]",
+    "crumbs": [
+      "Power electronics",
+      "Buck converter"
+    ]
+  },
+  {
+    "objectID": "power-electronics/buck-converter.html#output-capacitor",
+    "href": "power-electronics/buck-converter.html#output-capacitor",
+    "title": "Buck converter",
+    "section": "Output capacitor",
+    "text": "Output capacitor\nAssuming the ripple is dominated by capacitance (not ESR), the output voltage ripple is approximately:\n\\[\n\\Delta V_{out} \\approx \\frac{\\Delta I_L}{8\\, f_{sw}\\, C_{out}} \\quad \\Rightarrow \\quad C_{out} = \\frac{\\Delta I_L}{8\\, f_{sw}\\, \\Delta V_{out}}\n\\]\nReal capacitors also add ESR-driven ripple (\\(\\Delta V_{ESR} = \\Delta I_L \\cdot R_{ESR}\\)) on top of this — worth checking separately against the datasheet ESR once a part is chosen.",
+    "crumbs": [
+      "Power electronics",
+      "Buck converter"
+    ]
+  },
+  {
+    "objectID": "power-electronics/buck-converter.html#calculator",
+    "href": "power-electronics/buck-converter.html#calculator",
+    "title": "Buck converter",
+    "section": "Calculator",
+    "text": "Calculator",
+    "crumbs": [
+      "Power electronics",
+      "Buck converter"
+    ]
+  },
+  {
+    "objectID": "power-electronics/index.html",
+    "href": "power-electronics/index.html",
+    "title": "Power electronics",
+    "section": "",
+    "text": "DC-DC converter topologies and the filter math that goes with them. All formulas here are ideal (lossless, continuous conduction mode) — good for a first-pass component selection, not a final loss/efficiency analysis.\n\nBuck converter\nBoost converter\nBuck-boost converter\nLC and RC filter design",
+    "crumbs": [
+      "Power electronics",
+      "Power electronics"
+    ]
+  },
+  {
+    "objectID": "power-electronics/boost-converter.html",
+    "href": "power-electronics/boost-converter.html",
+    "title": "Boost converter",
+    "section": "",
+    "text": "A boost converter steps a DC input up to a higher DC output by storing energy in an inductor while a switch is closed, then dumping it into the output (through a diode or synchronous switch) once it opens. Ideal CCM analysis again.",
+    "crumbs": [
+      "Power electronics",
+      "Boost converter"
+    ]
+  },
+  {
+    "objectID": "power-electronics/boost-converter.html#duty-cycle",
+    "href": "power-electronics/boost-converter.html#duty-cycle",
+    "title": "Boost converter",
+    "section": "Duty cycle",
+    "text": "Duty cycle\n\\[\nD = 1 - \\frac{V_{in}}{V_{out}}\n\\]",
+    "crumbs": [
+      "Power electronics",
+      "Boost converter"
+    ]
+  },
+  {
+    "objectID": "power-electronics/boost-converter.html#inductor-current",
+    "href": "power-electronics/boost-converter.html#inductor-current",
+    "title": "Boost converter",
+    "section": "Inductor current",
+    "text": "Inductor current\nWhile the switch is on, the full input voltage sits across the inductor, so ripple current is:\n\\[\n\\Delta I_L = \\frac{V_{in} D}{f_{sw} L} \\quad \\Rightarrow \\quad L = \\frac{V_{in} D}{f_{sw}\\, \\Delta I_L}\n\\]\nUnlike a buck, the inductor carries the input current, not the output current — this is why boost converters need bulkier inductors for the same output power. By power balance (\\(V_{in}I_{in} = V_{out}I_{out}\\), ideal):\n\\[\nI_{L,avg} = I_{in} = \\frac{I_{out}}{1-D}\n\\]",
+    "crumbs": [
+      "Power electronics",
+      "Boost converter"
+    ]
+  },
+  {
+    "objectID": "power-electronics/boost-converter.html#calculator",
+    "href": "power-electronics/boost-converter.html#calculator",
+    "title": "Boost converter",
+    "section": "Calculator",
+    "text": "Calculator",
+    "crumbs": [
+      "Power electronics",
+      "Boost converter"
     ]
   },
   {
