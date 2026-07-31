@@ -16,7 +16,7 @@ $$
 
 This overestimates inductance for any real, finite coil — it ignores fringing at the ends.
 
-![Fig. 1 — field concentrated inside the winding, with fringing paths returning outside.](../assets/solenoid-field.png)
+![Fig. 1 — field concentrated inside the winding, with fringing paths returning outside.](../assets/img/solenoid-field.png)
 
 ## Wheeler's correction
 
@@ -28,58 +28,39 @@ $$
 
 Valid roughly for $l > 0.4r$. Below that, it undercorrects and a full Nagaoka-coefficient treatment is needed.
 
-![Fig. 2 — field strength rising with current, fringing appearing at the ends.](../assets/coil-animation.gif)
+![Fig. 2 — field strength rising with current, fringing appearing at the ends.](../assets/img/coil-animation.gif)
 
 ## Calculator
 
 ```{=html}
-<div class="calc">
-  <div class="row">
-    <div>
-      <label>Turns N</label>
-      <input type="number" id="turns" value="50" min="1" step="1">
-    </div>
-    <div>
-      <label>Radius r (cm)</label>
-      <input type="number" id="radius" value="1.5" min="0.1" step="0.1">
-    </div>
-    <div>
-      <label>Length l (cm)</label>
-      <input type="number" id="length" value="4" min="0.1" step="0.1">
-    </div>
-  </div>
-  <div class="out-row">
-    <div class="out"><div class="num" id="out-ideal">-</div><div class="lbl">Ideal L</div></div>
-    <div class="out"><div class="num" id="out-wheeler">-</div><div class="lbl">Wheeler L</div></div>
-    <div class="out"><div class="num" id="out-ratio">-</div><div class="lbl">Ideal / Wheeler</div></div>
-  </div>
-</div>
+<div id="solenoid-calc"></div>
 <script>
-(function() {
-  const turnsEl = document.getElementById("turns");
-  const radiusEl = document.getElementById("radius");
-  const lengthEl = document.getElementById("length");
-  const outIdeal = document.getElementById("out-ideal");
-  const outWheeler = document.getElementById("out-wheeler");
-  const outRatio = document.getElementById("out-ratio");
-  const MU0 = 4 * Math.PI * 1e-7;
-
-  function compute() {
-    const N = parseFloat(turnsEl.value) || 0;
-    const rCm = parseFloat(radiusEl.value) || 0;
-    const lCm = parseFloat(lengthEl.value) || 0;
-    const rM = rCm / 100, lM = lCm / 100;
-    const A = Math.PI * rM * rM;
-    const lIdealUH = (lM > 0 ? (MU0 * N * N * A) / lM : 0) * 1e6;
-    const rIn = rCm / 2.54, lIn = lCm / 2.54;
-    const denom = 9 * rIn + 10 * lIn;
-    const lWheelerUH = denom > 0 ? (rIn * rIn * N * N) / denom : 0;
-    outIdeal.textContent = lIdealUH.toFixed(2) + " uH";
-    outWheeler.textContent = lWheelerUH.toFixed(2) + " uH";
-    outRatio.textContent = lWheelerUH > 0 ? (lIdealUH / lWheelerUH).toFixed(2) + "x" : "-";
+Calc.create({
+  root: "solenoid-calc",
+  inputs: [
+    { id: "N", label: "Turns N", value: 50, min: 1, step: 1 },
+    { id: "r", label: "Radius r (cm)", value: 1.5, min: 0.1, step: 0.1 },
+    { id: "l", label: "Length l (cm)", value: 4, min: 0.1, step: 0.1 }
+  ],
+  outputs: [
+    { id: "ideal", label: "Ideal L" },
+    { id: "wheeler", label: "Wheeler L" },
+    { id: "ratio", label: "Ideal / Wheeler" }
+  ],
+  compute: function (v) {
+    var MU0 = 4 * Math.PI * 1e-7;
+    var rM = v.r / 100, lM = v.l / 100;
+    var A = Math.PI * rM * rM;
+    var lIdealUH = (lM > 0 ? (MU0 * v.N * v.N * A) / lM : 0) * 1e6;
+    var rIn = v.r / 2.54, lIn = v.l / 2.54;
+    var denom = 9 * rIn + 10 * lIn;
+    var lWheelerUH = denom > 0 ? (rIn * rIn * v.N * v.N) / denom : 0;
+    return {
+      ideal: lIdealUH.toFixed(2) + " uH",
+      wheeler: lWheelerUH.toFixed(2) + " uH",
+      ratio: lWheelerUH > 0 ? (lIdealUH / lWheelerUH).toFixed(2) + "x" : "-"
+    };
   }
-  [turnsEl, radiusEl, lengthEl].forEach(el => el.addEventListener("input", compute));
-  compute();
-})();
+});
 </script>
 ```

@@ -1,0 +1,56 @@
+---
+title: "Series and parallel resistance"
+subtitle: "Electrical engineering basics"
+toc: true
+---
+
+## Series
+
+Resistors in series share the same current, and their voltage drops add — so resistance simply sums:
+
+$$
+R_{series} = R_1 + R_2 + R_3
+$$
+
+## Parallel
+
+Resistors in parallel share the same voltage, and their currents add, giving a reciprocal sum:
+
+$$
+\frac{1}{R_{parallel}} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}
+$$
+
+The parallel combination is always smaller than the smallest individual resistor — adding a path for current can only make it easier for current to flow.
+
+## Calculator
+
+Leave a value at 0 to exclude that resistor (treated as not present).
+
+```{=html}
+<div id="rseries-calc"></div>
+<script>
+Calc.create({
+  root: "rseries-calc",
+  inputs: [
+    { id: "R1", label: "R1 (Ω)", value: 100, min: 0, step: 1 },
+    { id: "R2", label: "R2 (Ω)", value: 220, min: 0, step: 1 },
+    { id: "R3", label: "R3 (Ω)", value: 0, min: 0, step: 1 }
+  ],
+  outputs: [
+    { id: "series", label: "R series" },
+    { id: "parallel", label: "R parallel" }
+  ],
+  compute: function (v) {
+    var rs = [v.R1, v.R2, v.R3].filter(function (r) { return r > 0; });
+    if (rs.length === 0) return { series: "-", parallel: "-" };
+    var sum = rs.reduce(function (a, b) { return a + b; }, 0);
+    var invSum = rs.reduce(function (a, b) { return a + 1 / b; }, 0);
+    var par = invSum > 0 ? 1 / invSum : 0;
+    return {
+      series: sum.toFixed(2) + " Ω",
+      parallel: par.toFixed(2) + " Ω"
+    };
+  }
+});
+</script>
+```

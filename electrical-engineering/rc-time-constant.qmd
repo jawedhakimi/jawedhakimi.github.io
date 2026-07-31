@@ -1,0 +1,60 @@
+---
+title: "RC charging and time constant"
+subtitle: "Electrical engineering basics"
+toc: true
+---
+
+## Time constant
+
+For a resistor and capacitor in series, the time constant sets the pace of charging and discharging:
+
+$$
+\tau = RC
+$$
+
+After one time constant, a charging capacitor reaches about 63.2% of its final value; after five, it's considered fully settled (99.3%).
+
+## Charging from zero
+
+Starting from 0 V toward a supply $V_s$:
+
+$$
+V(t) = V_s \left(1 - e^{-t/\tau}\right)
+$$
+
+Discharging back toward 0 V from $V_s$ follows the mirror image, $V(t) = V_s e^{-t/\tau}$.
+
+## Calculator
+
+Charging case, starting from 0 V.
+
+```{=html}
+<div id="rc-calc"></div>
+<script>
+Calc.create({
+  root: "rc-calc",
+  inputs: [
+    { id: "R", label: "R (kΩ)", value: 10, min: 0.001, step: 0.1 },
+    { id: "C", label: "C (µF)", value: 100, min: 0.001, step: 1 },
+    { id: "Vs", label: "Vs (V)", value: 5, min: 0, step: 0.1 },
+    { id: "t", label: "t (ms)", value: 1, min: 0, step: 0.1 }
+  ],
+  outputs: [
+    { id: "tau", label: "Time constant τ" },
+    { id: "vt", label: "V(t)" }
+  ],
+  compute: function (v) {
+    var R = v.R * 1000;
+    var C = v.C * 1e-6;
+    var t = v.t / 1000;
+    var tau = R * C;
+    var vt = tau > 0 ? v.Vs * (1 - Math.exp(-t / tau)) : 0;
+    var tauTxt = tau >= 1 ? tau.toFixed(3) + " s" : (tau * 1000).toFixed(2) + " ms";
+    return {
+      tau: tauTxt,
+      vt: vt.toFixed(3) + " V"
+    };
+  }
+});
+</script>
+```

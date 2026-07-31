@@ -13,8 +13,8 @@
   font-size: 14px;
   font-family: -apple-system, sans-serif;
 }
-.calc .row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem; }
-.calc .out-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+.calc .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
+.calc .out-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; }
 .calc .out { border-left: 2px solid #0c447c; padding-left: 0.9rem; }
 .calc .out .num { font-size: 22px; }
 .calc .out .lbl { font-size: 12px; color: #5f5e5a; }

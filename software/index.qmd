@@ -1,0 +1,8 @@
+---
+title: "Software"
+toc: false
+---
+
+Notes on the software side of embedded work coming here — starting with fixed-point vs. float on small MCUs.
+
+Nothing published yet.

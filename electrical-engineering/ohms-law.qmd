@@ -1,0 +1,52 @@
+---
+title: "Ohm's law and power"
+subtitle: "Electrical engineering basics"
+toc: true
+---
+
+The relationship every other circuit identity gets built on top of.
+
+## The law
+
+For a resistor, voltage and current are proportional:
+
+$$
+V = IR
+$$
+
+Power dissipated follows from $P = VI$, substituted with Ohm's law to give two more useful forms:
+
+$$
+P = VI = I^2 R = \frac{V^2}{R}
+$$
+
+The $I^2R$ form is the one that matters for sizing: double the current through a fixed resistance and dissipation quadruples, not doubles — a common reason parts run hotter than expected after a "small" current increase.
+
+## Calculator
+
+Enter a supply voltage and resistance to get current and dissipated power.
+
+```{=html}
+<div id="ohms-calc"></div>
+<script>
+Calc.create({
+  root: "ohms-calc",
+  inputs: [
+    { id: "V", label: "Voltage V (V)", value: 5, min: 0, step: 0.1 },
+    { id: "R", label: "Resistance R (Ω)", value: 220, min: 0.01, step: 1 }
+  ],
+  outputs: [
+    { id: "I", label: "Current I" },
+    { id: "P", label: "Power P" }
+  ],
+  compute: function (v) {
+    if (v.R <= 0) return { I: "-", P: "-" };
+    var I = v.V / v.R;
+    var P = v.V * I;
+    var Itxt = Math.abs(I) < 1 ? (I * 1000).toFixed(2) + " mA" : I.toFixed(3) + " A";
+    var Ptxt = Math.abs(P) < 1 ? (P * 1000).toFixed(2) + " mW" : P.toFixed(3) + " W";
+    return { I: Itxt, P: Ptxt };
+  }
+});
+</script>
+```

@@ -12,14 +12,33 @@ website:
     search: true
     contents:
       - index.qmd
+      - section: "Electrical engineering basics"
+        contents:
+          - electrical-engineering/index.qmd
+          - electrical-engineering/ohms-law.qmd
+          - electrical-engineering/series-parallel-resistance.qmd
+          - electrical-engineering/voltage-divider.qmd
+          - electrical-engineering/rc-time-constant.qmd
+          - electrical-engineering/ac-impedance.qmd
       - section: "Magnetics"
         contents:
           - magnetics/solenoid.qmd
+      - section: "Integrated circuits"
+        contents:
+          - integrated-circuits/index.qmd
+      - section: "Microcontrollers"
+        contents:
+          - microcontrollers/index.qmd
+      - section: "Software"
+        contents:
+          - software/index.qmd
 
 format:
   html:
     theme: [cosmo, custom.scss]
-    css: styles.css
+    css: assets/css/styles.css
+    include-in-header:
+      - text: '<script src="/assets/js/calc-engine.js"></script>'
     toc: true
     number-sections: false
     smooth-scroll: true

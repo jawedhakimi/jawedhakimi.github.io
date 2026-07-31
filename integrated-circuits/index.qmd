@@ -1,0 +1,8 @@
+---
+title: "Integrated circuits"
+toc: false
+---
+
+Notes on op-amps, ADCs/DACs, and general IC-level design coming here — starting with op-amp noise budgets.
+
+Nothing published yet.

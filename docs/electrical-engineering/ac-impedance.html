@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>The Bench Notebook</title>
+<title>Impedance of R, L, C – The Bench Notebook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,23 +29,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-2722e6e5483521c8e2895b1419cad975.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-2722e6e5483521c8e2895b1419cad975.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -74,10 +74,39 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<script src="./assets/js/calc-engine.js"></script>
+<script src="../assets/js/calc-engine.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="assets/css/styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 
 <body class="nav-sidebar docked quarto-light">
@@ -89,7 +118,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">The Bench Notebook</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../electrical-engineering/index.html">Electrical engineering basics</a></li><li class="breadcrumb-item"><a href="../electrical-engineering/ac-impedance.html">Impedance of R, L, C</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -99,12 +128,12 @@ ul.task-list li input[type="checkbox"] {
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">The Bench Notebook</a> 
+      <a href="../">The Bench Notebook</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -116,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The Bench Notebook</span></a>
   </div>
 </li>
@@ -131,37 +160,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../electrical-engineering/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Electrical engineering basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/ohms-law.html" class="sidebar-item-text sidebar-link">
+  <a href="../electrical-engineering/ohms-law.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ohm’s law and power</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link">
+  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Series and parallel resistance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/voltage-divider.html" class="sidebar-item-text sidebar-link">
+  <a href="../electrical-engineering/voltage-divider.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Voltage divider</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/rc-time-constant.html" class="sidebar-item-text sidebar-link">
+  <a href="../electrical-engineering/rc-time-constant.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">RC charging and time constant</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/ac-impedance.html" class="sidebar-item-text sidebar-link">
+  <a href="../electrical-engineering/ac-impedance.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Impedance of R, L, C</span></a>
   </div>
 </li>
@@ -178,7 +207,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./magnetics/solenoid.html" class="sidebar-item-text sidebar-link">
+  <a href="../magnetics/solenoid.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Single-layer air-core solenoid: inductance</span></a>
   </div>
 </li>
@@ -195,7 +224,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./integrated-circuits/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../integrated-circuits/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Integrated circuits</span></a>
   </div>
 </li>
@@ -212,7 +241,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./microcontrollers/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../microcontrollers/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Microcontrollers</span></a>
   </div>
 </li>
@@ -229,7 +258,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./software/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../software/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Software</span></a>
   </div>
 </li>
@@ -240,19 +269,29 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#individual-elements" id="toc-individual-elements" class="nav-link active" data-scroll-target="#individual-elements">Individual elements</a></li>
+  <li><a href="#series-rlc-magnitude" id="toc-series-rlc-magnitude" class="nav-link" data-scroll-target="#series-rlc-magnitude">Series RLC magnitude</a></li>
+  <li><a href="#calculator" id="toc-calculator" class="nav-link" data-scroll-target="#calculator">Calculator</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../electrical-engineering/index.html">Electrical engineering basics</a></li><li class="breadcrumb-item"><a href="../electrical-engineering/ac-impedance.html">Impedance of R, L, C</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">The Bench Notebook</h1>
-<p class="subtitle lead">Notes on hardware, worked out in full</p>
+<h1 class="title">Impedance of R, L, C</h1>
+<p class="subtitle lead">Electrical engineering basics</p>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-right">
+<div class="quarto-title-meta">
 
     
   
@@ -264,51 +303,61 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>A running notebook of what I’m learning — electrical engineering fundamentals, magnetics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.</p>
-<div class="card-grid">
-<div class="card">
-<p><span class="tag">Electrical engineering</span></p>
-<section id="basics" class="level3">
-<h3 class="anchored" data-anchor-id="basics">Basics</h3>
-<p>Ohm’s law, series/parallel resistance, voltage dividers, RC charging, and R/L/C impedance — five notes, each with a calculator.</p>
-<p><a href="./electrical-engineering/index.html" class="open">Open chapter →</a></p>
+<section id="individual-elements" class="level2">
+<h2 class="anchored" data-anchor-id="individual-elements">Individual elements</h2>
+<p>A resistor’s impedance is frequency-independent. An inductor and capacitor’s impedances are imaginary and move in opposite directions with frequency:</p>
+<p><span class="math display">\[
+Z_R = R, \qquad Z_L = j\omega L, \qquad Z_C = \frac{1}{j\omega C}
+\]</span></p>
+<p>with <span class="math inline">\(\omega = 2\pi f\)</span>. Their magnitudes — reactance — are what you actually size components against:</p>
+<p><span class="math display">\[
+X_L = \omega L = 2\pi f L, \qquad X_C = \frac{1}{\omega C} = \frac{1}{2\pi f C}
+\]</span></p>
+<p><span class="math inline">\(X_L\)</span> grows with frequency (an inductor looks like an open circuit at high frequency); <span class="math inline">\(X_C\)</span> shrinks with frequency (a capacitor looks like a short at high frequency).</p>
 </section>
-</div>
-<div class="card">
-<p><span class="tag">Magnetics</span></p>
-<section id="solenoid-inductance" class="level3">
-<h3 class="anchored" data-anchor-id="solenoid-inductance">Solenoid inductance</h3>
-<p>Deriving inductance from Ampere’s law, then correcting for a finite coil with Wheeler’s formula. Includes a live calculator.</p>
-<p><a href="./magnetics/solenoid.html" class="open">Open note →</a></p>
+<section id="series-rlc-magnitude" class="level2">
+<h2 class="anchored" data-anchor-id="series-rlc-magnitude">Series RLC magnitude</h2>
+<p>For R, L, and C in series, the reactances subtract (they’re 180° apart) before combining with resistance:</p>
+<p><span class="math display">\[
+|Z| = \sqrt{R^2 + (X_L - X_C)^2}
+\]</span></p>
+<p>This hits a minimum, <span class="math inline">\(|Z| = R\)</span>, at the resonant frequency where <span class="math inline">\(X_L = X_C\)</span>.</p>
 </section>
-</div>
-<div class="card disabled">
-<p><span class="tag">Integrated circuits</span></p>
-<section id="op-amp-noise-budgets" class="level3">
-<h3 class="anchored" data-anchor-id="op-amp-noise-budgets">Op-amp noise budgets</h3>
-<p>Working through input-referred noise for a transimpedance front end.</p>
-<p><span class="badge">Coming soon</span></p>
-</section>
-</div>
-<div class="card disabled">
-<p><span class="tag">Microcontrollers</span></p>
-<section id="timerpwm-resolution" class="level3">
-<h3 class="anchored" data-anchor-id="timerpwm-resolution">Timer/PWM resolution</h3>
-<p>Choosing prescaler and ARR values for a target frequency and duty resolution.</p>
-<p><span class="badge">Coming soon</span></p>
-</section>
-</div>
-<div class="card disabled">
-<p><span class="tag">Software</span></p>
-<section id="fixed-point-vs.-float-on-mcus" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-point-vs.-float-on-mcus">Fixed-point vs.&nbsp;float on MCUs</h3>
-<p>When Q-format fixed point actually beats software float on a Cortex-M0.</p>
-<p><span class="badge">Coming soon</span></p>
-</section>
-</div>
-</div>
+<section id="calculator" class="level2">
+<h2 class="anchored" data-anchor-id="calculator">Calculator</h2>
+<div id="z-calc"></div>
+<script>
+Calc.create({
+  root: "z-calc",
+  inputs: [
+    { id: "R", label: "R (Ω)", value: 50, min: 0, step: 1 },
+    { id: "L", label: "L (mH)", value: 10, min: 0, step: 0.1 },
+    { id: "C", label: "C (µF)", value: 1, min: 0.0001, step: 0.1 },
+    { id: "f", label: "f (Hz)", value: 1000, min: 0.01, step: 10 }
+  ],
+  outputs: [
+    { id: "xl", label: "XL" },
+    { id: "xc", label: "XC" },
+    { id: "z", label: "|Z| series" }
+  ],
+  compute: function (v) {
+    var w = 2 * Math.PI * v.f;
+    var L = v.L / 1000;
+    var C = v.C * 1e-6;
+    var XL = w * L;
+    var XC = C > 0 ? 1 / (w * C) : 0;
+    var Z = Math.sqrt(v.R * v.R + (XL - XC) * (XL - XC));
+    return {
+      xl: XL.toFixed(2) + " Ω",
+      xc: XC.toFixed(2) + " Ω",
+      z: Z.toFixed(2) + " Ω"
+    };
+  }
+});
+</script>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -716,5 +765,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

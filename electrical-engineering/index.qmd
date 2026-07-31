@@ -1,0 +1,12 @@
+---
+title: "Electrical engineering basics"
+toc: false
+---
+
+Foundational circuit theory — the identities and small calculators I reach for constantly. Each note has the derivation first, then a calculator so you can plug in real numbers.
+
+- [Ohm's law and power](ohms-law.qmd)
+- [Series and parallel resistance](series-parallel-resistance.qmd)
+- [Voltage divider](voltage-divider.qmd)
+- [RC charging and time constant](rc-time-constant.qmd)
+- [Impedance of R, L, C](ac-impedance.qmd)

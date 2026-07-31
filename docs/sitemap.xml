@@ -1,11 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://jawedhakimi.github.io/electrical-engineering/rc-time-constant.html</loc>
+    <lastmod>2026-07-31T20:55:31.440Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/electrical-engineering/ohms-law.html</loc>
+    <lastmod>2026-07-31T20:55:31.439Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/electrical-engineering/voltage-divider.html</loc>
+    <lastmod>2026-07-31T20:55:31.440Z</lastmod>
+  </url>
+  <url>
     <loc>https://jawedhakimi.github.io/index.html</loc>
-    <lastmod>2026-07-31T20:39:29.415Z</lastmod>
+    <lastmod>2026-07-31T20:55:31.438Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/software/index.html</loc>
+    <lastmod>2026-07-31T20:55:31.443Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/microcontrollers/index.html</loc>
+    <lastmod>2026-07-31T20:55:31.443Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/integrated-circuits/index.html</loc>
+    <lastmod>2026-07-31T20:55:31.442Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/magnetics/solenoid.html</loc>
-    <lastmod>2026-07-31T20:39:29.415Z</lastmod>
+    <lastmod>2026-07-31T20:55:31.441Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/electrical-engineering/series-parallel-resistance.html</loc>
+    <lastmod>2026-07-31T20:55:31.439Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/electrical-engineering/index.html</loc>
+    <lastmod>2026-07-31T20:55:31.439Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/electrical-engineering/ac-impedance.html</loc>
+    <lastmod>2026-07-31T20:55:31.440Z</lastmod>
   </url>
 </urlset>

@@ -5,9 +5,19 @@ page-layout: full
 toc: false
 ---
 
-A running notebook of what I'm learning — magnetics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.
+A running notebook of what I'm learning — electrical engineering fundamentals, magnetics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.
 
 ::: {.card-grid}
+
+::: {.card}
+[Electrical engineering]{.tag}
+
+### Basics
+
+Ohm's law, series/parallel resistance, voltage dividers, RC charging, and R/L/C impedance — five notes, each with a calculator.
+
+[Open chapter →](electrical-engineering/index.qmd){.open}
+:::
 
 ::: {.card}
 [Magnetics]{.tag}

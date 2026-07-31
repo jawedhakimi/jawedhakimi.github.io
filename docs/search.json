@@ -1,12 +1,166 @@
 [
   {
+    "objectID": "electrical-engineering/rc-time-constant.html",
+    "href": "electrical-engineering/rc-time-constant.html",
+    "title": "RC charging and time constant",
+    "section": "",
+    "text": "For a resistor and capacitor in series, the time constant sets the pace of charging and discharging:\n\\[\n\\tau = RC\n\\]\nAfter one time constant, a charging capacitor reaches about 63.2% of its final value; after five, it’s considered fully settled (99.3%).",
+    "crumbs": [
+      "Electrical engineering basics",
+      "RC charging and time constant"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/rc-time-constant.html#time-constant",
+    "href": "electrical-engineering/rc-time-constant.html#time-constant",
+    "title": "RC charging and time constant",
+    "section": "",
+    "text": "For a resistor and capacitor in series, the time constant sets the pace of charging and discharging:\n\\[\n\\tau = RC\n\\]\nAfter one time constant, a charging capacitor reaches about 63.2% of its final value; after five, it’s considered fully settled (99.3%).",
+    "crumbs": [
+      "Electrical engineering basics",
+      "RC charging and time constant"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/rc-time-constant.html#charging-from-zero",
+    "href": "electrical-engineering/rc-time-constant.html#charging-from-zero",
+    "title": "RC charging and time constant",
+    "section": "Charging from zero",
+    "text": "Charging from zero\nStarting from 0 V toward a supply \\(V_s\\):\n\\[\nV(t) = V_s \\left(1 - e^{-t/\\tau}\\right)\n\\]\nDischarging back toward 0 V from \\(V_s\\) follows the mirror image, \\(V(t) = V_s e^{-t/\\tau}\\).",
+    "crumbs": [
+      "Electrical engineering basics",
+      "RC charging and time constant"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/rc-time-constant.html#calculator",
+    "href": "electrical-engineering/rc-time-constant.html#calculator",
+    "title": "RC charging and time constant",
+    "section": "Calculator",
+    "text": "Calculator\nCharging case, starting from 0 V.",
+    "crumbs": [
+      "Electrical engineering basics",
+      "RC charging and time constant"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/ohms-law.html",
+    "href": "electrical-engineering/ohms-law.html",
+    "title": "Ohm’s law and power",
+    "section": "",
+    "text": "The relationship every other circuit identity gets built on top of.",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Ohm's law and power"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/ohms-law.html#the-law",
+    "href": "electrical-engineering/ohms-law.html#the-law",
+    "title": "Ohm’s law and power",
+    "section": "The law",
+    "text": "The law\nFor a resistor, voltage and current are proportional:\n\\[\nV = IR\n\\]\nPower dissipated follows from \\(P = VI\\), substituted with Ohm’s law to give two more useful forms:\n\\[\nP = VI = I^2 R = \\frac{V^2}{R}\n\\]\nThe \\(I^2R\\) form is the one that matters for sizing: double the current through a fixed resistance and dissipation quadruples, not doubles — a common reason parts run hotter than expected after a “small” current increase.",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Ohm's law and power"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/ohms-law.html#calculator",
+    "href": "electrical-engineering/ohms-law.html#calculator",
+    "title": "Ohm’s law and power",
+    "section": "Calculator",
+    "text": "Calculator\nEnter a supply voltage and resistance to get current and dissipated power.",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Ohm's law and power"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/voltage-divider.html",
+    "href": "electrical-engineering/voltage-divider.html",
+    "title": "Voltage divider",
+    "section": "",
+    "text": "Two resistors in series across a supply split the voltage in proportion to resistance:\n\\[\nV_{out} = V_{in} \\cdot \\frac{R_2}{R_1 + R_2}\n\\]",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Voltage divider"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/voltage-divider.html#unloaded-divider",
+    "href": "electrical-engineering/voltage-divider.html#unloaded-divider",
+    "title": "Voltage divider",
+    "section": "",
+    "text": "Two resistors in series across a supply split the voltage in proportion to resistance:\n\\[\nV_{out} = V_{in} \\cdot \\frac{R_2}{R_1 + R_2}\n\\]",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Voltage divider"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/voltage-divider.html#loaded-divider",
+    "href": "electrical-engineering/voltage-divider.html#loaded-divider",
+    "title": "Voltage divider",
+    "section": "Loaded divider",
+    "text": "Loaded divider\nOnce something draws current from the output node — an ADC input, another circuit — that load resistor \\(R_L\\) sits in parallel with \\(R_2\\), and the divider ratio changes:\n\\[\nV_{out} = V_{in} \\cdot \\frac{R_2 \\| R_L}{R_1 + (R_2 \\| R_L)}, \\qquad R_2 \\| R_L = \\frac{R_2 R_L}{R_2 + R_L}\n\\]\nThis is why a divider that measures correctly open-circuit can read low once connected to a real load — the rule of thumb is to keep \\(R_L \\gg R_2\\), typically 10× or more.",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Voltage divider"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/voltage-divider.html#calculator",
+    "href": "electrical-engineering/voltage-divider.html#calculator",
+    "title": "Voltage divider",
+    "section": "Calculator",
+    "text": "Calculator\nSet load resistance very high (default) to see the unloaded case.",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Voltage divider"
+    ]
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "The Bench Notebook",
     "section": "",
-    "text": "A running notebook of what I’m learning — magnetics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.\n\n\nMagnetics\n\nSolenoid inductance\nDeriving inductance from Ampere’s law, then correcting for a finite coil with Wheeler’s formula. Includes a live calculator.\nOpen note →\n\n\n\nIntegrated circuits\n\nOp-amp noise budgets\nWorking through input-referred noise for a transimpedance front end.\nComing soon\n\n\n\nMicrocontrollers\n\nTimer/PWM resolution\nChoosing prescaler and ARR values for a target frequency and duty resolution.\nComing soon\n\n\n\nSoftware\n\nFixed-point vs. float on MCUs\nWhen Q-format fixed point actually beats software float on a Cortex-M0.\nComing soon",
+    "text": "A running notebook of what I’m learning — electrical engineering fundamentals, magnetics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.\n\n\nElectrical engineering\n\nBasics\nOhm’s law, series/parallel resistance, voltage dividers, RC charging, and R/L/C impedance — five notes, each with a calculator.\nOpen chapter →\n\n\n\nMagnetics\n\nSolenoid inductance\nDeriving inductance from Ampere’s law, then correcting for a finite coil with Wheeler’s formula. Includes a live calculator.\nOpen note →\n\n\n\nIntegrated circuits\n\nOp-amp noise budgets\nWorking through input-referred noise for a transimpedance front end.\nComing soon\n\n\n\nMicrocontrollers\n\nTimer/PWM resolution\nChoosing prescaler and ARR values for a target frequency and duty resolution.\nComing soon\n\n\n\nSoftware\n\nFixed-point vs. float on MCUs\nWhen Q-format fixed point actually beats software float on a Cortex-M0.\nComing soon",
     "crumbs": [
       "The Bench Notebook"
+    ]
+  },
+  {
+    "objectID": "software/index.html",
+    "href": "software/index.html",
+    "title": "Software",
+    "section": "",
+    "text": "Notes on the software side of embedded work coming here — starting with fixed-point vs. float on small MCUs.\nNothing published yet.",
+    "crumbs": [
+      "Software",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "microcontrollers/index.html",
+    "href": "microcontrollers/index.html",
+    "title": "Microcontrollers",
+    "section": "",
+    "text": "Notes on timers, peripherals, and firmware-level hardware interfacing coming here — starting with timer/PWM resolution.\nNothing published yet.",
+    "crumbs": [
+      "Microcontrollers",
+      "Microcontrollers"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/index.html",
+    "href": "integrated-circuits/index.html",
+    "title": "Integrated circuits",
+    "section": "",
+    "text": "Notes on op-amps, ADCs/DACs, and general IC-level design coming here — starting with op-amp noise budgets.\nNothing published yet.",
+    "crumbs": [
+      "Integrated circuits",
+      "Integrated circuits"
     ]
   },
   {
@@ -47,10 +201,109 @@
     "href": "magnetics/solenoid.html#calculator",
     "title": "Single-layer air-core solenoid: inductance",
     "section": "Calculator",
-    "text": "Calculator\n\n  \n    \n      Turns N\n      \n    \n    \n      Radius r (cm)\n      \n    \n    \n      Length l (cm)\n      \n    \n  \n  \n    -Ideal L\n    -Wheeler L\n    -Ideal / Wheeler",
+    "text": "Calculator",
     "crumbs": [
       "Magnetics",
       "Single-layer air-core solenoid: inductance"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/series-parallel-resistance.html",
+    "href": "electrical-engineering/series-parallel-resistance.html",
+    "title": "Series and parallel resistance",
+    "section": "",
+    "text": "Resistors in series share the same current, and their voltage drops add — so resistance simply sums:\n\\[\nR_{series} = R_1 + R_2 + R_3\n\\]",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Series and parallel resistance"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/series-parallel-resistance.html#series",
+    "href": "electrical-engineering/series-parallel-resistance.html#series",
+    "title": "Series and parallel resistance",
+    "section": "",
+    "text": "Resistors in series share the same current, and their voltage drops add — so resistance simply sums:\n\\[\nR_{series} = R_1 + R_2 + R_3\n\\]",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Series and parallel resistance"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/series-parallel-resistance.html#parallel",
+    "href": "electrical-engineering/series-parallel-resistance.html#parallel",
+    "title": "Series and parallel resistance",
+    "section": "Parallel",
+    "text": "Parallel\nResistors in parallel share the same voltage, and their currents add, giving a reciprocal sum:\n\\[\n\\frac{1}{R_{parallel}} = \\frac{1}{R_1} + \\frac{1}{R_2} + \\frac{1}{R_3}\n\\]\nThe parallel combination is always smaller than the smallest individual resistor — adding a path for current can only make it easier for current to flow.",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Series and parallel resistance"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/series-parallel-resistance.html#calculator",
+    "href": "electrical-engineering/series-parallel-resistance.html#calculator",
+    "title": "Series and parallel resistance",
+    "section": "Calculator",
+    "text": "Calculator\nLeave a value at 0 to exclude that resistor (treated as not present).",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Series and parallel resistance"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/index.html",
+    "href": "electrical-engineering/index.html",
+    "title": "Electrical engineering basics",
+    "section": "",
+    "text": "Foundational circuit theory — the identities and small calculators I reach for constantly. Each note has the derivation first, then a calculator so you can plug in real numbers.\n\nOhm’s law and power\nSeries and parallel resistance\nVoltage divider\nRC charging and time constant\nImpedance of R, L, C",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Electrical engineering basics"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/ac-impedance.html",
+    "href": "electrical-engineering/ac-impedance.html",
+    "title": "Impedance of R, L, C",
+    "section": "",
+    "text": "A resistor’s impedance is frequency-independent. An inductor and capacitor’s impedances are imaginary and move in opposite directions with frequency:\n\\[\nZ_R = R, \\qquad Z_L = j\\omega L, \\qquad Z_C = \\frac{1}{j\\omega C}\n\\]\nwith \\(\\omega = 2\\pi f\\). Their magnitudes — reactance — are what you actually size components against:\n\\[\nX_L = \\omega L = 2\\pi f L, \\qquad X_C = \\frac{1}{\\omega C} = \\frac{1}{2\\pi f C}\n\\]\n\\(X_L\\) grows with frequency (an inductor looks like an open circuit at high frequency); \\(X_C\\) shrinks with frequency (a capacitor looks like a short at high frequency).",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Impedance of R, L, C"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/ac-impedance.html#individual-elements",
+    "href": "electrical-engineering/ac-impedance.html#individual-elements",
+    "title": "Impedance of R, L, C",
+    "section": "",
+    "text": "A resistor’s impedance is frequency-independent. An inductor and capacitor’s impedances are imaginary and move in opposite directions with frequency:\n\\[\nZ_R = R, \\qquad Z_L = j\\omega L, \\qquad Z_C = \\frac{1}{j\\omega C}\n\\]\nwith \\(\\omega = 2\\pi f\\). Their magnitudes — reactance — are what you actually size components against:\n\\[\nX_L = \\omega L = 2\\pi f L, \\qquad X_C = \\frac{1}{\\omega C} = \\frac{1}{2\\pi f C}\n\\]\n\\(X_L\\) grows with frequency (an inductor looks like an open circuit at high frequency); \\(X_C\\) shrinks with frequency (a capacitor looks like a short at high frequency).",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Impedance of R, L, C"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/ac-impedance.html#series-rlc-magnitude",
+    "href": "electrical-engineering/ac-impedance.html#series-rlc-magnitude",
+    "title": "Impedance of R, L, C",
+    "section": "Series RLC magnitude",
+    "text": "Series RLC magnitude\nFor R, L, and C in series, the reactances subtract (they’re 180° apart) before combining with resistance:\n\\[\n|Z| = \\sqrt{R^2 + (X_L - X_C)^2}\n\\]\nThis hits a minimum, \\(|Z| = R\\), at the resonant frequency where \\(X_L = X_C\\).",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Impedance of R, L, C"
+    ]
+  },
+  {
+    "objectID": "electrical-engineering/ac-impedance.html#calculator",
+    "href": "electrical-engineering/ac-impedance.html#calculator",
+    "title": "Impedance of R, L, C",
+    "section": "Calculator",
+    "text": "Calculator",
+    "crumbs": [
+      "Electrical engineering basics",
+      "Impedance of R, L, C"
     ]
   }
 ]

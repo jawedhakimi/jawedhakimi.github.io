@@ -1,0 +1,55 @@
+---
+title: "Voltage divider"
+subtitle: "Electrical engineering basics"
+toc: true
+---
+
+## Unloaded divider
+
+Two resistors in series across a supply split the voltage in proportion to resistance:
+
+$$
+V_{out} = V_{in} \cdot \frac{R_2}{R_1 + R_2}
+$$
+
+## Loaded divider
+
+Once something draws current from the output node — an ADC input, another circuit — that load resistor $R_L$ sits in parallel with $R_2$, and the divider ratio changes:
+
+$$
+V_{out} = V_{in} \cdot \frac{R_2 \| R_L}{R_1 + (R_2 \| R_L)}, \qquad R_2 \| R_L = \frac{R_2 R_L}{R_2 + R_L}
+$$
+
+This is why a divider that measures correctly open-circuit can read low once connected to a real load — the rule of thumb is to keep $R_L \gg R_2$, typically 10× or more.
+
+## Calculator
+
+Set load resistance very high (default) to see the unloaded case.
+
+```{=html}
+<div id="vdiv-calc"></div>
+<script>
+Calc.create({
+  root: "vdiv-calc",
+  inputs: [
+    { id: "Vin", label: "Vin (V)", value: 5, min: 0, step: 0.1 },
+    { id: "R1", label: "R1 (Ω)", value: 1000, min: 0.01, step: 10 },
+    { id: "R2", label: "R2 (Ω)", value: 1000, min: 0.01, step: 10 },
+    { id: "RL", label: "Load RL (Ω)", value: 1000000, min: 0.01, step: 100 }
+  ],
+  outputs: [
+    { id: "vout", label: "Vout" },
+    { id: "r2eff", label: "R2 || RL" }
+  ],
+  compute: function (v) {
+    if (v.R1 <= 0 || v.R2 <= 0 || v.RL <= 0) return { vout: "-", r2eff: "-" };
+    var r2eff = (v.R2 * v.RL) / (v.R2 + v.RL);
+    var vout = v.Vin * (r2eff / (v.R1 + r2eff));
+    return {
+      vout: vout.toFixed(3) + " V",
+      r2eff: r2eff.toFixed(1) + " Ω"
+    };
+  }
+});
+</script>
+```

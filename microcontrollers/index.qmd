@@ -1,0 +1,8 @@
+---
+title: "Microcontrollers"
+toc: false
+---
+
+Notes on timers, peripherals, and firmware-level hardware interfacing coming here — starting with timer/PWM resolution.
+
+Nothing published yet.

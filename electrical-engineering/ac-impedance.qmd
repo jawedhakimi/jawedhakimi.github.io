@@ -1,0 +1,66 @@
+---
+title: "Impedance of R, L, C"
+subtitle: "Electrical engineering basics"
+toc: true
+---
+
+## Individual elements
+
+A resistor's impedance is frequency-independent. An inductor and capacitor's impedances are imaginary and move in opposite directions with frequency:
+
+$$
+Z_R = R, \qquad Z_L = j\omega L, \qquad Z_C = \frac{1}{j\omega C}
+$$
+
+with $\omega = 2\pi f$. Their magnitudes — reactance — are what you actually size components against:
+
+$$
+X_L = \omega L = 2\pi f L, \qquad X_C = \frac{1}{\omega C} = \frac{1}{2\pi f C}
+$$
+
+$X_L$ grows with frequency (an inductor looks like an open circuit at high frequency); $X_C$ shrinks with frequency (a capacitor looks like a short at high frequency).
+
+## Series RLC magnitude
+
+For R, L, and C in series, the reactances subtract (they're 180° apart) before combining with resistance:
+
+$$
+|Z| = \sqrt{R^2 + (X_L - X_C)^2}
+$$
+
+This hits a minimum, $|Z| = R$, at the resonant frequency where $X_L = X_C$.
+
+## Calculator
+
+```{=html}
+<div id="z-calc"></div>
+<script>
+Calc.create({
+  root: "z-calc",
+  inputs: [
+    { id: "R", label: "R (Ω)", value: 50, min: 0, step: 1 },
+    { id: "L", label: "L (mH)", value: 10, min: 0, step: 0.1 },
+    { id: "C", label: "C (µF)", value: 1, min: 0.0001, step: 0.1 },
+    { id: "f", label: "f (Hz)", value: 1000, min: 0.01, step: 10 }
+  ],
+  outputs: [
+    { id: "xl", label: "XL" },
+    { id: "xc", label: "XC" },
+    { id: "z", label: "|Z| series" }
+  ],
+  compute: function (v) {
+    var w = 2 * Math.PI * v.f;
+    var L = v.L / 1000;
+    var C = v.C * 1e-6;
+    var XL = w * L;
+    var XC = C > 0 ? 1 / (w * C) : 0;
+    var Z = Math.sqrt(v.R * v.R + (XL - XC) * (XL - XC));
+    return {
+      xl: XL.toFixed(2) + " Ω",
+      xc: XC.toFixed(2) + " Ω",
+      z: Z.toFixed(2) + " Ω"
+    };
+  }
+});
+</script>
+```
