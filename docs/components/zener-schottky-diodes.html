@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>About – The Bench Notebook</title>
+<title>Zener and Schottky diodes – The Bench Notebook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,23 +29,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c05bbb0916541a480437f18b83651770.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-c05bbb0916541a480437f18b83651770.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -75,11 +75,40 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="assets/css/styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 
-<body class="nav-sidebar docked fullcontent quarto-light">
+<body class="nav-sidebar docked quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -88,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./about.html">About</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../components/index.html">Components</a></li><li class="breadcrumb-item"><a href="../components/zener-schottky-diodes.html">Zener and Schottky diodes</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -103,7 +132,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">The Bench Notebook</a> 
+      <a href="../">The Bench Notebook</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -115,13 +144,13 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">The Bench Notebook</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link active">
+  <a href="../about.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About</span></a>
   </div>
 </li>
@@ -136,37 +165,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../electrical-engineering/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Electrical engineering basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/ohms-law.html" class="sidebar-item-text sidebar-link">
+  <a href="../electrical-engineering/ohms-law.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ohm’s law and power</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link">
+  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Series and parallel resistance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/voltage-divider.html" class="sidebar-item-text sidebar-link">
+  <a href="../electrical-engineering/voltage-divider.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Voltage divider</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/rc-time-constant.html" class="sidebar-item-text sidebar-link">
+  <a href="../electrical-engineering/rc-time-constant.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">RC charging and time constant</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/ac-impedance.html" class="sidebar-item-text sidebar-link">
+  <a href="../electrical-engineering/ac-impedance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Impedance of R, L, C</span></a>
   </div>
 </li>
@@ -183,7 +212,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./magnetics/solenoid.html" class="sidebar-item-text sidebar-link">
+  <a href="../magnetics/solenoid.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Single-layer air-core solenoid: inductance</span></a>
   </div>
 </li>
@@ -200,37 +229,37 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./components/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../components/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Components</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./components/diodes.html" class="sidebar-item-text sidebar-link">
+  <a href="../components/diodes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Diodes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./components/zener-schottky-diodes.html" class="sidebar-item-text sidebar-link">
+  <a href="../components/zener-schottky-diodes.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Zener and Schottky diodes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./components/bjt.html" class="sidebar-item-text sidebar-link">
+  <a href="../components/bjt.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bipolar junction transistors (BJT)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./components/mosfet.html" class="sidebar-item-text sidebar-link">
+  <a href="../components/mosfet.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MOSFETs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./components/thyristors.html" class="sidebar-item-text sidebar-link">
+  <a href="../components/thyristors.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Thyristors (SCR / TRIAC)</span></a>
   </div>
 </li>
@@ -247,31 +276,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./power-electronics/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../power-electronics/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Power electronics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./power-electronics/buck-converter.html" class="sidebar-item-text sidebar-link">
+  <a href="../power-electronics/buck-converter.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Buck converter</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./power-electronics/boost-converter.html" class="sidebar-item-text sidebar-link">
+  <a href="../power-electronics/boost-converter.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Boost converter</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./power-electronics/buck-boost-converter.html" class="sidebar-item-text sidebar-link">
+  <a href="../power-electronics/buck-boost-converter.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Buck-boost converter</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./power-electronics/lc-filter-design.html" class="sidebar-item-text sidebar-link">
+  <a href="../power-electronics/lc-filter-design.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">LC and RC filter design</span></a>
   </div>
 </li>
@@ -288,7 +317,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./integrated-circuits/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../integrated-circuits/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Integrated circuits</span></a>
   </div>
 </li>
@@ -305,7 +334,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./microcontrollers/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../microcontrollers/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Microcontrollers</span></a>
   </div>
 </li>
@@ -322,7 +351,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./software/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../software/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Software</span></a>
   </div>
 </li>
@@ -333,13 +362,27 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#zener-diodes" id="toc-zener-diodes" class="nav-link active" data-scroll-target="#zener-diodes">Zener diodes</a>
+  <ul class="collapse">
+  <li><a href="#basic-shunt-regulator" id="toc-basic-shunt-regulator" class="nav-link" data-scroll-target="#basic-shunt-regulator">Basic shunt regulator</a></li>
+  <li><a href="#calculator" id="toc-calculator" class="nav-link" data-scroll-target="#calculator">Calculator</a></li>
+  </ul></li>
+  <li><a href="#schottky-diodes" id="toc-schottky-diodes" class="nav-link" data-scroll-target="#schottky-diodes">Schottky diodes</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../components/index.html">Components</a></li><li class="breadcrumb-item"><a href="../components/zener-schottky-diodes.html">Zener and Schottky diodes</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Zener and Schottky diodes</h1>
+<p class="subtitle lead">Components</p>
 </div>
 
 
@@ -356,11 +399,65 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>I’m a hardware engineer, and on any given day I might be reading about magnetics, debugging an IC datasheet, tuning a microcontroller peripheral, or writing the software that ties it all together. For a long time the notes from that ended up scattered across notebooks and apps on different devices, half-findable at best.</p>
-<p>This site is where those notes live now — one place, organized by topic, with the math written out rather than just the result. Most pages carry a small calculator next to the derivation, so a formula isn’t just something to read but something to actually use on a real design.</p>
-<p>It’s a running project: chapters get added as I work through new topics, and existing notes get revised as I learn more or find a cleaner way to derive something.</p>
+<p>Two diode variants built around a normal PN junction’s least-wanted properties — breakdown and switching delay — turned into features.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../assets/img/diode-variants.png" class="img-fluid figure-img"></p>
+<figcaption>Fig. 1 — standard, Zener, Schottky, and LED symbols side by side.</figcaption>
+</figure>
+</div>
+<section id="zener-diodes" class="level2">
+<h2 class="anchored" data-anchor-id="zener-diodes">Zener diodes</h2>
+<p>A standard diode’s reverse breakdown is destructive if the current isn’t limited — but a Zener is doped specifically to break down at a well-controlled voltage <span class="math inline">\(V_Z\)</span> and survive it indefinitely, provided power dissipation stays within its rating. That gives a cheap, if imprecise (a few percent, and temperature-sensitive), voltage reference.</p>
+<section id="basic-shunt-regulator" class="level3">
+<h3 class="anchored" data-anchor-id="basic-shunt-regulator">Basic shunt regulator</h3>
+<p>A series resistor from the supply into the Zener (with the load in parallel) sets the Zener current; the resistor must be sized so the Zener always sees at least its minimum regulation current, across the full load current range:</p>
+<p><span class="math display">\[
+R = \frac{V_{in} - V_Z}{I_Z + I_{load}}
+\]</span></p>
+<p>Simple and lossy — the series resistor burns power continuously, and regulation is only as good as the Zener’s own impedance. Fine for a low-current reference or bias supply, not for anything power-hungry (a linear or switching regulator does the same job far more efficiently).</p>
+</section>
+<section id="calculator" class="level3">
+<h3 class="anchored" data-anchor-id="calculator">Calculator</h3>
+<div id="zener-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "zener-calc",
+  inputs: [
+    { id: "Vin", label: "Vin (V)", value: 12, min: 0, step: 0.1 },
+    { id: "Vz", label: "Vz (V)", value: 5.1, min: 0, step: 0.1 },
+    { id: "Iz", label: "Zener current (mA)", value: 10, min: 0.01, step: 1 },
+    { id: "Iload", label: "Load current (mA)", value: 5, min: 0, step: 1 }
+  ],
+  outputs: [
+    { id: "R", label: "Series R" },
+    { id: "P", label: "Zener power" }
+  ],
+  compute: function (v) {
+    var drop = v.Vin - v.Vz;
+    var Itotal = (v.Iz + v.Iload) / 1000;
+    if (drop <= 0 || Itotal <= 0) return { R: "invalid", P: "-" };
+    var R = drop / Itotal;
+    var Pz = v.Vz * (v.Iz / 1000);
+    return {
+      R: R.toFixed(1) + " Ω",
+      P: (Pz * 1000).toFixed(1) + " mW"
+    };
+  }
+});
+</script>
+</section>
+</section>
+<section id="schottky-diodes" class="level2">
+<h2 class="anchored" data-anchor-id="schottky-diodes">Schottky diodes</h2>
+<p>A Schottky diode replaces the PN junction with a metal-semiconductor junction. Two practical consequences follow directly from that:</p>
+<p>Lower forward voltage — typically 0.2–0.4 V versus 0.6–0.7 V for silicon PN — because there’s no minority-carrier injection barrier to overcome in the same way.</p>
+<p>No reverse-recovery time — a PN diode stores minority charge while conducting and takes tens to hundreds of nanoseconds to stop conducting when reverse-biased; a Schottky is a majority-carrier device with essentially none of that, so it switches off almost instantly.</p>
+<p>That combination is exactly why Schottkys show up as the freewheeling/catch diode in unsynchronized buck converters and as reverse-polarity protection where the forward drop matters. The trade-offs: higher reverse leakage current (worse with temperature) and generally lower reverse voltage ratings than comparable PN diodes.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -768,5 +865,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

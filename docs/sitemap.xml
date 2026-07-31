@@ -2,70 +2,94 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jawedhakimi.github.io/electrical-engineering/rc-time-constant.html</loc>
-    <lastmod>2026-07-31T21:09:01.509Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.105Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/electrical-engineering/ohms-law.html</loc>
-    <lastmod>2026-07-31T21:09:01.507Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.104Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/electrical-engineering/voltage-divider.html</loc>
-    <lastmod>2026-07-31T21:09:01.508Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.105Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/about.html</loc>
-    <lastmod>2026-07-31T21:09:01.506Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.103Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/power-electronics/buck-boost-converter.html</loc>
-    <lastmod>2026-07-31T21:09:01.511Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.112Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/power-electronics/lc-filter-design.html</loc>
-    <lastmod>2026-07-31T21:09:01.512Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.112Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/index.html</loc>
-    <lastmod>2026-07-31T21:09:01.505Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.102Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/software/index.html</loc>
-    <lastmod>2026-07-31T21:09:01.514Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.115Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/components/zener-schottky-diodes.html</loc>
+    <lastmod>2026-07-31T21:17:47.109Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/components/index.html</loc>
+    <lastmod>2026-07-31T21:17:47.108Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/components/diodes.html</loc>
+    <lastmod>2026-07-31T21:17:47.109Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/microcontrollers/index.html</loc>
-    <lastmod>2026-07-31T21:09:01.513Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.114Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/components/mosfet.html</loc>
+    <lastmod>2026-07-31T21:17:47.110Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/components/bjt.html</loc>
+    <lastmod>2026-07-31T21:17:47.109Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/components/thyristors.html</loc>
+    <lastmod>2026-07-31T21:17:47.110Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/integrated-circuits/index.html</loc>
-    <lastmod>2026-07-31T21:09:01.512Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.113Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/magnetics/solenoid.html</loc>
-    <lastmod>2026-07-31T21:09:01.510Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.107Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/power-electronics/buck-converter.html</loc>
-    <lastmod>2026-07-31T21:09:01.511Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.111Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/power-electronics/index.html</loc>
-    <lastmod>2026-07-31T21:09:01.510Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.111Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/power-electronics/boost-converter.html</loc>
-    <lastmod>2026-07-31T21:09:01.511Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.112Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/electrical-engineering/series-parallel-resistance.html</loc>
-    <lastmod>2026-07-31T21:09:01.508Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.105Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/electrical-engineering/index.html</loc>
-    <lastmod>2026-07-31T21:09:01.507Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.104Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/electrical-engineering/ac-impedance.html</loc>
-    <lastmod>2026-07-31T21:09:01.509Z</lastmod>
+    <lastmod>2026-07-31T21:17:47.106Z</lastmod>
   </url>
 </urlset>

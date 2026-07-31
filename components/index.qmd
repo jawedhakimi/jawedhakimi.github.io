@@ -1,0 +1,21 @@
+---
+title: "Components"
+toc: false
+---
+
+Discrete semiconductors — the individual diodes and transistors everything else gets built from, as opposed to integrated circuits where dozens to billions of them are fabricated together on one die.
+
+- [Diodes](diodes.qmd)
+- [Zener and Schottky diodes](zener-schottky-diodes.qmd)
+- [Bipolar junction transistors (BJT)](bjt.qmd)
+- [MOSFETs](mosfet.qmd)
+- [Thyristors (SCR / TRIAC)](thyristors.qmd)
+
+| Device | Terminals | Controlled by | Typical role |
+|---|---|---|---|
+| Diode | 2 | — (one-way by construction) | Rectification, protection, reference |
+| BJT | 3 | Base current | Amplification, switching |
+| MOSFET | 3 | Gate voltage | Switching, power conversion |
+| Thyristor | 3 (or 4 leads for TRIAC) | Gate trigger pulse, then latches | AC power control |
+
+More devices (JFETs, IGBTs) may get added here as I work through them.

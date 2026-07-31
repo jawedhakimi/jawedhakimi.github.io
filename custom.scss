@@ -42,13 +42,14 @@ $accent-warm: #c1440e;
   padding-left: 0.6rem;
   border-left: 3px solid $border-color;
 }
-/* order matches _quarto.yml sidebar sections: EE, Magnetics, Power electronics, ICs, Microcontrollers, Software */
+/* order matches _quarto.yml sidebar sections: EE, Magnetics, Components, Power electronics, ICs, Microcontrollers, Software */
 li.sidebar-item-section:nth-of-type(2) { border-left-color: #185fa5; }
 li.sidebar-item-section:nth-of-type(3) { border-left-color: $accent-warm; }
-li.sidebar-item-section:nth-of-type(4) { border-left-color: #b45309; }
-li.sidebar-item-section:nth-of-type(5) { border-left-color: #0f6e56; }
-li.sidebar-item-section:nth-of-type(6) { border-left-color: #534ab7; }
-li.sidebar-item-section:nth-of-type(7) { border-left-color: #3b6d11; }
+li.sidebar-item-section:nth-of-type(4) { border-left-color: #534ab7; }
+li.sidebar-item-section:nth-of-type(5) { border-left-color: #b45309; }
+li.sidebar-item-section:nth-of-type(6) { border-left-color: #0f6e56; }
+li.sidebar-item-section:nth-of-type(7) { border-left-color: #993556; }
+li.sidebar-item-section:nth-of-type(8) { border-left-color: #3b6d11; }
 
 h1.title {
   font-weight: 500;

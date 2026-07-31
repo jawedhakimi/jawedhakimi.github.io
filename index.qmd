@@ -29,6 +29,16 @@ Deriving inductance from Ampere's law, then correcting for a finite coil with Wh
 [Open note →](magnetics/solenoid.qmd){.open}
 :::
 
+::: {.card .cat-components}
+[Components]{.tag}
+
+### Discrete semiconductors
+
+Diodes, Zener and Schottky diodes, BJTs, MOSFETs, and thyristors — how each works, the equations, and a calculator for each.
+
+[Open chapter →](components/index.qmd){.open}
+:::
+
 ::: {.card .cat-power}
 [Power electronics]{.tag}
 

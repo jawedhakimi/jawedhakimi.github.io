@@ -212,7 +212,7 @@
     "href": "index.html",
     "title": "The Bench Notebook",
     "section": "",
-    "text": "A running notebook of what I’m learning — electrical engineering fundamentals, magnetics, power electronics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.\n\n\nElectrical engineering\n\nBasics\nOhm’s law, series/parallel resistance, voltage dividers, RC charging, and R/L/C impedance — five notes, each with a calculator.\nOpen chapter →\n\n\n\nMagnetics\n\nSolenoid inductance\nDeriving inductance from Ampere’s law, then correcting for a finite coil with Wheeler’s formula. Includes a live calculator.\nOpen note →\n\n\n\nPower electronics\n\nBuck, boost, buck-boost, filters\nDuty cycle, inductor selection, and output filtering for the three core DC-DC topologies, plus RC/LC filter design.\nOpen chapter →\n\n\n\nIntegrated circuits\n\nOp-amp noise budgets\nWorking through input-referred noise for a transimpedance front end.\nComing soon\n\n\n\nMicrocontrollers\n\nTimer/PWM resolution\nChoosing prescaler and ARR values for a target frequency and duty resolution.\nComing soon\n\n\n\nSoftware\n\nFixed-point vs. float on MCUs\nWhen Q-format fixed point actually beats software float on a Cortex-M0.\nComing soon",
+    "text": "A running notebook of what I’m learning — electrical engineering fundamentals, magnetics, power electronics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.\n\n\nElectrical engineering\n\nBasics\nOhm’s law, series/parallel resistance, voltage dividers, RC charging, and R/L/C impedance — five notes, each with a calculator.\nOpen chapter →\n\n\n\nMagnetics\n\nSolenoid inductance\nDeriving inductance from Ampere’s law, then correcting for a finite coil with Wheeler’s formula. Includes a live calculator.\nOpen note →\n\n\n\nComponents\n\nDiscrete semiconductors\nDiodes, Zener and Schottky diodes, BJTs, MOSFETs, and thyristors — how each works, the equations, and a calculator for each.\nOpen chapter →\n\n\n\nPower electronics\n\nBuck, boost, buck-boost, filters\nDuty cycle, inductor selection, and output filtering for the three core DC-DC topologies, plus RC/LC filter design.\nOpen chapter →\n\n\n\nIntegrated circuits\n\nOp-amp noise budgets\nWorking through input-referred noise for a transimpedance front end.\nComing soon\n\n\n\nMicrocontrollers\n\nTimer/PWM resolution\nChoosing prescaler and ARR values for a target frequency and duty resolution.\nComing soon\n\n\n\nSoftware\n\nFixed-point vs. float on MCUs\nWhen Q-format fixed point actually beats software float on a Cortex-M0.\nComing soon",
     "crumbs": [
       "The Bench Notebook"
     ]
@@ -229,6 +229,105 @@
     ]
   },
   {
+    "objectID": "components/zener-schottky-diodes.html",
+    "href": "components/zener-schottky-diodes.html",
+    "title": "Zener and Schottky diodes",
+    "section": "",
+    "text": "Two diode variants built around a normal PN junction’s least-wanted properties — breakdown and switching delay — turned into features.",
+    "crumbs": [
+      "Components",
+      "Zener and Schottky diodes"
+    ]
+  },
+  {
+    "objectID": "components/zener-schottky-diodes.html#zener-diodes",
+    "href": "components/zener-schottky-diodes.html#zener-diodes",
+    "title": "Zener and Schottky diodes",
+    "section": "Zener diodes",
+    "text": "Zener diodes\nA standard diode’s reverse breakdown is destructive if the current isn’t limited — but a Zener is doped specifically to break down at a well-controlled voltage \\(V_Z\\) and survive it indefinitely, provided power dissipation stays within its rating. That gives a cheap, if imprecise (a few percent, and temperature-sensitive), voltage reference.\n\nBasic shunt regulator\nA series resistor from the supply into the Zener (with the load in parallel) sets the Zener current; the resistor must be sized so the Zener always sees at least its minimum regulation current, across the full load current range:\n\\[\nR = \\frac{V_{in} - V_Z}{I_Z + I_{load}}\n\\]\nSimple and lossy — the series resistor burns power continuously, and regulation is only as good as the Zener’s own impedance. Fine for a low-current reference or bias supply, not for anything power-hungry (a linear or switching regulator does the same job far more efficiently).\n\n\nCalculator",
+    "crumbs": [
+      "Components",
+      "Zener and Schottky diodes"
+    ]
+  },
+  {
+    "objectID": "components/zener-schottky-diodes.html#schottky-diodes",
+    "href": "components/zener-schottky-diodes.html#schottky-diodes",
+    "title": "Zener and Schottky diodes",
+    "section": "Schottky diodes",
+    "text": "Schottky diodes\nA Schottky diode replaces the PN junction with a metal-semiconductor junction. Two practical consequences follow directly from that:\nLower forward voltage — typically 0.2–0.4 V versus 0.6–0.7 V for silicon PN — because there’s no minority-carrier injection barrier to overcome in the same way.\nNo reverse-recovery time — a PN diode stores minority charge while conducting and takes tens to hundreds of nanoseconds to stop conducting when reverse-biased; a Schottky is a majority-carrier device with essentially none of that, so it switches off almost instantly.\nThat combination is exactly why Schottkys show up as the freewheeling/catch diode in unsynchronized buck converters and as reverse-polarity protection where the forward drop matters. The trade-offs: higher reverse leakage current (worse with temperature) and generally lower reverse voltage ratings than comparable PN diodes.",
+    "crumbs": [
+      "Components",
+      "Zener and Schottky diodes"
+    ]
+  },
+  {
+    "objectID": "components/index.html",
+    "href": "components/index.html",
+    "title": "Components",
+    "section": "",
+    "text": "Discrete semiconductors — the individual diodes and transistors everything else gets built from, as opposed to integrated circuits where dozens to billions of them are fabricated together on one die.\n\nDiodes\nZener and Schottky diodes\nBipolar junction transistors (BJT)\nMOSFETs\nThyristors (SCR / TRIAC)\n\n\n\n\n\n\n\n\n\n\nDevice\nTerminals\nControlled by\nTypical role\n\n\n\n\nDiode\n2\n— (one-way by construction)\nRectification, protection, reference\n\n\nBJT\n3\nBase current\nAmplification, switching\n\n\nMOSFET\n3\nGate voltage\nSwitching, power conversion\n\n\nThyristor\n3 (or 4 leads for TRIAC)\nGate trigger pulse, then latches\nAC power control\n\n\n\nMore devices (JFETs, IGBTs) may get added here as I work through them.",
+    "crumbs": [
+      "Components",
+      "Components"
+    ]
+  },
+  {
+    "objectID": "components/diodes.html",
+    "href": "components/diodes.html",
+    "title": "Diodes",
+    "section": "",
+    "text": "A diode is a single junction between P-type material (doped with acceptor atoms, majority carriers are holes) and N-type material (doped with donor atoms, majority carriers are electrons). Where they meet, carriers diffuse across and recombine, leaving behind a region stripped of free carriers — the depletion region — with a built-in electric field opposing further diffusion.\nForward bias (P side positive relative to N) narrows the depletion region and, past a threshold, lets current flow easily. Reverse bias widens it and current stays near zero — until reverse breakdown.\n\n\n\nFig. 1 — diode symbol, and current vs. voltage for both bias directions.",
+    "crumbs": [
+      "Components",
+      "Diodes"
+    ]
+  },
+  {
+    "objectID": "components/diodes.html#the-pn-junction",
+    "href": "components/diodes.html#the-pn-junction",
+    "title": "Diodes",
+    "section": "",
+    "text": "A diode is a single junction between P-type material (doped with acceptor atoms, majority carriers are holes) and N-type material (doped with donor atoms, majority carriers are electrons). Where they meet, carriers diffuse across and recombine, leaving behind a region stripped of free carriers — the depletion region — with a built-in electric field opposing further diffusion.\nForward bias (P side positive relative to N) narrows the depletion region and, past a threshold, lets current flow easily. Reverse bias widens it and current stays near zero — until reverse breakdown.\n\n\n\nFig. 1 — diode symbol, and current vs. voltage for both bias directions.",
+    "crumbs": [
+      "Components",
+      "Diodes"
+    ]
+  },
+  {
+    "objectID": "components/diodes.html#the-diode-equation",
+    "href": "components/diodes.html#the-diode-equation",
+    "title": "Diodes",
+    "section": "The diode equation",
+    "text": "The diode equation\n\\[\nI = I_S \\left( e^{V / (nV_T)} - 1 \\right)\n\\]\n\\(I_S\\) is the reverse saturation current (tiny, often pA–nA), \\(n\\) is the ideality factor (close to 1 for a good diode), and \\(V_T = kT/q \\approx 25.85\\,\\text{mV}\\) at room temperature. The exponential is why forward voltage looks almost like a fixed ~0.6–0.7 V (silicon) rather than a smooth ramp — current changes by roughly 10× for every ~60 mV of forward voltage.\nForward voltage drops slightly with temperature, about \\(-2\\,\\text{mV/°C}\\) for silicon — worth remembering when a design runs hot.",
+    "crumbs": [
+      "Components",
+      "Diodes"
+    ]
+  },
+  {
+    "objectID": "components/diodes.html#rectification",
+    "href": "components/diodes.html#rectification",
+    "title": "Diodes",
+    "section": "Rectification",
+    "text": "Rectification\nA single diode passes only one half of an AC waveform (half-wave rectification). Four diodes in a bridge pass both halves in the same direction (full-wave), roughly doubling the ripple frequency seen by the output filter capacitor and halving the required capacitance for the same ripple — the same \\(C = \\Delta I / (f \\cdot \\Delta V)\\) relationship as the buck converter’s output cap, just driven by load current instead of inductor ripple current.",
+    "crumbs": [
+      "Components",
+      "Diodes"
+    ]
+  },
+  {
+    "objectID": "components/diodes.html#calculator-series-resistor-for-a-diode-or-led",
+    "href": "components/diodes.html#calculator-series-resistor-for-a-diode-or-led",
+    "title": "Diodes",
+    "section": "Calculator: series resistor for a diode or LED",
+    "text": "Calculator: series resistor for a diode or LED\nThe most common practical use of the diode equation: given a supply and a target forward current, size the series resistor. Treats the diode’s forward drop as roughly constant, which is accurate enough for design work once \\(V_f\\) is known from a datasheet.\n\\[\nR = \\frac{V_{supply} - V_f}{I_f}\n\\]",
+    "crumbs": [
+      "Components",
+      "Diodes"
+    ]
+  },
+  {
     "objectID": "microcontrollers/index.html",
     "href": "microcontrollers/index.html",
     "title": "Microcontrollers",
@@ -237,6 +336,171 @@
     "crumbs": [
       "Microcontrollers",
       "Microcontrollers"
+    ]
+  },
+  {
+    "objectID": "components/mosfet.html",
+    "href": "components/mosfet.html",
+    "title": "MOSFETs",
+    "section": "",
+    "text": "A voltage on an insulated gate creates (or removes) a conductive channel between source and drain — no gate current flows in steady state, which is the main practical difference from a BJT’s current-controlled base.",
+    "crumbs": [
+      "Components",
+      "MOSFETs"
+    ]
+  },
+  {
+    "objectID": "components/mosfet.html#enhancement-vs.-depletion-n-vs.-p-channel",
+    "href": "components/mosfet.html#enhancement-vs.-depletion-n-vs.-p-channel",
+    "title": "MOSFETs",
+    "section": "Enhancement vs. depletion, N vs. P channel",
+    "text": "Enhancement vs. depletion, N vs. P channel\nEnhancement-mode devices (the vast majority in use today) are off at \\(V_{GS}=0\\) and need gate voltage past a threshold to turn on — safer as a default state, which is why they dominate. Depletion-mode devices are on at \\(V_{GS}=0\\) and need gate voltage to turn off. N-channel conducts with electrons and needs positive \\(V_{GS}\\); P-channel conducts with holes and needs negative \\(V_{GS}\\). N-channel is preferred where possible — electron mobility gives lower on-resistance for the same die area.",
+    "crumbs": [
+      "Components",
+      "MOSFETs"
+    ]
+  },
+  {
+    "objectID": "components/mosfet.html#regions-of-operation",
+    "href": "components/mosfet.html#regions-of-operation",
+    "title": "MOSFETs",
+    "section": "Regions of operation",
+    "text": "Regions of operation\nLet \\(V_{ov} = V_{GS} - V_{th}\\) (the “overdrive” voltage). Using the simple square-law model:\n\nCutoff: \\(V_{GS} &lt; V_{th}\\), no channel, \\(I_D = 0\\).\nTriode / linear: \\(V_{DS} &lt; V_{ov}\\), behaves like a voltage-controlled resistor: \\(I_D = k\\left(V_{ov}V_{DS} - \\frac{V_{DS}^2}{2}\\right)\\)\nSaturation: \\(V_{DS} \\geq V_{ov}\\), current roughly flat (ideally independent of \\(V_{DS}\\)): \\(I_D \\approx \\frac{k}{2}V_{ov}^2\\)\n\nPower MOSFETs are almost always operated either fully in triode (as a low-resistance switch) or fully off — the region in between is where switching loss happens, and a well-designed switching circuit spends as little time there as possible.",
+    "crumbs": [
+      "Components",
+      "MOSFETs"
+    ]
+  },
+  {
+    "objectID": "components/mosfet.html#on-resistance-and-conduction-loss",
+    "href": "components/mosfet.html#on-resistance-and-conduction-loss",
+    "title": "MOSFETs",
+    "section": "On-resistance and conduction loss",
+    "text": "On-resistance and conduction loss\nFor a MOSFET used as a switch, the datasheet parameter that matters most is \\(R_{DS(on)}\\) — resistance while fully on. Conduction power loss follows directly:\n\\[\nP_{cond} = I_{RMS}^2 \\cdot R_{DS(on)}\n\\]\n\\(R_{DS(on)}\\) rises with temperature (typically 30–50% higher at 125°C than at 25°C) and with gate drive that’s lower than the datasheet test condition — both worth checking against the datasheet curves, not just the headline number.",
+    "crumbs": [
+      "Components",
+      "MOSFETs"
+    ]
+  },
+  {
+    "objectID": "components/mosfet.html#calculator-conduction-loss",
+    "href": "components/mosfet.html#calculator-conduction-loss",
+    "title": "MOSFETs",
+    "section": "Calculator: conduction loss",
+    "text": "Calculator: conduction loss\n\n\n\nSwitching loss — the energy lost transitioning through the linear region on every turn-on/turn-off — depends on gate charge \\(Q_g\\), drive strength, and switching frequency, and generally dominates conduction loss at higher frequencies. Worth its own page once it’s next in the queue.",
+    "crumbs": [
+      "Components",
+      "MOSFETs"
+    ]
+  },
+  {
+    "objectID": "components/bjt.html",
+    "href": "components/bjt.html",
+    "title": "Bipolar junction transistors (BJT)",
+    "section": "",
+    "text": "Two back-to-back PN junctions sharing a thin middle layer. A small current into the base controls a much larger current between collector and emitter — the mechanism behind both analog amplification and simple switching.",
+    "crumbs": [
+      "Components",
+      "Bipolar junction transistors (BJT)"
+    ]
+  },
+  {
+    "objectID": "components/bjt.html#npn-vs.-pnp",
+    "href": "components/bjt.html#npn-vs.-pnp",
+    "title": "Bipolar junction transistors (BJT)",
+    "section": "NPN vs. PNP",
+    "text": "NPN vs. PNP\nNPN: emitter and collector are N-type, base is a thin P-type layer; current flows collector-to-emitter, conventional base current flows in. PNP is the mirror image — emitter/collector P-type, base N-type, currents reversed. NPN is more common in modern designs since electrons (the majority carrier doing the work in an NPN) have higher mobility than holes, giving better high-frequency performance for a given geometry.",
+    "crumbs": [
+      "Components",
+      "Bipolar junction transistors (BJT)"
+    ]
+  },
+  {
+    "objectID": "components/bjt.html#current-relationships",
+    "href": "components/bjt.html#current-relationships",
+    "title": "Bipolar junction transistors (BJT)",
+    "section": "Current relationships",
+    "text": "Current relationships\n\\[\nI_C = \\beta I_B, \\qquad I_E = I_C + I_B\n\\]\n\\(\\beta\\) (also written \\(h_{FE}\\)) is typically 100–300 for small-signal parts, but varies significantly with temperature, collector current, and from device to device even within the same part number — never design something that depends on a precise \\(\\beta\\) value.",
+    "crumbs": [
+      "Components",
+      "Bipolar junction transistors (BJT)"
+    ]
+  },
+  {
+    "objectID": "components/bjt.html#operating-regions",
+    "href": "components/bjt.html#operating-regions",
+    "title": "Bipolar junction transistors (BJT)",
+    "section": "Operating regions",
+    "text": "Operating regions\n\nCutoff: \\(V_{BE}\\) below ~0.6 V, no base current, transistor is off.\nActive: base-emitter junction forward biased, base-collector junction reverse biased. \\(I_C \\approx \\beta I_B\\), roughly independent of \\(V_{CE}\\) (the slight upward slope in the figure is the Early effect). This is the amplifier region.\nSaturation: both junctions forward biased, \\(V_{CE}\\) drops to a small value (~0.1–0.3 V), \\(I_C\\) is limited by the external circuit rather than \\(\\beta I_B\\). This is the “fully on” switch region.",
+    "crumbs": [
+      "Components",
+      "Bipolar junction transistors (BJT)"
+    ]
+  },
+  {
+    "objectID": "components/bjt.html#calculator-voltage-divider-bias-point",
+    "href": "components/bjt.html#calculator-voltage-divider-bias-point",
+    "title": "Bipolar junction transistors (BJT)",
+    "section": "Calculator: voltage-divider bias point",
+    "text": "Calculator: voltage-divider bias point\nThe standard way to bias an NPN in the active region: a resistor divider sets a stable base voltage, an emitter resistor stabilizes the operating point against \\(\\beta\\) variation.\n\\[\nV_B = V_{CC}\\frac{R_2}{R_1+R_2}, \\qquad I_E \\approx \\frac{V_B - 0.7}{R_E}, \\qquad V_{CE} = V_{CC} - I_C(R_C+R_E)\n\\]\n\n\n\nIf \\(V_{CE}\\) comes out near 0 or negative, the resistor values are driving the transistor into saturation rather than the active region — reduce \\(R_C\\)/\\(R_E\\) or the base voltage.",
+    "crumbs": [
+      "Components",
+      "Bipolar junction transistors (BJT)"
+    ]
+  },
+  {
+    "objectID": "components/bjt.html#as-a-switch",
+    "href": "components/bjt.html#as-a-switch",
+    "title": "Bipolar junction transistors (BJT)",
+    "section": "As a switch",
+    "text": "As a switch\nUsed as a switch, the goal is deliberately deep saturation rather than a well-controlled active-region current. Choosing enough base current to guarantee saturation across the worst-case (minimum) \\(\\beta\\), with margin — a “forced \\(\\beta\\)” of 10 rather than the datasheet’s typical 100–300 is a common conservative choice:\n\\[\nI_{B} = \\frac{I_{C}}{\\beta_{forced}}, \\qquad R_B = \\frac{V_{in} - 0.7}{I_B}\n\\]",
+    "crumbs": [
+      "Components",
+      "Bipolar junction transistors (BJT)"
+    ]
+  },
+  {
+    "objectID": "components/thyristors.html",
+    "href": "components/thyristors.html",
+    "title": "Thyristors (SCR / TRIAC)",
+    "section": "",
+    "text": "A thyristor is a four-layer PNPN device that behaves like nothing else on this page: it latches. A gate pulse triggers it into conduction, and it then stays conducting — no continued gate drive needed — until the main current drops below a minimum holding current \\(I_H\\), at which point it turns off on its own.",
+    "crumbs": [
+      "Components",
+      "Thyristors (SCR / TRIAC)"
+    ]
+  },
+  {
+    "objectID": "components/thyristors.html#silicon-controlled-rectifier-scr",
+    "href": "components/thyristors.html#silicon-controlled-rectifier-scr",
+    "title": "Thyristors (SCR / TRIAC)",
+    "section": "Silicon-controlled rectifier (SCR)",
+    "text": "Silicon-controlled rectifier (SCR)\nThe basic thyristor: conducts in one direction only, like a diode, but stays off even when forward biased until the gate receives a trigger pulse. Once triggered and above \\(I_H\\), the gate loses all further control — the only way to turn it off is to bring the main current below \\(I_H\\), which in an AC circuit happens automatically every half-cycle as the waveform crosses zero.\nThat zero-crossing turn-off is exactly what makes SCRs useful for phase-controlled AC power delivery: triggering the gate at a chosen delay (firing angle \\(\\alpha\\)) after each zero crossing controls how much of each half-cycle actually reaches the load, and the device turns itself off cleanly at the next crossing regardless.\n\nPhase control and RMS output\nFor a resistive load, delaying the firing angle \\(\\alpha\\) (0 to \\(\\pi\\) radians within each half-cycle) reduces the RMS voltage delivered to the load:\n\\[\nV_{RMS} = V_{in,RMS}\\sqrt{1 - \\frac{\\alpha}{\\pi} + \\frac{\\sin(2\\alpha)}{2\\pi}}\n\\]\n\\(\\alpha = 0\\) delivers the full waveform; \\(\\alpha = \\pi\\) delivers none. This is the mechanism behind old-style incandescent light dimmers.",
+    "crumbs": [
+      "Components",
+      "Thyristors (SCR / TRIAC)"
+    ]
+  },
+  {
+    "objectID": "components/thyristors.html#triac",
+    "href": "components/thyristors.html#triac",
+    "title": "Thyristors (SCR / TRIAC)",
+    "section": "TRIAC",
+    "text": "TRIAC\nAn SCR only conducts one direction, so it only controls one half of an AC waveform. A TRIAC is functionally two SCRs wired anti-parallel in a single package, controllable from a single gate — it conducts (and can be triggered) on both half-cycles, which is why it’s the part actually found in most household dimmers and AC motor speed controls rather than a pair of discrete SCRs.",
+    "crumbs": [
+      "Components",
+      "Thyristors (SCR / TRIAC)"
+    ]
+  },
+  {
+    "objectID": "components/thyristors.html#a-caution-worth-stating-plainly",
+    "href": "components/thyristors.html#a-caution-worth-stating-plainly",
+    "title": "Thyristors (SCR / TRIAC)",
+    "section": "A caution worth stating plainly",
+    "text": "A caution worth stating plainly\nThyristor circuits usually work directly with mains voltage. That combination of high voltage and latching behavior (a triggered device won’t turn off just because the gate signal goes away) is genuinely dangerous to prototype casually — isolation, proper fusing, and mains-rated components matter here more than almost anywhere else on this site.",
+    "crumbs": [
+      "Components",
+      "Thyristors (SCR / TRIAC)"
     ]
   },
   {

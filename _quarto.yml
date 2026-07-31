@@ -24,6 +24,14 @@ website:
       - section: "Magnetics"
         contents:
           - magnetics/solenoid.qmd
+      - section: "Components"
+        contents:
+          - components/index.qmd
+          - components/diodes.qmd
+          - components/zener-schottky-diodes.qmd
+          - components/bjt.qmd
+          - components/mosfet.qmd
+          - components/thyristors.qmd
       - section: "Power electronics"
         contents:
           - power-electronics/index.qmd

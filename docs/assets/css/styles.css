@@ -1,9 +1,10 @@
 :root {
   --cat-ee: #185fa5;
   --cat-magnetics: #c1440e;
+  --cat-components: #534ab7;
   --cat-power: #b45309;
   --cat-ic: #0f6e56;
-  --cat-mcu: #534ab7;
+  --cat-mcu: #993556;
   --cat-sw: #3b6d11;
 }
 
@@ -54,6 +55,8 @@
 .card-grid .card.cat-ee .tag { color: var(--cat-ee); }
 .card-grid .card.cat-magnetics { border-top-color: var(--cat-magnetics); }
 .card-grid .card.cat-magnetics .tag { color: var(--cat-magnetics); }
+.card-grid .card.cat-components { border-top-color: var(--cat-components); }
+.card-grid .card.cat-components .tag { color: var(--cat-components); }
 .card-grid .card.cat-power { border-top-color: var(--cat-power); }
 .card-grid .card.cat-power .tag { color: var(--cat-power); }
 .card-grid .card.cat-ic { border-top-color: var(--cat-ic); }
