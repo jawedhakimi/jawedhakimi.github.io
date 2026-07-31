@@ -61,6 +61,9 @@ website:
         - section: "Integrated circuits"
           contents:
             - integrated-circuits/index.qmd
+            - integrated-circuits/op-amp-basics.qmd
+            - integrated-circuits/gain-and-decibels.qmd
+            - integrated-circuits/op-amp-frequency-response.qmd
         - section: "Microcontrollers"
           contents:
             - microcontrollers/index.qmd
@@ -85,6 +88,7 @@ website:
         - calculators/magnetics.qmd
         - calculators/components.qmd
         - calculators/power-electronics.qmd
+        - calculators/integrated-circuits.qmd
         - calculators/extra.qmd
 
 format:

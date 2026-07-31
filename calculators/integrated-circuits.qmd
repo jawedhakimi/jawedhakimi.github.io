@@ -1,0 +1,106 @@
+---
+title: "Integrated circuits"
+subtitle: "Calculators"
+toc: true
+---
+
+## Op-amp gain (inverting / non-inverting)
+
+<p class="calc-context">Full derivation: [Op-amp basics](../integrated-circuits/op-amp-basics.qmd).</p>
+
+```{=html}
+<div id="calc-opamp-gain"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "calc-opamp-gain",
+  inputs: [
+    { id: "topology", label: "Topology", type: "select", value: "noninverting", options: [
+      { value: "noninverting", label: "Non-inverting" },
+      { value: "inverting", label: "Inverting" }
+    ] },
+    { id: "Rf", label: "Rf (kΩ)", value: 10, min: 0, step: 1 },
+    { id: "Rin", label: "Rin (kΩ)", value: 1, min: 0.001, step: 1 }
+  ],
+  outputs: [
+    { id: "gain", label: "Gain (V/V)" },
+    { id: "gainDb", label: "Gain (dB)" }
+  ],
+  compute: function (v) {
+    if (v.Rin <= 0) return { gain: "-", gainDb: "-" };
+    var gain = v.topology === "noninverting" ? 1 + v.Rf / v.Rin : -(v.Rf / v.Rin);
+    var gainDb = 20 * Math.log10(Math.abs(gain));
+    return { gain: gain.toFixed(3), gainDb: gainDb.toFixed(2) + " dB" };
+  }
+});
+</script>
+```
+
+## Ratio to dB / dB to ratio
+
+<p class="calc-context">Full derivation: [Gain and decibels](../integrated-circuits/gain-and-decibels.qmd).</p>
+
+```{=html}
+<div id="calc-ratio-to-db"></div>
+<script>
+Calc.create({
+  root: "calc-ratio-to-db",
+  inputs: [
+    { id: "ratio", label: "Ratio (x times)", value: 11, min: 0.0000001, step: 0.1 },
+    { id: "kind", label: "Quantity", type: "select", value: "voltage", options: [
+      { value: "voltage", label: "Voltage / current (20log)" },
+      { value: "power", label: "Power (10log)" }
+    ] }
+  ],
+  outputs: [ { id: "db", label: "dB" } ],
+  compute: function (v) {
+    if (v.ratio <= 0) return { db: "-" };
+    var mult = v.kind === "power" ? 10 : 20;
+    return { db: (mult * Math.log10(v.ratio)).toFixed(2) + " dB" };
+  }
+});
+</script>
+
+<div id="calc-db-to-ratio"></div>
+<script>
+Calc.create({
+  root: "calc-db-to-ratio",
+  inputs: [
+    { id: "db", label: "dB", value: 20, step: 0.5 },
+    { id: "kind", label: "Quantity", type: "select", value: "voltage", options: [
+      { value: "voltage", label: "Voltage / current (20log)" },
+      { value: "power", label: "Power (10log)" }
+    ] }
+  ],
+  outputs: [ { id: "ratio", label: "Ratio (x times)" } ],
+  compute: function (v) {
+    var div = v.kind === "power" ? 10 : 20;
+    return { ratio: Math.pow(10, v.db / div).toFixed(4) + "×" };
+  }
+});
+</script>
+```
+
+## Op-amp closed-loop bandwidth
+
+<p class="calc-context">Full derivation: [Op-amp frequency response](../integrated-circuits/op-amp-frequency-response.qmd).</p>
+
+```{=html}
+<div id="calc-gbw"></div>
+<script>
+Calc.create({
+  root: "calc-gbw",
+  inputs: [
+    { id: "gbw", label: "GBW (MHz)", value: 10, min: 0.001, step: 1 },
+    { id: "noiseGain", label: "Noise gain (V/V)", value: 11, min: 1, step: 1 }
+  ],
+  outputs: [ { id: "bw", label: "Closed-loop -3dB bandwidth" } ],
+  compute: function (v) {
+    if (v.noiseGain <= 0) return { bw: "-" };
+    var bwMHz = v.gbw / v.noiseGain;
+    var bwTxt = bwMHz >= 1 ? bwMHz.toFixed(3) + " MHz" : (bwMHz * 1000).toFixed(1) + " kHz";
+    return { bw: bwTxt };
+  }
+});
+</script>
+```

@@ -1,0 +1,112 @@
+---
+title: "Gain and decibels"
+subtitle: "Integrated circuits"
+toc: true
+---
+
+Gain is just a ratio: output over input. A "gain of 11" means the output is 11 times the input — nothing more complicated than that. Decibels describe the exact same ratio on a logarithmic scale, and the reason that scale exists (and why it has two different-looking formulas) is worth actually deriving once rather than just memorizing.
+
+## Where the decibel comes from
+
+The unit originates with power ratios, from telephone engineering (the "Bel," after Alexander Graham Bell, with "deci-" meaning a tenth of one):
+
+$$
+\text{dB} = 10 \log_{10}\left(\frac{P_2}{P_1}\right)
+$$
+
+That's the fundamental definition. Everything else — including the $20\log_{10}$ used for voltage and current — is derived from this one.
+
+## Deriving the 20log(x) form
+
+Power dissipated in a resistance is $P = V^2/R$. If we're comparing a voltage ratio across equal impedances (same $R$ on both sides), the power ratio is the *square* of the voltage ratio:
+
+$$
+\frac{P_2}{P_1} = \frac{V_2^2/R}{V_1^2/R} = \left(\frac{V_2}{V_1}\right)^2
+$$
+
+Substituting into the power dB formula and pulling the exponent out of the log (since $\log(x^2) = 2\log(x)$):
+
+$$
+\text{dB} = 10 \log_{10}\left(\frac{V_2}{V_1}\right)^2 = 10 \times 2 \times \log_{10}\left(\frac{V_2}{V_1}\right) = 20 \log_{10}\left(\frac{V_2}{V_1}\right)
+$$
+
+The 20 isn't a different unit or a different rule — it's just the 10 from the original power definition, times the 2 that came out of squaring the voltage ratio. Same logic gives $20\log_{10}(I_2/I_1)$ for current, since power also goes as $I^2R$.
+
+One honest caveat: that derivation assumed matched impedance on both sides of the ratio, which is exactly true for e.g. a coaxial cable's attenuation and rarely exactly true for an op-amp stage's voltage gain. In practice, $20\log_{10}(\text{ratio})$ is used as *the* definition of a voltage or amplitude ratio in dB regardless of impedance matching — worth knowing where it historically comes from, without expecting a literal power interpretation from every voltage-gain dB figure you see on a datasheet.
+
+## Reference values worth just knowing
+
+| Ratio | Power dB (10log) | Voltage dB (20log) |
+|---|---|---|
+| 1× | 0 dB | 0 dB |
+| 2× | 3.01 dB | 6.02 dB |
+| 0.5× | −3.01 dB | −6.02 dB |
+| 10× | 10 dB | 20 dB |
+| 100× | 20 dB | 40 dB |
+| 1000× | 30 dB | 60 dB |
+| 0.1× | −10 dB | −20 dB |
+
+The "−3 dB point" people constantly refer to (a filter's cutoff, an amplifier's bandwidth limit) is exactly the half-power point: $10\log_{10}(0.5) = -3.01\,\text{dB}$, which corresponds to a voltage ratio of $1/\sqrt{2} \approx 0.707$.
+
+## Why bother with logarithms at all
+
+Two practical reasons, beyond compressing huge ranges (a 120 dB op-amp open-loop gain is a ratio of 1,000,000 — far easier to write and reason about as "120 dB"):
+
+**Cascaded stages add instead of multiply.** Three amplifier stages with gains of ×10, ×5, and ×2 multiply to ×100 in linear terms — but in dB, that's 20 + 13.98 + 6.02 = 40 dB, a straight sum. For a signal chain with several stages, tracking dB and adding is far less error-prone than multiplying ratios by hand.
+
+**It matches how hearing works.** The original motivation was audio — perceived loudness is roughly logarithmic in acoustic power, which is a large part of why dB became the standard unit for audio levels specifically, and then spread to RF and general electronics from there.
+
+## Calculators
+
+### Ratio to dB
+
+```{=html}
+<div id="ratio-to-db"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "ratio-to-db",
+  inputs: [
+    { id: "ratio", label: "Ratio (x times)", value: 11, min: 0.0000001, step: 0.1 },
+    { id: "kind", label: "Quantity", type: "select", value: "voltage", options: [
+      { value: "voltage", label: "Voltage / current (20log)" },
+      { value: "power", label: "Power (10log)" }
+    ] }
+  ],
+  outputs: [
+    { id: "db", label: "dB" }
+  ],
+  compute: function (v) {
+    if (v.ratio <= 0) return { db: "-" };
+    var mult = v.kind === "power" ? 10 : 20;
+    return { db: (mult * Math.log10(v.ratio)).toFixed(2) + " dB" };
+  }
+});
+</script>
+```
+
+### dB to ratio
+
+```{=html}
+<div id="db-to-ratio"></div>
+<script>
+Calc.create({
+  root: "db-to-ratio",
+  inputs: [
+    { id: "db", label: "dB", value: 20, step: 0.5 },
+    { id: "kind", label: "Quantity", type: "select", value: "voltage", options: [
+      { value: "voltage", label: "Voltage / current (20log)" },
+      { value: "power", label: "Power (10log)" }
+    ] }
+  ],
+  outputs: [
+    { id: "ratio", label: "Ratio (x times)" }
+  ],
+  compute: function (v) {
+    var div = v.kind === "power" ? 10 : 20;
+    var ratio = Math.pow(10, v.db / div);
+    return { ratio: ratio.toFixed(4) + "×" };
+  }
+});
+</script>
+```

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Diodes – The Bench Notebook</title>
+<title>Op-amp basics and example circuits – The Bench Notebook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../components/index.html">Components</a></li><li class="breadcrumb-item"><a href="../components/diodes.html">Diodes</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../integrated-circuits/index.html">Integrated circuits</a></li><li class="breadcrumb-item"><a href="../integrated-circuits/op-amp-basics.html">Op-amp basics and example circuits</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -251,7 +251,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../components/diodes.html" class="sidebar-item-text sidebar-link active">
+  <a href="../components/diodes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Diodes</span></a>
   </div>
 </li>
@@ -392,7 +392,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../integrated-circuits/op-amp-basics.html" class="sidebar-item-text sidebar-link">
+  <a href="../integrated-circuits/op-amp-basics.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Op-amp basics and example circuits</span></a>
   </div>
 </li>
@@ -454,20 +454,23 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-pn-junction" id="toc-the-pn-junction" class="nav-link active" data-scroll-target="#the-pn-junction">The PN junction</a></li>
-  <li><a href="#the-diode-equation" id="toc-the-diode-equation" class="nav-link" data-scroll-target="#the-diode-equation">The diode equation</a></li>
-  <li><a href="#rectification" id="toc-rectification" class="nav-link" data-scroll-target="#rectification">Rectification</a></li>
-  <li><a href="#calculator-series-resistor-for-a-diode-or-led" id="toc-calculator-series-resistor-for-a-diode-or-led" class="nav-link" data-scroll-target="#calculator-series-resistor-for-a-diode-or-led">Calculator: series resistor for a diode or LED</a></li>
+  <li><a href="#the-two-golden-rules" id="toc-the-two-golden-rules" class="nav-link active" data-scroll-target="#the-two-golden-rules">The two golden rules</a></li>
+  <li><a href="#non-inverting-amplifier" id="toc-non-inverting-amplifier" class="nav-link" data-scroll-target="#non-inverting-amplifier">Non-inverting amplifier</a></li>
+  <li><a href="#inverting-amplifier" id="toc-inverting-amplifier" class="nav-link" data-scroll-target="#inverting-amplifier">Inverting amplifier</a></li>
+  <li><a href="#voltage-follower-buffer" id="toc-voltage-follower-buffer" class="nav-link" data-scroll-target="#voltage-follower-buffer">Voltage follower (buffer)</a></li>
+  <li><a href="#summing-amplifier" id="toc-summing-amplifier" class="nav-link" data-scroll-target="#summing-amplifier">Summing amplifier</a></li>
+  <li><a href="#difference-amplifier" id="toc-difference-amplifier" class="nav-link" data-scroll-target="#difference-amplifier">Difference amplifier</a></li>
+  <li><a href="#calculator-inverting-non-inverting-gain" id="toc-calculator-inverting-non-inverting-gain" class="nav-link" data-scroll-target="#calculator-inverting-non-inverting-gain">Calculator: inverting / non-inverting gain</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../components/index.html">Components</a></li><li class="breadcrumb-item"><a href="../components/diodes.html">Diodes</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../integrated-circuits/index.html">Integrated circuits</a></li><li class="breadcrumb-item"><a href="../integrated-circuits/op-amp-basics.html">Op-amp basics and example circuits</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Diodes</h1>
-<p class="subtitle lead">Components</p>
+<h1 class="title">Op-amp basics and example circuits</h1>
+<p class="subtitle lead">Integrated circuits</p>
 </div>
 
 
@@ -484,62 +487,85 @@ window.Quarto = {
 </header>
 
 
-<section id="the-pn-junction" class="level2">
-<h2 class="anchored" data-anchor-id="the-pn-junction">The PN junction</h2>
-<p>A diode is a single junction between P-type material (doped with acceptor atoms, majority carriers are holes) and N-type material (doped with donor atoms, majority carriers are electrons). Where they meet, carriers diffuse across and recombine, leaving behind a region stripped of free carriers — the depletion region — with a built-in electric field opposing further diffusion.</p>
-<p>Forward bias (P side positive relative to N) narrows the depletion region and, past a threshold, lets current flow easily. Reverse bias widens it and current stays near zero — until reverse breakdown.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../assets/img/diode-symbol-iv.png" class="img-fluid figure-img"></p>
-<figcaption>Fig. 1 — diode symbol, and current vs.&nbsp;voltage for both bias directions.</figcaption>
-</figure>
-</div>
+<p>An operational amplifier is a high-gain differential amplifier IC: two inputs, one output, and an open-loop gain so large (typically 100,000 to over 1,000,000) that it’s almost never used open-loop. Nearly every real op-amp circuit wraps it in negative feedback — a resistor network feeding some of the output back to the inverting input — which trades away that enormous raw gain for precision, stability, and a gain set by resistors instead of by the (loosely specified, temperature-dependent) op-amp itself.</p>
+<section id="the-two-golden-rules" class="level2">
+<h2 class="anchored" data-anchor-id="the-two-golden-rules">The two golden rules</h2>
+<p>For an ideal op-amp in a negative-feedback configuration:</p>
+<ol type="1">
+<li><strong>No current flows into either input.</strong> Input impedance is effectively infinite.</li>
+<li><strong>The output does whatever it takes to force the two inputs to the same voltage</strong> — a “virtual short,” not an actual electrical connection, and it only holds while the feedback loop is active and the output isn’t saturated against a supply rail.</li>
+</ol>
+<p>Everything below follows from just those two rules plus Ohm’s law and KCL.</p>
 </section>
-<section id="the-diode-equation" class="level2">
-<h2 class="anchored" data-anchor-id="the-diode-equation">The diode equation</h2>
+<section id="non-inverting-amplifier" class="level2">
+<h2 class="anchored" data-anchor-id="non-inverting-amplifier">Non-inverting amplifier</h2>
+<p>The input goes straight to the non-inverting terminal; feedback resistor <span class="math inline">\(R_f\)</span> and ground resistor <span class="math inline">\(R_{in}\)</span> form a divider from output back to the inverting terminal.</p>
+<p>By rule 2, <span class="math inline">\(V_- = V_+ = V_{in}\)</span>. <span class="math inline">\(V_-\)</span> is also set by the feedback divider: <span class="math inline">\(V_- = V_{out}\frac{R_{in}}{R_{in}+R_f}\)</span>. Setting these equal and solving for <span class="math inline">\(V_{out}/V_{in}\)</span>:</p>
 <p><span class="math display">\[
-I = I_S \left( e^{V / (nV_T)} - 1 \right)
+A_v = \frac{V_{out}}{V_{in}} = 1 + \frac{R_f}{R_{in}}
 \]</span></p>
-<p><span class="math inline">\(I_S\)</span> is the reverse saturation current (tiny, often pA–nA), <span class="math inline">\(n\)</span> is the ideality factor (close to 1 for a good diode), and <span class="math inline">\(V_T = kT/q \approx 25.85\,\text{mV}\)</span> at room temperature. The exponential is why forward voltage looks almost like a fixed ~0.6–0.7 V (silicon) rather than a smooth ramp — current changes by roughly 10× for every ~60 mV of forward voltage.</p>
-<p>Forward voltage drops slightly with temperature, about <span class="math inline">\(-2\,\text{mV/°C}\)</span> for silicon — worth remembering when a design runs hot.</p>
+<p>Gain is always <span class="math inline">\(\geq 1\)</span>, output is in phase with the input, and input impedance is very high (the op-amp’s own input impedance) — this is the configuration to reach for when the source can’t tolerate being loaded down.</p>
 </section>
-<section id="rectification" class="level2">
-<h2 class="anchored" data-anchor-id="rectification">Rectification</h2>
-<p>A single diode passes only one half of an AC waveform (half-wave rectification). Four diodes in a bridge pass both halves in the same direction (full-wave), roughly doubling the ripple frequency seen by the output filter capacitor and halving the required capacitance for the same ripple — the same <span class="math inline">\(C = \Delta I / (f \cdot \Delta V)\)</span> relationship as the buck converter’s output cap, just driven by load current instead of inductor ripple current.</p>
-</section>
-<section id="calculator-series-resistor-for-a-diode-or-led" class="level2">
-<h2 class="anchored" data-anchor-id="calculator-series-resistor-for-a-diode-or-led">Calculator: series resistor for a diode or LED</h2>
-<p>The most common practical use of the diode equation: given a supply and a target forward current, size the series resistor. Treats the diode’s forward drop as roughly constant, which is accurate enough for design work once <span class="math inline">\(V_f\)</span> is known from a datasheet.</p>
+<section id="inverting-amplifier" class="level2">
+<h2 class="anchored" data-anchor-id="inverting-amplifier">Inverting amplifier</h2>
+<p>The input drives <span class="math inline">\(R_{in}\)</span> into the inverting terminal; the non-inverting terminal ties to ground; <span class="math inline">\(R_f\)</span> feeds back from output to the same inverting node.</p>
+<p>By rule 2, <span class="math inline">\(V_- = V_+ = 0\)</span> — a “virtual ground,” even though nothing is physically tied to ground there. By rule 1, all the current through <span class="math inline">\(R_{in}\)</span> must continue through <span class="math inline">\(R_f\)</span> (none can go into the op-amp input):</p>
 <p><span class="math display">\[
-R = \frac{V_{supply} - V_f}{I_f}
+\frac{V_{in} - 0}{R_{in}} = \frac{0 - V_{out}}{R_f} \quad \Rightarrow \quad A_v = -\frac{R_f}{R_{in}}
 \]</span></p>
-<div id="diode-r-calc"></div>
+<p>Output is inverted, gain magnitude can be less than, equal to, or greater than 1, and input impedance is just <span class="math inline">\(R_{in}\)</span> — much lower than the non-inverting case, and worth checking against the source’s own output impedance.</p>
+</section>
+<section id="voltage-follower-buffer" class="level2">
+<h2 class="anchored" data-anchor-id="voltage-follower-buffer">Voltage follower (buffer)</h2>
+<p>The extreme case of the non-inverting amp: <span class="math inline">\(R_f = 0\)</span>, <span class="math inline">\(R_{in} = \infty\)</span> (output tied directly to the inverting input, nothing else). Gain is exactly 1. Its entire purpose is impedance transformation — take a signal from a high-impedance, easily-loaded source and re-present it with the op-amp’s low output impedance, driving whatever comes next without disturbing the original signal.</p>
+</section>
+<section id="summing-amplifier" class="level2">
+<h2 class="anchored" data-anchor-id="summing-amplifier">Summing amplifier</h2>
+<p>An inverting amplifier with multiple input resistors into the same virtual-ground node. By superposition:</p>
+<p><span class="math display">\[
+V_{out} = -R_f\left(\frac{V_1}{R_1} + \frac{V_2}{R_2} + \cdots\right)
+\]</span></p>
+<p>Each input is weighted independently by its own resistor — the basis of analog audio mixers and resistor-ladder DACs.</p>
+</section>
+<section id="difference-amplifier" class="level2">
+<h2 class="anchored" data-anchor-id="difference-amplifier">Difference amplifier</h2>
+<p>Two inputs, four resistors: <span class="math inline">\(V_1\)</span> through <span class="math inline">\(R_{in}\)</span> into the inverting node (with <span class="math inline">\(R_f\)</span> feedback, as usual), <span class="math inline">\(V_2\)</span> through a matched <span class="math inline">\(R_{in}\)</span> into the non-inverting node (with a matched <span class="math inline">\(R_f\)</span> to ground, setting up a divider). With all four resistors matched in ratio:</p>
+<p><span class="math display">\[
+V_{out} = \frac{R_f}{R_{in}}(V_2 - V_1)
+\]</span></p>
+<p>Resistor matching here isn’t just a nicety — mismatch directly degrades common-mode rejection, letting noise that’s identical on both inputs leak into the output instead of canceling. (An instrumentation amplifier IC solves this properly with laser-trimmed internal resistors and a buffered front end; this discrete version is the conceptual starting point.)</p>
+</section>
+<section id="calculator-inverting-non-inverting-gain" class="level2">
+<h2 class="anchored" data-anchor-id="calculator-inverting-non-inverting-gain">Calculator: inverting / non-inverting gain</h2>
+<div id="opamp-gain-calc"></div>
 <script src="../assets/js/calc-engine.js"></script>
 <script>
 Calc.create({
-  root: "diode-r-calc",
+  root: "opamp-gain-calc",
   inputs: [
-    { id: "Vs", label: "Supply (V)", value: 5, min: 0, step: 0.1 },
-    { id: "Vf", label: "Diode Vf (V)", value: 2, min: 0, step: 0.05 },
-    { id: "If", label: "Target If (mA)", value: 20, min: 0.01, step: 1 }
+    { id: "topology", label: "Topology", type: "select", value: "noninverting", options: [
+      { value: "noninverting", label: "Non-inverting" },
+      { value: "inverting", label: "Inverting" }
+    ] },
+    { id: "Rf", label: "Rf (kΩ)", value: 10, min: 0, step: 1 },
+    { id: "Rin", label: "Rin (kΩ)", value: 1, min: 0.001, step: 1 }
   ],
   outputs: [
-    { id: "R", label: "Series R" },
-    { id: "P", label: "Resistor power" }
+    { id: "gain", label: "Gain (V/V)" },
+    { id: "gainDb", label: "Gain (dB)" }
   ],
   compute: function (v) {
-    var drop = v.Vs - v.Vf;
-    if (drop <= 0 || v.If <= 0) return { R: "invalid", P: "-" };
-    var I = v.If / 1000;
-    var R = drop / I;
-    var P = drop * I;
+    if (v.Rin <= 0) return { gain: "-", gainDb: "-" };
+    var gain = v.topology === "noninverting" ? 1 + v.Rf / v.Rin : -(v.Rf / v.Rin);
+    var gainDb = 20 * Math.log10(Math.abs(gain));
     return {
-      R: R.toFixed(1) + " Ω",
-      P: (P * 1000).toFixed(1) + " mW"
+      gain: gain.toFixed(3),
+      gainDb: gainDb.toFixed(2) + " dB"
     };
   }
 });
 </script>
+<p>Where that <code>20 × log10</code> comes from is its own topic — see <a href="../integrated-circuits/gain-and-decibels.html">Gain and decibels</a>.</p>
 
 
 </section>

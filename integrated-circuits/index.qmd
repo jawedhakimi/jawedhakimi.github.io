@@ -3,6 +3,10 @@ title: "Integrated circuits"
 toc: false
 ---
 
-Notes on op-amps, ADCs/DACs, and general IC-level design coming here — starting with op-amp noise budgets.
+Starting with the op-amp — the building block behind most analog signal conditioning — and the gain/dB/phase language used to describe it and every other amplifier stage.
 
-Nothing published yet.
+- [Op-amp basics and example circuits](op-amp-basics.qmd)
+- [Gain and decibels](gain-and-decibels.qmd)
+- [Op-amp frequency response](op-amp-frequency-response.qmd)
+
+More ICs (ADCs, DACs, voltage references, comparators) coming as I work through them.

@@ -59,14 +59,14 @@ How each bus works and what to think about wiring it into a real circuit — ter
 [Open chapter →](protocols/index.qmd){.open}
 :::
 
-::: {.card .cat-ic .disabled}
+::: {.card .cat-ic}
 [Integrated circuits]{.tag}
 
-### Op-amp noise budgets
+### Op-amps, gain, and decibels
 
-Working through input-referred noise for a transimpedance front end.
+Golden rules, five example circuits, where 20log(x) actually comes from, and gain-bandwidth product and phase margin.
 
-[Coming soon]{.badge}
+[Open chapter →](integrated-circuits/index.qmd){.open}
 :::
 
 ::: {.card .cat-mcu .disabled}

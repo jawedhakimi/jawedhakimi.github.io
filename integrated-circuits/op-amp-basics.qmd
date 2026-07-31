@@ -1,0 +1,99 @@
+---
+title: "Op-amp basics and example circuits"
+subtitle: "Integrated circuits"
+toc: true
+---
+
+An operational amplifier is a high-gain differential amplifier IC: two inputs, one output, and an open-loop gain so large (typically 100,000 to over 1,000,000) that it's almost never used open-loop. Nearly every real op-amp circuit wraps it in negative feedback — a resistor network feeding some of the output back to the inverting input — which trades away that enormous raw gain for precision, stability, and a gain set by resistors instead of by the (loosely specified, temperature-dependent) op-amp itself.
+
+## The two golden rules
+
+For an ideal op-amp in a negative-feedback configuration:
+
+1. **No current flows into either input.** Input impedance is effectively infinite.
+2. **The output does whatever it takes to force the two inputs to the same voltage** — a "virtual short," not an actual electrical connection, and it only holds while the feedback loop is active and the output isn't saturated against a supply rail.
+
+Everything below follows from just those two rules plus Ohm's law and KCL.
+
+## Non-inverting amplifier
+
+The input goes straight to the non-inverting terminal; feedback resistor $R_f$ and ground resistor $R_{in}$ form a divider from output back to the inverting terminal.
+
+By rule 2, $V_- = V_+ = V_{in}$. $V_-$ is also set by the feedback divider: $V_- = V_{out}\frac{R_{in}}{R_{in}+R_f}$. Setting these equal and solving for $V_{out}/V_{in}$:
+
+$$
+A_v = \frac{V_{out}}{V_{in}} = 1 + \frac{R_f}{R_{in}}
+$$
+
+Gain is always $\geq 1$, output is in phase with the input, and input impedance is very high (the op-amp's own input impedance) — this is the configuration to reach for when the source can't tolerate being loaded down.
+
+## Inverting amplifier
+
+The input drives $R_{in}$ into the inverting terminal; the non-inverting terminal ties to ground; $R_f$ feeds back from output to the same inverting node.
+
+By rule 2, $V_- = V_+ = 0$ — a "virtual ground," even though nothing is physically tied to ground there. By rule 1, all the current through $R_{in}$ must continue through $R_f$ (none can go into the op-amp input):
+
+$$
+\frac{V_{in} - 0}{R_{in}} = \frac{0 - V_{out}}{R_f} \quad \Rightarrow \quad A_v = -\frac{R_f}{R_{in}}
+$$
+
+Output is inverted, gain magnitude can be less than, equal to, or greater than 1, and input impedance is just $R_{in}$ — much lower than the non-inverting case, and worth checking against the source's own output impedance.
+
+## Voltage follower (buffer)
+
+The extreme case of the non-inverting amp: $R_f = 0$, $R_{in} = \infty$ (output tied directly to the inverting input, nothing else). Gain is exactly 1. Its entire purpose is impedance transformation — take a signal from a high-impedance, easily-loaded source and re-present it with the op-amp's low output impedance, driving whatever comes next without disturbing the original signal.
+
+## Summing amplifier
+
+An inverting amplifier with multiple input resistors into the same virtual-ground node. By superposition:
+
+$$
+V_{out} = -R_f\left(\frac{V_1}{R_1} + \frac{V_2}{R_2} + \cdots\right)
+$$
+
+Each input is weighted independently by its own resistor — the basis of analog audio mixers and resistor-ladder DACs.
+
+## Difference amplifier
+
+Two inputs, four resistors: $V_1$ through $R_{in}$ into the inverting node (with $R_f$ feedback, as usual), $V_2$ through a matched $R_{in}$ into the non-inverting node (with a matched $R_f$ to ground, setting up a divider). With all four resistors matched in ratio:
+
+$$
+V_{out} = \frac{R_f}{R_{in}}(V_2 - V_1)
+$$
+
+Resistor matching here isn't just a nicety — mismatch directly degrades common-mode rejection, letting noise that's identical on both inputs leak into the output instead of canceling. (An instrumentation amplifier IC solves this properly with laser-trimmed internal resistors and a buffered front end; this discrete version is the conceptual starting point.)
+
+## Calculator: inverting / non-inverting gain
+
+```{=html}
+<div id="opamp-gain-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "opamp-gain-calc",
+  inputs: [
+    { id: "topology", label: "Topology", type: "select", value: "noninverting", options: [
+      { value: "noninverting", label: "Non-inverting" },
+      { value: "inverting", label: "Inverting" }
+    ] },
+    { id: "Rf", label: "Rf (kΩ)", value: 10, min: 0, step: 1 },
+    { id: "Rin", label: "Rin (kΩ)", value: 1, min: 0.001, step: 1 }
+  ],
+  outputs: [
+    { id: "gain", label: "Gain (V/V)" },
+    { id: "gainDb", label: "Gain (dB)" }
+  ],
+  compute: function (v) {
+    if (v.Rin <= 0) return { gain: "-", gainDb: "-" };
+    var gain = v.topology === "noninverting" ? 1 + v.Rf / v.Rin : -(v.Rf / v.Rin);
+    var gainDb = 20 * Math.log10(Math.abs(gain));
+    return {
+      gain: gain.toFixed(3),
+      gainDb: gainDb.toFixed(2) + " dB"
+    };
+  }
+});
+</script>
+```
+
+Where that `20 × log10` comes from is its own topic — see [Gain and decibels](gain-and-decibels.qmd).

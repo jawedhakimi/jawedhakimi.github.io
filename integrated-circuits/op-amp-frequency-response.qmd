@@ -1,0 +1,70 @@
+---
+title: "Op-amp frequency response"
+subtitle: "Integrated circuits"
+toc: true
+---
+
+The gain formulas on the [op-amp basics](op-amp-basics.qmd) page — $1 + R_f/R_{in}$, $-R_f/R_{in}$ — assume an ideal op-amp with infinite, frequency-independent open-loop gain. Real ones don't have that, and the way they fall short shapes both how much bandwidth you actually get and whether the circuit stays stable at all.
+
+## Open-loop gain isn't flat
+
+A real op-amp's open-loop gain is enormous at DC (typically 100 dB to 120 dB — a ratio of 100,000 to 1,000,000) but starts rolling off at a surprisingly low frequency, often just single-digit to tens of Hz. That's deliberate: op-amps are internally frequency-compensated with a dominant pole specifically to keep the response falling at a predictable, well-behaved **−20 dB/decade** past that corner, all the way out to where the gain reaches unity (0 dB).
+
+## Gain-bandwidth product
+
+Past the dominant pole's corner frequency, gain falls off as $1/f$ — which means gain times frequency is constant. That constant is the gain-bandwidth product (GBW), a single number on every op-amp datasheet:
+
+$$
+GBW = A_{open-loop} \times f_{corner} = A_{closed-loop} \times f_{-3dB, closed-loop}
+$$
+
+Both sides of that equation describe the same straight line on a log-log plot — one point on it is the open-loop DC gain and its corner frequency; every other point is some closed-loop gain and the bandwidth it gets. Rearranged into the form actually used when picking resistor values:
+
+$$
+f_{-3dB} \approx \frac{GBW}{A_{noise\ gain}}
+$$
+
+"Noise gain" here means $1 + R_f/R_{in}$ in both the inverting *and* non-inverting configurations — for the inverting amp specifically, that's not the same as its signal gain ($-R_f/R_{in}$); the feedback network sets bandwidth according to the noise gain regardless of which input the signal actually enters.
+
+## Calculator: closed-loop bandwidth
+
+```{=html}
+<div id="gbw-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "gbw-calc",
+  inputs: [
+    { id: "gbw", label: "GBW (MHz)", value: 10, min: 0.001, step: 1 },
+    { id: "noiseGain", label: "Noise gain (V/V)", value: 11, min: 1, step: 1 }
+  ],
+  outputs: [
+    { id: "bw", label: "Closed-loop -3dB bandwidth" }
+  ],
+  compute: function (v) {
+    if (v.noiseGain <= 0) return { bw: "-" };
+    var bwMHz = v.gbw / v.noiseGain;
+    var bwTxt = bwMHz >= 1 ? bwMHz.toFixed(3) + " MHz" : (bwMHz * 1000).toFixed(1) + " kHz";
+    return { bw: bwTxt };
+  }
+});
+</script>
+```
+
+More gain always costs bandwidth, in direct proportion — a 10 MHz GBW part gives roughly 1 MHz of bandwidth at a noise gain of 10, or 100 kHz at a noise gain of 100. If a design needs both high gain and wide bandwidth, that's usually solved with multiple lower-gain stages in series rather than one stage doing it all, since bandwidth divides by the *product* of per-stage gains but each stage individually only pays for its own gain.
+
+## Phase lag and phase margin
+
+Every pole in a system contributes phase lag that reaches 45° right at its corner frequency and approaches a full 90° well above it. A single dominant pole — most of an op-amp's usable range — contributes phase approaching −90°. Real op-amps have additional (higher-frequency) poles from other internal stages, which add further phase lag as frequency climbs toward and past the unity-gain frequency.
+
+This matters because of how the feedback loop actually behaves: if the total phase lag around the loop reaches a full 180° at the frequency where loop gain is still 1 (0 dB), the negative feedback the whole circuit depends on effectively becomes positive feedback — the circuit oscillates instead of amplifying.
+
+**Phase margin** is the safety cushion against that: 180° minus the total phase lag, measured at the frequency where loop gain crosses 0 dB. A single dominant pole alone gives close to 90° of margin (comfortably stable); each additional pole below the crossover frequency eats into it. Common design targets:
+
+- **≥ 45° phase margin** — generally considered the minimum for acceptable behavior.
+- **~60–65° phase margin** — a common sweet spot: well damped, minimal step-response overshoot, without sacrificing more bandwidth than necessary.
+- **< 45°** — increasing peaking in the frequency response and overshoot/ringing in the step response; margins approaching 0° mean sustained oscillation.
+
+## Reading a Bode plot
+
+The standard way this all gets presented: two stacked plots sharing a log-frequency x-axis. The magnitude plot (dB vs. frequency) shows straight-line segments — flat, then breaking downward by 20 dB/decade at each pole's corner. The phase plot (degrees vs. frequency) shows each pole's transition, passing through −45° at its own corner and flattening out near −90° roughly a decade above it. Reading both together at the loop's unity-gain crossover point is exactly how phase margin gets checked, whether by hand from a datasheet graph or automatically in simulation.

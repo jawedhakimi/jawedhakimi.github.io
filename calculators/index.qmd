@@ -9,4 +9,5 @@ Every calculator from the notebook, grouped by topic, plus a few extras — just
 - [Magnetics](magnetics.qmd) — solenoid inductance.
 - [Components](components.qmd) — diode series resistor, Zener regulator, BJT bias point, MOSFET conduction loss, SCR phase control.
 - [Power electronics](power-electronics.qmd) — buck, boost, buck-boost, RC/LC filter design.
+- [Integrated circuits](integrated-circuits.qmd) — op-amp gain, ratio/dB conversion, op-amp closed-loop bandwidth.
 - [Extra](extra.qmd) — resistor color code, capacitor charge and energy. Not in the notebook (yet).

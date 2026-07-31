@@ -136,7 +136,7 @@
     "href": "notebook.html",
     "title": "Notebook",
     "section": "",
-    "text": "A running notebook of what I’m learning — electrical engineering fundamentals, magnetics, components, power electronics, communication protocols, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers. For just the calculators without the derivations, see the Calculators section.\n\n\nElectrical engineering\n\nBasics\nOhm’s law, series/parallel resistance, voltage dividers, RC charging, and R/L/C impedance — five notes, each with a calculator.\nOpen chapter →\n\n\n\nMagnetics\n\nSolenoid inductance\nDeriving inductance from Ampere’s law, then correcting for a finite coil with Wheeler’s formula. Includes a live calculator.\nOpen note →\n\n\n\nComponents\n\nDiscrete semiconductors\nDiodes, Zener and Schottky diodes, BJTs, MOSFETs, and thyristors — how each works, the equations, and a calculator for each.\nOpen chapter →\n\n\n\nPower electronics\n\nBuck, boost, buck-boost, filters\nDuty cycle, inductor selection, and output filtering for the three core DC-DC topologies, plus RC/LC filter design.\nOpen chapter →\n\n\n\nProtocols\n\nUART, SPI, I2C, I2S, CAN, RS-232/485\nHow each bus works and what to think about wiring it into a real circuit — termination, pull-ups, level shifting, isolation.\nOpen chapter →\n\n\n\nIntegrated circuits\n\nOp-amp noise budgets\nWorking through input-referred noise for a transimpedance front end.\nComing soon\n\n\n\nMicrocontrollers\n\nTimer/PWM resolution\nChoosing prescaler and ARR values for a target frequency and duty resolution.\nComing soon\n\n\n\nSoftware\n\nFixed-point vs. float on MCUs\nWhen Q-format fixed point actually beats software float on a Cortex-M0.\nComing soon",
+    "text": "A running notebook of what I’m learning — electrical engineering fundamentals, magnetics, components, power electronics, communication protocols, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers. For just the calculators without the derivations, see the Calculators section.\n\n\nElectrical engineering\n\nBasics\nOhm’s law, series/parallel resistance, voltage dividers, RC charging, and R/L/C impedance — five notes, each with a calculator.\nOpen chapter →\n\n\n\nMagnetics\n\nSolenoid inductance\nDeriving inductance from Ampere’s law, then correcting for a finite coil with Wheeler’s formula. Includes a live calculator.\nOpen note →\n\n\n\nComponents\n\nDiscrete semiconductors\nDiodes, Zener and Schottky diodes, BJTs, MOSFETs, and thyristors — how each works, the equations, and a calculator for each.\nOpen chapter →\n\n\n\nPower electronics\n\nBuck, boost, buck-boost, filters\nDuty cycle, inductor selection, and output filtering for the three core DC-DC topologies, plus RC/LC filter design.\nOpen chapter →\n\n\n\nProtocols\n\nUART, SPI, I2C, I2S, CAN, RS-232/485\nHow each bus works and what to think about wiring it into a real circuit — termination, pull-ups, level shifting, isolation.\nOpen chapter →\n\n\n\nIntegrated circuits\n\nOp-amps, gain, and decibels\nGolden rules, five example circuits, where 20log(x) actually comes from, and gain-bandwidth product and phase margin.\nOpen chapter →\n\n\n\nMicrocontrollers\n\nTimer/PWM resolution\nChoosing prescaler and ARR values for a target frequency and duty resolution.\nComing soon\n\n\n\nSoftware\n\nFixed-point vs. float on MCUs\nWhen Q-format fixed point actually beats software float on a Cortex-M0.\nComing soon",
     "crumbs": [
       "Notebook"
     ]
@@ -420,81 +420,237 @@
     ]
   },
   {
-    "objectID": "calculators/power-electronics.html",
-    "href": "calculators/power-electronics.html",
-    "title": "Power electronics",
+    "objectID": "calculators/integrated-circuits.html",
+    "href": "calculators/integrated-circuits.html",
+    "title": "Integrated circuits",
     "section": "",
-    "text": "Full derivation: Buck converter.",
+    "text": "Full derivation: Op-amp basics.",
     "crumbs": [
       "Calculators",
-      "Power electronics"
+      "Integrated circuits"
     ]
   },
   {
-    "objectID": "calculators/power-electronics.html#buck-converter",
-    "href": "calculators/power-electronics.html#buck-converter",
-    "title": "Power electronics",
+    "objectID": "calculators/integrated-circuits.html#op-amp-gain-inverting-non-inverting",
+    "href": "calculators/integrated-circuits.html#op-amp-gain-inverting-non-inverting",
+    "title": "Integrated circuits",
     "section": "",
-    "text": "Full derivation: Buck converter.",
+    "text": "Full derivation: Op-amp basics.",
     "crumbs": [
       "Calculators",
-      "Power electronics"
+      "Integrated circuits"
     ]
   },
   {
-    "objectID": "calculators/power-electronics.html#boost-converter",
-    "href": "calculators/power-electronics.html#boost-converter",
-    "title": "Power electronics",
-    "section": "Boost converter",
-    "text": "Boost converter\n\nFull derivation: Boost converter.",
+    "objectID": "calculators/integrated-circuits.html#ratio-to-db-db-to-ratio",
+    "href": "calculators/integrated-circuits.html#ratio-to-db-db-to-ratio",
+    "title": "Integrated circuits",
+    "section": "Ratio to dB / dB to ratio",
+    "text": "Ratio to dB / dB to ratio\n\nFull derivation: Gain and decibels.",
     "crumbs": [
       "Calculators",
-      "Power electronics"
+      "Integrated circuits"
     ]
   },
   {
-    "objectID": "calculators/power-electronics.html#buck-boost-converter",
-    "href": "calculators/power-electronics.html#buck-boost-converter",
-    "title": "Power electronics",
-    "section": "Buck-boost converter",
-    "text": "Buck-boost converter\n\nFull derivation: Buck-boost converter.",
+    "objectID": "calculators/integrated-circuits.html#op-amp-closed-loop-bandwidth",
+    "href": "calculators/integrated-circuits.html#op-amp-closed-loop-bandwidth",
+    "title": "Integrated circuits",
+    "section": "Op-amp closed-loop bandwidth",
+    "text": "Op-amp closed-loop bandwidth\n\nFull derivation: Op-amp frequency response.",
     "crumbs": [
       "Calculators",
-      "Power electronics"
+      "Integrated circuits"
     ]
   },
   {
-    "objectID": "calculators/power-electronics.html#rc-low-pass-filter",
-    "href": "calculators/power-electronics.html#rc-low-pass-filter",
-    "title": "Power electronics",
-    "section": "RC low-pass filter",
-    "text": "RC low-pass filter\n\nFull derivation: LC and RC filter design.",
-    "crumbs": [
-      "Calculators",
-      "Power electronics"
-    ]
-  },
-  {
-    "objectID": "calculators/power-electronics.html#lc-low-pass-filter",
-    "href": "calculators/power-electronics.html#lc-low-pass-filter",
-    "title": "Power electronics",
-    "section": "LC low-pass filter",
-    "text": "LC low-pass filter\n\nSame page as above — full derivation: LC and RC filter design.",
-    "crumbs": [
-      "Calculators",
-      "Power electronics"
-    ]
-  },
-  {
-    "objectID": "software/index.html",
-    "href": "software/index.html",
-    "title": "Software",
+    "objectID": "calculators/magnetics.html",
+    "href": "calculators/magnetics.html",
+    "title": "Magnetics",
     "section": "",
-    "text": "Notes on the software side of embedded work coming here — starting with fixed-point vs. float on small MCUs.\nNothing published yet.",
+    "text": "Ideal (infinite) vs. Wheeler’s finite-coil approximation. Full derivation: Single-layer air-core solenoid.",
+    "crumbs": [
+      "Calculators",
+      "Magnetics"
+    ]
+  },
+  {
+    "objectID": "calculators/magnetics.html#solenoid-inductance",
+    "href": "calculators/magnetics.html#solenoid-inductance",
+    "title": "Magnetics",
+    "section": "",
+    "text": "Ideal (infinite) vs. Wheeler’s finite-coil approximation. Full derivation: Single-layer air-core solenoid.",
+    "crumbs": [
+      "Calculators",
+      "Magnetics"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/op-amp-basics.html",
+    "href": "integrated-circuits/op-amp-basics.html",
+    "title": "Op-amp basics and example circuits",
+    "section": "",
+    "text": "An operational amplifier is a high-gain differential amplifier IC: two inputs, one output, and an open-loop gain so large (typically 100,000 to over 1,000,000) that it’s almost never used open-loop. Nearly every real op-amp circuit wraps it in negative feedback — a resistor network feeding some of the output back to the inverting input — which trades away that enormous raw gain for precision, stability, and a gain set by resistors instead of by the (loosely specified, temperature-dependent) op-amp itself.",
     "crumbs": [
       "Notebook",
-      "Software",
-      "Software"
+      "Integrated circuits",
+      "Op-amp basics and example circuits"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/op-amp-basics.html#the-two-golden-rules",
+    "href": "integrated-circuits/op-amp-basics.html#the-two-golden-rules",
+    "title": "Op-amp basics and example circuits",
+    "section": "The two golden rules",
+    "text": "The two golden rules\nFor an ideal op-amp in a negative-feedback configuration:\n\nNo current flows into either input. Input impedance is effectively infinite.\nThe output does whatever it takes to force the two inputs to the same voltage — a “virtual short,” not an actual electrical connection, and it only holds while the feedback loop is active and the output isn’t saturated against a supply rail.\n\nEverything below follows from just those two rules plus Ohm’s law and KCL.",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Op-amp basics and example circuits"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/op-amp-basics.html#non-inverting-amplifier",
+    "href": "integrated-circuits/op-amp-basics.html#non-inverting-amplifier",
+    "title": "Op-amp basics and example circuits",
+    "section": "Non-inverting amplifier",
+    "text": "Non-inverting amplifier\nThe input goes straight to the non-inverting terminal; feedback resistor \\(R_f\\) and ground resistor \\(R_{in}\\) form a divider from output back to the inverting terminal.\nBy rule 2, \\(V_- = V_+ = V_{in}\\). \\(V_-\\) is also set by the feedback divider: \\(V_- = V_{out}\\frac{R_{in}}{R_{in}+R_f}\\). Setting these equal and solving for \\(V_{out}/V_{in}\\):\n\\[\nA_v = \\frac{V_{out}}{V_{in}} = 1 + \\frac{R_f}{R_{in}}\n\\]\nGain is always \\(\\geq 1\\), output is in phase with the input, and input impedance is very high (the op-amp’s own input impedance) — this is the configuration to reach for when the source can’t tolerate being loaded down.",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Op-amp basics and example circuits"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/op-amp-basics.html#inverting-amplifier",
+    "href": "integrated-circuits/op-amp-basics.html#inverting-amplifier",
+    "title": "Op-amp basics and example circuits",
+    "section": "Inverting amplifier",
+    "text": "Inverting amplifier\nThe input drives \\(R_{in}\\) into the inverting terminal; the non-inverting terminal ties to ground; \\(R_f\\) feeds back from output to the same inverting node.\nBy rule 2, \\(V_- = V_+ = 0\\) — a “virtual ground,” even though nothing is physically tied to ground there. By rule 1, all the current through \\(R_{in}\\) must continue through \\(R_f\\) (none can go into the op-amp input):\n\\[\n\\frac{V_{in} - 0}{R_{in}} = \\frac{0 - V_{out}}{R_f} \\quad \\Rightarrow \\quad A_v = -\\frac{R_f}{R_{in}}\n\\]\nOutput is inverted, gain magnitude can be less than, equal to, or greater than 1, and input impedance is just \\(R_{in}\\) — much lower than the non-inverting case, and worth checking against the source’s own output impedance.",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Op-amp basics and example circuits"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/op-amp-basics.html#voltage-follower-buffer",
+    "href": "integrated-circuits/op-amp-basics.html#voltage-follower-buffer",
+    "title": "Op-amp basics and example circuits",
+    "section": "Voltage follower (buffer)",
+    "text": "Voltage follower (buffer)\nThe extreme case of the non-inverting amp: \\(R_f = 0\\), \\(R_{in} = \\infty\\) (output tied directly to the inverting input, nothing else). Gain is exactly 1. Its entire purpose is impedance transformation — take a signal from a high-impedance, easily-loaded source and re-present it with the op-amp’s low output impedance, driving whatever comes next without disturbing the original signal.",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Op-amp basics and example circuits"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/op-amp-basics.html#summing-amplifier",
+    "href": "integrated-circuits/op-amp-basics.html#summing-amplifier",
+    "title": "Op-amp basics and example circuits",
+    "section": "Summing amplifier",
+    "text": "Summing amplifier\nAn inverting amplifier with multiple input resistors into the same virtual-ground node. By superposition:\n\\[\nV_{out} = -R_f\\left(\\frac{V_1}{R_1} + \\frac{V_2}{R_2} + \\cdots\\right)\n\\]\nEach input is weighted independently by its own resistor — the basis of analog audio mixers and resistor-ladder DACs.",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Op-amp basics and example circuits"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/op-amp-basics.html#difference-amplifier",
+    "href": "integrated-circuits/op-amp-basics.html#difference-amplifier",
+    "title": "Op-amp basics and example circuits",
+    "section": "Difference amplifier",
+    "text": "Difference amplifier\nTwo inputs, four resistors: \\(V_1\\) through \\(R_{in}\\) into the inverting node (with \\(R_f\\) feedback, as usual), \\(V_2\\) through a matched \\(R_{in}\\) into the non-inverting node (with a matched \\(R_f\\) to ground, setting up a divider). With all four resistors matched in ratio:\n\\[\nV_{out} = \\frac{R_f}{R_{in}}(V_2 - V_1)\n\\]\nResistor matching here isn’t just a nicety — mismatch directly degrades common-mode rejection, letting noise that’s identical on both inputs leak into the output instead of canceling. (An instrumentation amplifier IC solves this properly with laser-trimmed internal resistors and a buffered front end; this discrete version is the conceptual starting point.)",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Op-amp basics and example circuits"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/op-amp-basics.html#calculator-inverting-non-inverting-gain",
+    "href": "integrated-circuits/op-amp-basics.html#calculator-inverting-non-inverting-gain",
+    "title": "Op-amp basics and example circuits",
+    "section": "Calculator: inverting / non-inverting gain",
+    "text": "Calculator: inverting / non-inverting gain\n\n\n\nWhere that 20 × log10 comes from is its own topic — see Gain and decibels.",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Op-amp basics and example circuits"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/gain-and-decibels.html",
+    "href": "integrated-circuits/gain-and-decibels.html",
+    "title": "Gain and decibels",
+    "section": "",
+    "text": "Gain is just a ratio: output over input. A “gain of 11” means the output is 11 times the input — nothing more complicated than that. Decibels describe the exact same ratio on a logarithmic scale, and the reason that scale exists (and why it has two different-looking formulas) is worth actually deriving once rather than just memorizing.",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Gain and decibels"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/gain-and-decibels.html#where-the-decibel-comes-from",
+    "href": "integrated-circuits/gain-and-decibels.html#where-the-decibel-comes-from",
+    "title": "Gain and decibels",
+    "section": "Where the decibel comes from",
+    "text": "Where the decibel comes from\nThe unit originates with power ratios, from telephone engineering (the “Bel,” after Alexander Graham Bell, with “deci-” meaning a tenth of one):\n\\[\n\\text{dB} = 10 \\log_{10}\\left(\\frac{P_2}{P_1}\\right)\n\\]\nThat’s the fundamental definition. Everything else — including the \\(20\\log_{10}\\) used for voltage and current — is derived from this one.",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Gain and decibels"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/gain-and-decibels.html#deriving-the-20logx-form",
+    "href": "integrated-circuits/gain-and-decibels.html#deriving-the-20logx-form",
+    "title": "Gain and decibels",
+    "section": "Deriving the 20log(x) form",
+    "text": "Deriving the 20log(x) form\nPower dissipated in a resistance is \\(P = V^2/R\\). If we’re comparing a voltage ratio across equal impedances (same \\(R\\) on both sides), the power ratio is the square of the voltage ratio:\n\\[\n\\frac{P_2}{P_1} = \\frac{V_2^2/R}{V_1^2/R} = \\left(\\frac{V_2}{V_1}\\right)^2\n\\]\nSubstituting into the power dB formula and pulling the exponent out of the log (since \\(\\log(x^2) = 2\\log(x)\\)):\n\\[\n\\text{dB} = 10 \\log_{10}\\left(\\frac{V_2}{V_1}\\right)^2 = 10 \\times 2 \\times \\log_{10}\\left(\\frac{V_2}{V_1}\\right) = 20 \\log_{10}\\left(\\frac{V_2}{V_1}\\right)\n\\]\nThe 20 isn’t a different unit or a different rule — it’s just the 10 from the original power definition, times the 2 that came out of squaring the voltage ratio. Same logic gives \\(20\\log_{10}(I_2/I_1)\\) for current, since power also goes as \\(I^2R\\).\nOne honest caveat: that derivation assumed matched impedance on both sides of the ratio, which is exactly true for e.g. a coaxial cable’s attenuation and rarely exactly true for an op-amp stage’s voltage gain. In practice, \\(20\\log_{10}(\\text{ratio})\\) is used as the definition of a voltage or amplitude ratio in dB regardless of impedance matching — worth knowing where it historically comes from, without expecting a literal power interpretation from every voltage-gain dB figure you see on a datasheet.",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Gain and decibels"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/gain-and-decibels.html#reference-values-worth-just-knowing",
+    "href": "integrated-circuits/gain-and-decibels.html#reference-values-worth-just-knowing",
+    "title": "Gain and decibels",
+    "section": "Reference values worth just knowing",
+    "text": "Reference values worth just knowing\n\n\n\nRatio\nPower dB (10log)\nVoltage dB (20log)\n\n\n\n\n1×\n0 dB\n0 dB\n\n\n2×\n3.01 dB\n6.02 dB\n\n\n0.5×\n−3.01 dB\n−6.02 dB\n\n\n10×\n10 dB\n20 dB\n\n\n100×\n20 dB\n40 dB\n\n\n1000×\n30 dB\n60 dB\n\n\n0.1×\n−10 dB\n−20 dB\n\n\n\nThe “−3 dB point” people constantly refer to (a filter’s cutoff, an amplifier’s bandwidth limit) is exactly the half-power point: \\(10\\log_{10}(0.5) = -3.01\\,\\text{dB}\\), which corresponds to a voltage ratio of \\(1/\\sqrt{2} \\approx 0.707\\).",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Gain and decibels"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/gain-and-decibels.html#why-bother-with-logarithms-at-all",
+    "href": "integrated-circuits/gain-and-decibels.html#why-bother-with-logarithms-at-all",
+    "title": "Gain and decibels",
+    "section": "Why bother with logarithms at all",
+    "text": "Why bother with logarithms at all\nTwo practical reasons, beyond compressing huge ranges (a 120 dB op-amp open-loop gain is a ratio of 1,000,000 — far easier to write and reason about as “120 dB”):\nCascaded stages add instead of multiply. Three amplifier stages with gains of ×10, ×5, and ×2 multiply to ×100 in linear terms — but in dB, that’s 20 + 13.98 + 6.02 = 40 dB, a straight sum. For a signal chain with several stages, tracking dB and adding is far less error-prone than multiplying ratios by hand.\nIt matches how hearing works. The original motivation was audio — perceived loudness is roughly logarithmic in acoustic power, which is a large part of why dB became the standard unit for audio levels specifically, and then spread to RF and general electronics from there.",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Gain and decibels"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/gain-and-decibels.html#calculators",
+    "href": "integrated-circuits/gain-and-decibels.html#calculators",
+    "title": "Gain and decibels",
+    "section": "Calculators",
+    "text": "Calculators\n\nRatio to dB\n\n\n\n\n\ndB to ratio",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Gain and decibels"
     ]
   },
   {
@@ -1126,7 +1282,7 @@
     "href": "integrated-circuits/index.html",
     "title": "Integrated circuits",
     "section": "",
-    "text": "Notes on op-amps, ADCs/DACs, and general IC-level design coming here — starting with op-amp noise budgets.\nNothing published yet.",
+    "text": "Starting with the op-amp — the building block behind most analog signal conditioning — and the gain/dB/phase language used to describe it and every other amplifier stage.\n\nOp-amp basics and example circuits\nGain and decibels\nOp-amp frequency response\n\nMore ICs (ADCs, DACs, voltage references, comparators) coming as I work through them.",
     "crumbs": [
       "Notebook",
       "Integrated circuits",
@@ -1134,25 +1290,153 @@
     ]
   },
   {
-    "objectID": "calculators/magnetics.html",
-    "href": "calculators/magnetics.html",
-    "title": "Magnetics",
+    "objectID": "integrated-circuits/op-amp-frequency-response.html",
+    "href": "integrated-circuits/op-amp-frequency-response.html",
+    "title": "Op-amp frequency response",
     "section": "",
-    "text": "Ideal (infinite) vs. Wheeler’s finite-coil approximation. Full derivation: Single-layer air-core solenoid.",
+    "text": "The gain formulas on the op-amp basics page — \\(1 + R_f/R_{in}\\), \\(-R_f/R_{in}\\) — assume an ideal op-amp with infinite, frequency-independent open-loop gain. Real ones don’t have that, and the way they fall short shapes both how much bandwidth you actually get and whether the circuit stays stable at all.",
     "crumbs": [
-      "Calculators",
-      "Magnetics"
+      "Notebook",
+      "Integrated circuits",
+      "Op-amp frequency response"
     ]
   },
   {
-    "objectID": "calculators/magnetics.html#solenoid-inductance",
-    "href": "calculators/magnetics.html#solenoid-inductance",
-    "title": "Magnetics",
+    "objectID": "integrated-circuits/op-amp-frequency-response.html#open-loop-gain-isnt-flat",
+    "href": "integrated-circuits/op-amp-frequency-response.html#open-loop-gain-isnt-flat",
+    "title": "Op-amp frequency response",
+    "section": "Open-loop gain isn’t flat",
+    "text": "Open-loop gain isn’t flat\nA real op-amp’s open-loop gain is enormous at DC (typically 100 dB to 120 dB — a ratio of 100,000 to 1,000,000) but starts rolling off at a surprisingly low frequency, often just single-digit to tens of Hz. That’s deliberate: op-amps are internally frequency-compensated with a dominant pole specifically to keep the response falling at a predictable, well-behaved −20 dB/decade past that corner, all the way out to where the gain reaches unity (0 dB).",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Op-amp frequency response"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/op-amp-frequency-response.html#gain-bandwidth-product",
+    "href": "integrated-circuits/op-amp-frequency-response.html#gain-bandwidth-product",
+    "title": "Op-amp frequency response",
+    "section": "Gain-bandwidth product",
+    "text": "Gain-bandwidth product\nPast the dominant pole’s corner frequency, gain falls off as \\(1/f\\) — which means gain times frequency is constant. That constant is the gain-bandwidth product (GBW), a single number on every op-amp datasheet:\n\\[\nGBW = A_{open-loop} \\times f_{corner} = A_{closed-loop} \\times f_{-3dB, closed-loop}\n\\]\nBoth sides of that equation describe the same straight line on a log-log plot — one point on it is the open-loop DC gain and its corner frequency; every other point is some closed-loop gain and the bandwidth it gets. Rearranged into the form actually used when picking resistor values:\n\\[\nf_{-3dB} \\approx \\frac{GBW}{A_{noise\\ gain}}\n\\]\n“Noise gain” here means \\(1 + R_f/R_{in}\\) in both the inverting and non-inverting configurations — for the inverting amp specifically, that’s not the same as its signal gain (\\(-R_f/R_{in}\\)); the feedback network sets bandwidth according to the noise gain regardless of which input the signal actually enters.",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Op-amp frequency response"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/op-amp-frequency-response.html#calculator-closed-loop-bandwidth",
+    "href": "integrated-circuits/op-amp-frequency-response.html#calculator-closed-loop-bandwidth",
+    "title": "Op-amp frequency response",
+    "section": "Calculator: closed-loop bandwidth",
+    "text": "Calculator: closed-loop bandwidth\n\n\n\nMore gain always costs bandwidth, in direct proportion — a 10 MHz GBW part gives roughly 1 MHz of bandwidth at a noise gain of 10, or 100 kHz at a noise gain of 100. If a design needs both high gain and wide bandwidth, that’s usually solved with multiple lower-gain stages in series rather than one stage doing it all, since bandwidth divides by the product of per-stage gains but each stage individually only pays for its own gain.",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Op-amp frequency response"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/op-amp-frequency-response.html#phase-lag-and-phase-margin",
+    "href": "integrated-circuits/op-amp-frequency-response.html#phase-lag-and-phase-margin",
+    "title": "Op-amp frequency response",
+    "section": "Phase lag and phase margin",
+    "text": "Phase lag and phase margin\nEvery pole in a system contributes phase lag that reaches 45° right at its corner frequency and approaches a full 90° well above it. A single dominant pole — most of an op-amp’s usable range — contributes phase approaching −90°. Real op-amps have additional (higher-frequency) poles from other internal stages, which add further phase lag as frequency climbs toward and past the unity-gain frequency.\nThis matters because of how the feedback loop actually behaves: if the total phase lag around the loop reaches a full 180° at the frequency where loop gain is still 1 (0 dB), the negative feedback the whole circuit depends on effectively becomes positive feedback — the circuit oscillates instead of amplifying.\nPhase margin is the safety cushion against that: 180° minus the total phase lag, measured at the frequency where loop gain crosses 0 dB. A single dominant pole alone gives close to 90° of margin (comfortably stable); each additional pole below the crossover frequency eats into it. Common design targets:\n\n≥ 45° phase margin — generally considered the minimum for acceptable behavior.\n~60–65° phase margin — a common sweet spot: well damped, minimal step-response overshoot, without sacrificing more bandwidth than necessary.\n&lt; 45° — increasing peaking in the frequency response and overshoot/ringing in the step response; margins approaching 0° mean sustained oscillation.",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Op-amp frequency response"
+    ]
+  },
+  {
+    "objectID": "integrated-circuits/op-amp-frequency-response.html#reading-a-bode-plot",
+    "href": "integrated-circuits/op-amp-frequency-response.html#reading-a-bode-plot",
+    "title": "Op-amp frequency response",
+    "section": "Reading a Bode plot",
+    "text": "Reading a Bode plot\nThe standard way this all gets presented: two stacked plots sharing a log-frequency x-axis. The magnitude plot (dB vs. frequency) shows straight-line segments — flat, then breaking downward by 20 dB/decade at each pole’s corner. The phase plot (degrees vs. frequency) shows each pole’s transition, passing through −45° at its own corner and flattening out near −90° roughly a decade above it. Reading both together at the loop’s unity-gain crossover point is exactly how phase margin gets checked, whether by hand from a datasheet graph or automatically in simulation.",
+    "crumbs": [
+      "Notebook",
+      "Integrated circuits",
+      "Op-amp frequency response"
+    ]
+  },
+  {
+    "objectID": "software/index.html",
+    "href": "software/index.html",
+    "title": "Software",
     "section": "",
-    "text": "Ideal (infinite) vs. Wheeler’s finite-coil approximation. Full derivation: Single-layer air-core solenoid.",
+    "text": "Notes on the software side of embedded work coming here — starting with fixed-point vs. float on small MCUs.\nNothing published yet.",
+    "crumbs": [
+      "Notebook",
+      "Software",
+      "Software"
+    ]
+  },
+  {
+    "objectID": "calculators/power-electronics.html",
+    "href": "calculators/power-electronics.html",
+    "title": "Power electronics",
+    "section": "",
+    "text": "Full derivation: Buck converter.",
     "crumbs": [
       "Calculators",
-      "Magnetics"
+      "Power electronics"
+    ]
+  },
+  {
+    "objectID": "calculators/power-electronics.html#buck-converter",
+    "href": "calculators/power-electronics.html#buck-converter",
+    "title": "Power electronics",
+    "section": "",
+    "text": "Full derivation: Buck converter.",
+    "crumbs": [
+      "Calculators",
+      "Power electronics"
+    ]
+  },
+  {
+    "objectID": "calculators/power-electronics.html#boost-converter",
+    "href": "calculators/power-electronics.html#boost-converter",
+    "title": "Power electronics",
+    "section": "Boost converter",
+    "text": "Boost converter\n\nFull derivation: Boost converter.",
+    "crumbs": [
+      "Calculators",
+      "Power electronics"
+    ]
+  },
+  {
+    "objectID": "calculators/power-electronics.html#buck-boost-converter",
+    "href": "calculators/power-electronics.html#buck-boost-converter",
+    "title": "Power electronics",
+    "section": "Buck-boost converter",
+    "text": "Buck-boost converter\n\nFull derivation: Buck-boost converter.",
+    "crumbs": [
+      "Calculators",
+      "Power electronics"
+    ]
+  },
+  {
+    "objectID": "calculators/power-electronics.html#rc-low-pass-filter",
+    "href": "calculators/power-electronics.html#rc-low-pass-filter",
+    "title": "Power electronics",
+    "section": "RC low-pass filter",
+    "text": "RC low-pass filter\n\nFull derivation: LC and RC filter design.",
+    "crumbs": [
+      "Calculators",
+      "Power electronics"
+    ]
+  },
+  {
+    "objectID": "calculators/power-electronics.html#lc-low-pass-filter",
+    "href": "calculators/power-electronics.html#lc-low-pass-filter",
+    "title": "Power electronics",
+    "section": "LC low-pass filter",
+    "text": "LC low-pass filter\n\nSame page as above — full derivation: LC and RC filter design.",
+    "crumbs": [
+      "Calculators",
+      "Power electronics"
     ]
   },
   {
@@ -1160,7 +1444,7 @@
     "href": "calculators/index.html",
     "title": "Calculators",
     "section": "",
-    "text": "Every calculator from the notebook, grouped by topic, plus a few extras — just the calculator, no derivation. Each one links back to its full write-up in the Notebook if you want the math behind it.\n\nElectrical engineering basics — Ohm’s law, series/parallel resistance, voltage divider, RC time constant, R/L/C impedance.\nMagnetics — solenoid inductance.\nComponents — diode series resistor, Zener regulator, BJT bias point, MOSFET conduction loss, SCR phase control.\nPower electronics — buck, boost, buck-boost, RC/LC filter design.\nExtra — resistor color code, capacitor charge and energy. Not in the notebook (yet).",
+    "text": "Every calculator from the notebook, grouped by topic, plus a few extras — just the calculator, no derivation. Each one links back to its full write-up in the Notebook if you want the math behind it.\n\nElectrical engineering basics — Ohm’s law, series/parallel resistance, voltage divider, RC time constant, R/L/C impedance.\nMagnetics — solenoid inductance.\nComponents — diode series resistor, Zener regulator, BJT bias point, MOSFET conduction loss, SCR phase control.\nPower electronics — buck, boost, buck-boost, RC/LC filter design.\nIntegrated circuits — op-amp gain, ratio/dB conversion, op-amp closed-loop bandwidth.\nExtra — resistor color code, capacitor charge and energy. Not in the notebook (yet).",
     "crumbs": [
       "Calculators"
     ]

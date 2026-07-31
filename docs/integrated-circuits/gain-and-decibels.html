@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Diodes – The Bench Notebook</title>
+<title>Gain and decibels – The Bench Notebook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../components/index.html">Components</a></li><li class="breadcrumb-item"><a href="../components/diodes.html">Diodes</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../integrated-circuits/index.html">Integrated circuits</a></li><li class="breadcrumb-item"><a href="../integrated-circuits/gain-and-decibels.html">Gain and decibels</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -251,7 +251,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../components/diodes.html" class="sidebar-item-text sidebar-link active">
+  <a href="../components/diodes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Diodes</span></a>
   </div>
 </li>
@@ -398,7 +398,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../integrated-circuits/gain-and-decibels.html" class="sidebar-item-text sidebar-link">
+  <a href="../integrated-circuits/gain-and-decibels.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Gain and decibels</span></a>
   </div>
 </li>
@@ -454,20 +454,25 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-pn-junction" id="toc-the-pn-junction" class="nav-link active" data-scroll-target="#the-pn-junction">The PN junction</a></li>
-  <li><a href="#the-diode-equation" id="toc-the-diode-equation" class="nav-link" data-scroll-target="#the-diode-equation">The diode equation</a></li>
-  <li><a href="#rectification" id="toc-rectification" class="nav-link" data-scroll-target="#rectification">Rectification</a></li>
-  <li><a href="#calculator-series-resistor-for-a-diode-or-led" id="toc-calculator-series-resistor-for-a-diode-or-led" class="nav-link" data-scroll-target="#calculator-series-resistor-for-a-diode-or-led">Calculator: series resistor for a diode or LED</a></li>
+  <li><a href="#where-the-decibel-comes-from" id="toc-where-the-decibel-comes-from" class="nav-link active" data-scroll-target="#where-the-decibel-comes-from">Where the decibel comes from</a></li>
+  <li><a href="#deriving-the-20logx-form" id="toc-deriving-the-20logx-form" class="nav-link" data-scroll-target="#deriving-the-20logx-form">Deriving the 20log(x) form</a></li>
+  <li><a href="#reference-values-worth-just-knowing" id="toc-reference-values-worth-just-knowing" class="nav-link" data-scroll-target="#reference-values-worth-just-knowing">Reference values worth just knowing</a></li>
+  <li><a href="#why-bother-with-logarithms-at-all" id="toc-why-bother-with-logarithms-at-all" class="nav-link" data-scroll-target="#why-bother-with-logarithms-at-all">Why bother with logarithms at all</a></li>
+  <li><a href="#calculators" id="toc-calculators" class="nav-link" data-scroll-target="#calculators">Calculators</a>
+  <ul class="collapse">
+  <li><a href="#ratio-to-db" id="toc-ratio-to-db" class="nav-link" data-scroll-target="#ratio-to-db">Ratio to dB</a></li>
+  <li><a href="#db-to-ratio" id="toc-db-to-ratio" class="nav-link" data-scroll-target="#db-to-ratio">dB to ratio</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../components/index.html">Components</a></li><li class="breadcrumb-item"><a href="../components/diodes.html">Diodes</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../integrated-circuits/index.html">Integrated circuits</a></li><li class="breadcrumb-item"><a href="../integrated-circuits/gain-and-decibels.html">Gain and decibels</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Diodes</h1>
-<p class="subtitle lead">Components</p>
+<h1 class="title">Gain and decibels</h1>
+<p class="subtitle lead">Integrated circuits</p>
 </div>
 
 
@@ -484,64 +489,137 @@ window.Quarto = {
 </header>
 
 
-<section id="the-pn-junction" class="level2">
-<h2 class="anchored" data-anchor-id="the-pn-junction">The PN junction</h2>
-<p>A diode is a single junction between P-type material (doped with acceptor atoms, majority carriers are holes) and N-type material (doped with donor atoms, majority carriers are electrons). Where they meet, carriers diffuse across and recombine, leaving behind a region stripped of free carriers — the depletion region — with a built-in electric field opposing further diffusion.</p>
-<p>Forward bias (P side positive relative to N) narrows the depletion region and, past a threshold, lets current flow easily. Reverse bias widens it and current stays near zero — until reverse breakdown.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../assets/img/diode-symbol-iv.png" class="img-fluid figure-img"></p>
-<figcaption>Fig. 1 — diode symbol, and current vs.&nbsp;voltage for both bias directions.</figcaption>
-</figure>
-</div>
-</section>
-<section id="the-diode-equation" class="level2">
-<h2 class="anchored" data-anchor-id="the-diode-equation">The diode equation</h2>
+<p>Gain is just a ratio: output over input. A “gain of 11” means the output is 11 times the input — nothing more complicated than that. Decibels describe the exact same ratio on a logarithmic scale, and the reason that scale exists (and why it has two different-looking formulas) is worth actually deriving once rather than just memorizing.</p>
+<section id="where-the-decibel-comes-from" class="level2">
+<h2 class="anchored" data-anchor-id="where-the-decibel-comes-from">Where the decibel comes from</h2>
+<p>The unit originates with power ratios, from telephone engineering (the “Bel,” after Alexander Graham Bell, with “deci-” meaning a tenth of one):</p>
 <p><span class="math display">\[
-I = I_S \left( e^{V / (nV_T)} - 1 \right)
+\text{dB} = 10 \log_{10}\left(\frac{P_2}{P_1}\right)
 \]</span></p>
-<p><span class="math inline">\(I_S\)</span> is the reverse saturation current (tiny, often pA–nA), <span class="math inline">\(n\)</span> is the ideality factor (close to 1 for a good diode), and <span class="math inline">\(V_T = kT/q \approx 25.85\,\text{mV}\)</span> at room temperature. The exponential is why forward voltage looks almost like a fixed ~0.6–0.7 V (silicon) rather than a smooth ramp — current changes by roughly 10× for every ~60 mV of forward voltage.</p>
-<p>Forward voltage drops slightly with temperature, about <span class="math inline">\(-2\,\text{mV/°C}\)</span> for silicon — worth remembering when a design runs hot.</p>
+<p>That’s the fundamental definition. Everything else — including the <span class="math inline">\(20\log_{10}\)</span> used for voltage and current — is derived from this one.</p>
 </section>
-<section id="rectification" class="level2">
-<h2 class="anchored" data-anchor-id="rectification">Rectification</h2>
-<p>A single diode passes only one half of an AC waveform (half-wave rectification). Four diodes in a bridge pass both halves in the same direction (full-wave), roughly doubling the ripple frequency seen by the output filter capacitor and halving the required capacitance for the same ripple — the same <span class="math inline">\(C = \Delta I / (f \cdot \Delta V)\)</span> relationship as the buck converter’s output cap, just driven by load current instead of inductor ripple current.</p>
-</section>
-<section id="calculator-series-resistor-for-a-diode-or-led" class="level2">
-<h2 class="anchored" data-anchor-id="calculator-series-resistor-for-a-diode-or-led">Calculator: series resistor for a diode or LED</h2>
-<p>The most common practical use of the diode equation: given a supply and a target forward current, size the series resistor. Treats the diode’s forward drop as roughly constant, which is accurate enough for design work once <span class="math inline">\(V_f\)</span> is known from a datasheet.</p>
+<section id="deriving-the-20logx-form" class="level2">
+<h2 class="anchored" data-anchor-id="deriving-the-20logx-form">Deriving the 20log(x) form</h2>
+<p>Power dissipated in a resistance is <span class="math inline">\(P = V^2/R\)</span>. If we’re comparing a voltage ratio across equal impedances (same <span class="math inline">\(R\)</span> on both sides), the power ratio is the <em>square</em> of the voltage ratio:</p>
 <p><span class="math display">\[
-R = \frac{V_{supply} - V_f}{I_f}
+\frac{P_2}{P_1} = \frac{V_2^2/R}{V_1^2/R} = \left(\frac{V_2}{V_1}\right)^2
 \]</span></p>
-<div id="diode-r-calc"></div>
+<p>Substituting into the power dB formula and pulling the exponent out of the log (since <span class="math inline">\(\log(x^2) = 2\log(x)\)</span>):</p>
+<p><span class="math display">\[
+\text{dB} = 10 \log_{10}\left(\frac{V_2}{V_1}\right)^2 = 10 \times 2 \times \log_{10}\left(\frac{V_2}{V_1}\right) = 20 \log_{10}\left(\frac{V_2}{V_1}\right)
+\]</span></p>
+<p>The 20 isn’t a different unit or a different rule — it’s just the 10 from the original power definition, times the 2 that came out of squaring the voltage ratio. Same logic gives <span class="math inline">\(20\log_{10}(I_2/I_1)\)</span> for current, since power also goes as <span class="math inline">\(I^2R\)</span>.</p>
+<p>One honest caveat: that derivation assumed matched impedance on both sides of the ratio, which is exactly true for e.g.&nbsp;a coaxial cable’s attenuation and rarely exactly true for an op-amp stage’s voltage gain. In practice, <span class="math inline">\(20\log_{10}(\text{ratio})\)</span> is used as <em>the</em> definition of a voltage or amplitude ratio in dB regardless of impedance matching — worth knowing where it historically comes from, without expecting a literal power interpretation from every voltage-gain dB figure you see on a datasheet.</p>
+</section>
+<section id="reference-values-worth-just-knowing" class="level2">
+<h2 class="anchored" data-anchor-id="reference-values-worth-just-knowing">Reference values worth just knowing</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Ratio</th>
+<th>Power dB (10log)</th>
+<th>Voltage dB (20log)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1×</td>
+<td>0 dB</td>
+<td>0 dB</td>
+</tr>
+<tr class="even">
+<td>2×</td>
+<td>3.01 dB</td>
+<td>6.02 dB</td>
+</tr>
+<tr class="odd">
+<td>0.5×</td>
+<td>−3.01 dB</td>
+<td>−6.02 dB</td>
+</tr>
+<tr class="even">
+<td>10×</td>
+<td>10 dB</td>
+<td>20 dB</td>
+</tr>
+<tr class="odd">
+<td>100×</td>
+<td>20 dB</td>
+<td>40 dB</td>
+</tr>
+<tr class="even">
+<td>1000×</td>
+<td>30 dB</td>
+<td>60 dB</td>
+</tr>
+<tr class="odd">
+<td>0.1×</td>
+<td>−10 dB</td>
+<td>−20 dB</td>
+</tr>
+</tbody>
+</table>
+<p>The “−3 dB point” people constantly refer to (a filter’s cutoff, an amplifier’s bandwidth limit) is exactly the half-power point: <span class="math inline">\(10\log_{10}(0.5) = -3.01\,\text{dB}\)</span>, which corresponds to a voltage ratio of <span class="math inline">\(1/\sqrt{2} \approx 0.707\)</span>.</p>
+</section>
+<section id="why-bother-with-logarithms-at-all" class="level2">
+<h2 class="anchored" data-anchor-id="why-bother-with-logarithms-at-all">Why bother with logarithms at all</h2>
+<p>Two practical reasons, beyond compressing huge ranges (a 120 dB op-amp open-loop gain is a ratio of 1,000,000 — far easier to write and reason about as “120 dB”):</p>
+<p><strong>Cascaded stages add instead of multiply.</strong> Three amplifier stages with gains of ×10, ×5, and ×2 multiply to ×100 in linear terms — but in dB, that’s 20 + 13.98 + 6.02 = 40 dB, a straight sum. For a signal chain with several stages, tracking dB and adding is far less error-prone than multiplying ratios by hand.</p>
+<p><strong>It matches how hearing works.</strong> The original motivation was audio — perceived loudness is roughly logarithmic in acoustic power, which is a large part of why dB became the standard unit for audio levels specifically, and then spread to RF and general electronics from there.</p>
+</section>
+<section id="calculators" class="level2">
+<h2 class="anchored" data-anchor-id="calculators">Calculators</h2>
+<section id="ratio-to-db" class="level3">
+<h3 class="anchored" data-anchor-id="ratio-to-db">Ratio to dB</h3>
+<div id="ratio-to-db"></div>
 <script src="../assets/js/calc-engine.js"></script>
 <script>
 Calc.create({
-  root: "diode-r-calc",
+  root: "ratio-to-db",
   inputs: [
-    { id: "Vs", label: "Supply (V)", value: 5, min: 0, step: 0.1 },
-    { id: "Vf", label: "Diode Vf (V)", value: 2, min: 0, step: 0.05 },
-    { id: "If", label: "Target If (mA)", value: 20, min: 0.01, step: 1 }
+    { id: "ratio", label: "Ratio (x times)", value: 11, min: 0.0000001, step: 0.1 },
+    { id: "kind", label: "Quantity", type: "select", value: "voltage", options: [
+      { value: "voltage", label: "Voltage / current (20log)" },
+      { value: "power", label: "Power (10log)" }
+    ] }
   ],
   outputs: [
-    { id: "R", label: "Series R" },
-    { id: "P", label: "Resistor power" }
+    { id: "db", label: "dB" }
   ],
   compute: function (v) {
-    var drop = v.Vs - v.Vf;
-    if (drop <= 0 || v.If <= 0) return { R: "invalid", P: "-" };
-    var I = v.If / 1000;
-    var R = drop / I;
-    var P = drop * I;
-    return {
-      R: R.toFixed(1) + " Ω",
-      P: (P * 1000).toFixed(1) + " mW"
-    };
+    if (v.ratio <= 0) return { db: "-" };
+    var mult = v.kind === "power" ? 10 : 20;
+    return { db: (mult * Math.log10(v.ratio)).toFixed(2) + " dB" };
+  }
+});
+</script>
+</section>
+<section id="db-to-ratio" class="level3">
+<h3 class="anchored" data-anchor-id="db-to-ratio">dB to ratio</h3>
+<div id="db-to-ratio"></div>
+<script>
+Calc.create({
+  root: "db-to-ratio",
+  inputs: [
+    { id: "db", label: "dB", value: 20, step: 0.5 },
+    { id: "kind", label: "Quantity", type: "select", value: "voltage", options: [
+      { value: "voltage", label: "Voltage / current (20log)" },
+      { value: "power", label: "Power (10log)" }
+    ] }
+  ],
+  outputs: [
+    { id: "ratio", label: "Ratio (x times)" }
+  ],
+  compute: function (v) {
+    var div = v.kind === "power" ? 10 : 20;
+    var ratio = Math.pow(10, v.db / div);
+    return { ratio: ratio.toFixed(4) + "×" };
   }
 });
 </script>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
