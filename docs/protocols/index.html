@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Series and parallel resistance – The Bench Notebook</title>
+<title>Protocols – The Bench Notebook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -75,40 +75,11 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed fullcontent quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -152,7 +123,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../electrical-engineering/index.html">Electrical engineering basics</a></li><li class="breadcrumb-item"><a href="../electrical-engineering/series-parallel-resistance.html">Series and parallel resistance</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../protocols/index.html">Protocols</a></li><li class="breadcrumb-item"><a href="../protocols/index.html">Protocols</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -193,7 +164,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link active">
+  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Series and parallel resistance</span></a>
   </div>
 </li>
@@ -333,7 +304,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../protocols/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../protocols/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Protocols</span></a>
   </div>
 </li>
@@ -431,24 +402,13 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#series" id="toc-series" class="nav-link active" data-scroll-target="#series">Series</a></li>
-  <li><a href="#parallel" id="toc-parallel" class="nav-link" data-scroll-target="#parallel">Parallel</a></li>
-  <li><a href="#calculator" id="toc-calculator" class="nav-link" data-scroll-target="#calculator">Calculator</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../electrical-engineering/index.html">Electrical engineering basics</a></li><li class="breadcrumb-item"><a href="../electrical-engineering/series-parallel-resistance.html">Series and parallel resistance</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../protocols/index.html">Protocols</a></li><li class="breadcrumb-item"><a href="../protocols/index.html">Protocols</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Series and parallel resistance</h1>
-<p class="subtitle lead">Electrical engineering basics</p>
+<h1 class="title">Protocols</h1>
 </div>
 
 
@@ -465,54 +425,86 @@ window.Quarto = {
 </header>
 
 
-<section id="series" class="level2">
-<h2 class="anchored" data-anchor-id="series">Series</h2>
-<p>Resistors in series share the same current, and their voltage drops add — so resistance simply sums:</p>
-<p><span class="math display">\[
-R_{series} = R_1 + R_2 + R_3
-\]</span></p>
-</section>
-<section id="parallel" class="level2">
-<h2 class="anchored" data-anchor-id="parallel">Parallel</h2>
-<p>Resistors in parallel share the same voltage, and their currents add, giving a reciprocal sum:</p>
-<p><span class="math display">\[
-\frac{1}{R_{parallel}} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}
-\]</span></p>
-<p>The parallel combination is always smaller than the smallest individual resistor — adding a path for current can only make it easier for current to flow.</p>
-</section>
-<section id="calculator" class="level2">
-<h2 class="anchored" data-anchor-id="calculator">Calculator</h2>
-<p>Leave a value at 0 to exclude that resistor (treated as not present).</p>
-<div id="rseries-calc"></div>
-<script src="../assets/js/calc-engine.js"></script>
-<script>
-Calc.create({
-  root: "rseries-calc",
-  inputs: [
-    { id: "R1", label: "R1 (Ω)", value: 100, min: 0, step: 1 },
-    { id: "R2", label: "R2 (Ω)", value: 220, min: 0, step: 1 },
-    { id: "R3", label: "R3 (Ω)", value: 0, min: 0, step: 1 }
-  ],
-  outputs: [
-    { id: "series", label: "R series" },
-    { id: "parallel", label: "R parallel" }
-  ],
-  compute: function (v) {
-    var rs = [v.R1, v.R2, v.R3].filter(function (r) { return r > 0; });
-    if (rs.length === 0) return { series: "-", parallel: "-" };
-    var sum = rs.reduce(function (a, b) { return a + b; }, 0);
-    var invSum = rs.reduce(function (a, b) { return a + 1 / b; }, 0);
-    var par = invSum > 0 ? 1 / invSum : 0;
-    return {
-      series: sum.toFixed(2) + " Ω",
-      parallel: par.toFixed(2) + " Ω"
-    };
-  }
-});
-</script>
+<p>How the common communication buses actually work at the wire level, and the circuit-level decisions each one forces — termination, pull-ups, level shifting, isolation, cable length.</p>
+<ul>
+<li><a href="../protocols/uart.html">UART</a></li>
+<li><a href="../protocols/rs232-rs485.html">RS-232 and RS-485</a></li>
+<li><a href="../protocols/i2c.html">I2C</a></li>
+<li><a href="../protocols/spi.html">SPI</a></li>
+<li><a href="../protocols/i2s.html">I2S</a></li>
+<li><a href="../protocols/can.html">CAN</a></li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Protocol</th>
+<th>Wires</th>
+<th>Topology</th>
+<th>Typical speed</th>
+<th>Addressing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>UART</td>
+<td>2 (TX/RX) + GND</td>
+<td>Point-to-point</td>
+<td>Up to a few Mbps</td>
+<td>None</td>
+</tr>
+<tr class="even">
+<td>RS-232</td>
+<td>2–3 signal + GND</td>
+<td>Point-to-point</td>
+<td>Up to ~1 Mbps, short range</td>
+<td>None</td>
+</tr>
+<tr class="odd">
+<td>RS-485</td>
+<td>2 (differential) + GND</td>
+<td>Multi-drop bus</td>
+<td>Up to 10 Mbps (short), 100 kbps at 1200 m</td>
+<td>Software (in-band)</td>
+</tr>
+<tr class="even">
+<td>I2C</td>
+<td>2 (SDA/SCL) + GND</td>
+<td>Multi-drop bus</td>
+<td>100 kHz – 3.4 MHz</td>
+<td>7/10-bit hardware address</td>
+</tr>
+<tr class="odd">
+<td>SPI</td>
+<td>4 (MOSI/MISO/SCK/CS)</td>
+<td>Point-to-point (per CS)</td>
+<td>Tens of MHz</td>
+<td>Chip-select line</td>
+</tr>
+<tr class="even">
+<td>I2S</td>
+<td>3 (BCLK/WS/SD)</td>
+<td>Point-to-point</td>
+<td>Set by sample rate</td>
+<td>None</td>
+</tr>
+<tr class="odd">
+<td>CAN</td>
+<td>2 (differential) + GND</td>
+<td>Multi-drop bus</td>
+<td>Up to 1 Mbps (FD: up to ~8 Mbps)</td>
+<td>Message ID, not device</td>
+</tr>
+</tbody>
+</table>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

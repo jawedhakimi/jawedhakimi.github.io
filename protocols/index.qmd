@@ -1,0 +1,23 @@
+---
+title: "Protocols"
+toc: false
+---
+
+How the common communication buses actually work at the wire level, and the circuit-level decisions each one forces — termination, pull-ups, level shifting, isolation, cable length.
+
+- [UART](uart.qmd)
+- [RS-232 and RS-485](rs232-rs485.qmd)
+- [I2C](i2c.qmd)
+- [SPI](spi.qmd)
+- [I2S](i2s.qmd)
+- [CAN](can.qmd)
+
+| Protocol | Wires | Topology | Typical speed | Addressing |
+|---|---|---|---|---|
+| UART | 2 (TX/RX) + GND | Point-to-point | Up to a few Mbps | None |
+| RS-232 | 2–3 signal + GND | Point-to-point | Up to ~1 Mbps, short range | None |
+| RS-485 | 2 (differential) + GND | Multi-drop bus | Up to 10 Mbps (short), 100 kbps at 1200 m | Software (in-band) |
+| I2C | 2 (SDA/SCL) + GND | Multi-drop bus | 100 kHz – 3.4 MHz | 7/10-bit hardware address |
+| SPI | 4 (MOSI/MISO/SCK/CS) | Point-to-point (per CS) | Tens of MHz | Chip-select line |
+| I2S | 3 (BCLK/WS/SD) | Point-to-point | Set by sample rate | None |
+| CAN | 2 (differential) + GND | Multi-drop bus | Up to 1 Mbps (FD: up to ~8 Mbps) | Message ID, not device |

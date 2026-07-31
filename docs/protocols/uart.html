@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Series and parallel resistance – The Bench Notebook</title>
+<title>UART – The Bench Notebook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../electrical-engineering/index.html">Electrical engineering basics</a></li><li class="breadcrumb-item"><a href="../electrical-engineering/series-parallel-resistance.html">Series and parallel resistance</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../protocols/index.html">Protocols</a></li><li class="breadcrumb-item"><a href="../protocols/uart.html">UART</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -193,7 +193,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link active">
+  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Series and parallel resistance</span></a>
   </div>
 </li>
@@ -339,7 +339,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../protocols/uart.html" class="sidebar-item-text sidebar-link">
+  <a href="../protocols/uart.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">UART</span></a>
   </div>
 </li>
@@ -436,19 +436,19 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#series" id="toc-series" class="nav-link active" data-scroll-target="#series">Series</a></li>
-  <li><a href="#parallel" id="toc-parallel" class="nav-link" data-scroll-target="#parallel">Parallel</a></li>
-  <li><a href="#calculator" id="toc-calculator" class="nav-link" data-scroll-target="#calculator">Calculator</a></li>
+  <li><a href="#framing" id="toc-framing" class="nav-link active" data-scroll-target="#framing">Framing</a></li>
+  <li><a href="#calculator-bit-time-and-frame-time" id="toc-calculator-bit-time-and-frame-time" class="nav-link" data-scroll-target="#calculator-bit-time-and-frame-time">Calculator: bit time and frame time</a></li>
+  <li><a href="#implementing-it-in-circuit" id="toc-implementing-it-in-circuit" class="nav-link" data-scroll-target="#implementing-it-in-circuit">Implementing it in circuit</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../electrical-engineering/index.html">Electrical engineering basics</a></li><li class="breadcrumb-item"><a href="../electrical-engineering/series-parallel-resistance.html">Series and parallel resistance</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../protocols/index.html">Protocols</a></li><li class="breadcrumb-item"><a href="../protocols/uart.html">UART</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Series and parallel resistance</h1>
-<p class="subtitle lead">Electrical engineering basics</p>
+<h1 class="title">UART</h1>
+<p class="subtitle lead">Protocols</p>
 </div>
 
 
@@ -465,51 +465,58 @@ window.Quarto = {
 </header>
 
 
-<section id="series" class="level2">
-<h2 class="anchored" data-anchor-id="series">Series</h2>
-<p>Resistors in series share the same current, and their voltage drops add — so resistance simply sums:</p>
+<p>A Universal Asynchronous Receiver/Transmitter sends bytes with no shared clock line — timing is agreed in advance (the baud rate) and each byte is framed with start/stop bits so the receiver can find the edges on its own.</p>
+<section id="framing" class="level2">
+<h2 class="anchored" data-anchor-id="framing">Framing</h2>
+<p>Idle line sits high. A frame is: one start bit (line pulled low), 5–9 data bits (LSB first), an optional parity bit, then one or more stop bits (line released high):</p>
 <p><span class="math display">\[
-R_{series} = R_1 + R_2 + R_3
+\text{frame bits} = 1 + \text{data bits} + [\text{parity?} 1 : 0] + \text{stop bits}
 \]</span></p>
+<p>Both ends must agree on baud rate, data bits, parity, and stop bits beforehand — there’s no negotiation. Get any of the four wrong and you get garbage or nothing.</p>
 </section>
-<section id="parallel" class="level2">
-<h2 class="anchored" data-anchor-id="parallel">Parallel</h2>
-<p>Resistors in parallel share the same voltage, and their currents add, giving a reciprocal sum:</p>
-<p><span class="math display">\[
-\frac{1}{R_{parallel}} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}
-\]</span></p>
-<p>The parallel combination is always smaller than the smallest individual resistor — adding a path for current can only make it easier for current to flow.</p>
-</section>
-<section id="calculator" class="level2">
-<h2 class="anchored" data-anchor-id="calculator">Calculator</h2>
-<p>Leave a value at 0 to exclude that resistor (treated as not present).</p>
-<div id="rseries-calc"></div>
+<section id="calculator-bit-time-and-frame-time" class="level2">
+<h2 class="anchored" data-anchor-id="calculator-bit-time-and-frame-time">Calculator: bit time and frame time</h2>
+<div id="uart-calc"></div>
 <script src="../assets/js/calc-engine.js"></script>
 <script>
 Calc.create({
-  root: "rseries-calc",
+  root: "uart-calc",
   inputs: [
-    { id: "R1", label: "R1 (Ω)", value: 100, min: 0, step: 1 },
-    { id: "R2", label: "R2 (Ω)", value: 220, min: 0, step: 1 },
-    { id: "R3", label: "R3 (Ω)", value: 0, min: 0, step: 1 }
+    { id: "baud", label: "Baud rate", value: 115200, min: 1, step: 100 },
+    { id: "dataBits", label: "Data bits", value: 8, min: 5, step: 1 },
+    { id: "parity", label: "Parity", type: "select", value: "none", options: [
+      { value: "none", label: "None" },
+      { value: "even", label: "Even" },
+      { value: "odd", label: "Odd" }
+    ] },
+    { id: "stopBits", label: "Stop bits", type: "select", value: "1", options: ["1", "1.5", "2"] }
   ],
   outputs: [
-    { id: "series", label: "R series" },
-    { id: "parallel", label: "R parallel" }
+    { id: "bitTime", label: "Bit time" },
+    { id: "frameBits", label: "Frame bits" },
+    { id: "frameTime", label: "Frame time" }
   ],
   compute: function (v) {
-    var rs = [v.R1, v.R2, v.R3].filter(function (r) { return r > 0; });
-    if (rs.length === 0) return { series: "-", parallel: "-" };
-    var sum = rs.reduce(function (a, b) { return a + b; }, 0);
-    var invSum = rs.reduce(function (a, b) { return a + 1 / b; }, 0);
-    var par = invSum > 0 ? 1 / invSum : 0;
+    if (v.baud <= 0) return { bitTime: "-", frameBits: "-", frameTime: "-" };
+    var bitTimeUs = 1e6 / v.baud;
+    var parityBit = v.parity === "none" ? 0 : 1;
+    var frameBits = 1 + v.dataBits + parityBit + parseFloat(v.stopBits);
+    var frameTimeUs = frameBits * bitTimeUs;
     return {
-      series: sum.toFixed(2) + " Ω",
-      parallel: par.toFixed(2) + " Ω"
+      bitTime: bitTimeUs.toFixed(2) + " µs",
+      frameBits: frameBits.toString(),
+      frameTime: frameTimeUs.toFixed(2) + " µs"
     };
   }
 });
 </script>
+</section>
+<section id="implementing-it-in-circuit" class="level2">
+<h2 class="anchored" data-anchor-id="implementing-it-in-circuit">Implementing it in circuit</h2>
+<p><strong>Voltage levels first.</strong> A microcontroller’s UART pins swing between 0 V and its logic supply (3.3 V or 5 V) — that’s TTL/CMOS-level UART, not RS-232 (see the next page). Connecting a 5 V UART TX directly into a 3.3 V-only RX pin can overstress the input; check the receiving device’s absolute maximum, and add a level shifter or a simple resistor divider if there’s any doubt.</p>
+<p><strong>TX goes to RX.</strong> Obvious once stated, a common wiring mistake otherwise — device A’s TX connects to device B’s RX, and vice versa. Boards labeled from the device’s own perspective (a USB-serial adapter’s “TX” is what <em>it</em> transmits) make this easy to get backwards.</p>
+<p><strong>Common ground is mandatory.</strong> UART is single-ended — the receiver decides high/low relative to its own ground pin. If the two devices don’t share a ground reference (separate power supplies, long cable runs), add a ground wire alongside the signal wires, or use an isolated UART transceiver if the two sides genuinely need to float independently.</p>
+<p><strong>Cable length and speed trade off.</strong> Bare TTL-level UART over an unshielded wire is only reliable for short runs (tens of centimeters to maybe a meter, more at lower baud rates) before ringing and noise pickup cause errors — for anything longer, convert to RS-232 or RS-485 at the electrical layer instead of pushing raw TTL levels down a long cable.</p>
 
 
 </section>

@@ -1,0 +1,68 @@
+---
+title: "I2C"
+subtitle: "Protocols"
+toc: true
+---
+
+Two wires — SDA (data) and SCL (clock) — shared by every device on the bus, each identified by a 7-bit (or 10-bit) address. The mechanism that makes multi-drop work with just two wires is the open-drain output: every device can only pull a line low or let it float, never drive it high, so external pull-up resistors do the work of returning the line to logic 1.
+
+## Why open-drain, and why it matters for the pull-ups
+
+Because no device actively drives a "1," two devices can pull the same line low at the same time without a conflict (whichever wants it low, wins) — this is what lets multiple masters share a bus and detect collisions safely, and what lets a slave "clock stretch" (hold SCL low) to pause a master mid-transaction. The cost is that the bus relies entirely on the pull-up resistors to define the high state and to charge the bus capacitance back up to a valid "1" — which is a genuine RC time constant problem, and it's the actual constraint on how fast and how long an I2C bus can be.
+
+## Sizing the pull-up resistors
+
+Two competing limits set the valid range. Too small a resistor and a device can't pull the line low enough (violating $V_{OL}$) or draws excess current; too large a resistor and the bus capacitance can't charge fast enough to meet the rise-time spec at the chosen clock speed.
+
+$$
+R_{p,min} = \frac{V_{DD} - V_{OL,max}}{I_{OL,max}}, \qquad R_{p,max} = \frac{t_r}{0.8473 \, C_b}
+$$
+
+$I_{OL,max}$ and $V_{OL,max}$ come from the weakest device's datasheet (3 mA / 0.4 V is a common spec). $t_r$ is the maximum allowed rise time for the chosen speed grade, and $C_b$ is the total bus capacitance — every device, every centimeter of trace or cable, adds to it.
+
+```{=html}
+<div id="i2c-pullup-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "i2c-pullup-calc",
+  inputs: [
+    { id: "Vdd", label: "VDD (V)", value: 3.3, min: 0, step: 0.1 },
+    { id: "Vol", label: "VOL max (V)", value: 0.4, min: 0, step: 0.05 },
+    { id: "Iol", label: "IOL max (mA)", value: 3, min: 0.1, step: 0.1 },
+    { id: "Cb", label: "Bus capacitance (pF)", value: 100, min: 1, step: 10 },
+    { id: "speed", label: "Speed mode", type: "select", value: "400", options: [
+      { value: "100", label: "Standard, 100 kHz (tr 1000 ns)" },
+      { value: "400", label: "Fast, 400 kHz (tr 300 ns)" },
+      { value: "1000", label: "Fast mode+, 1 MHz (tr 120 ns)" }
+    ] }
+  ],
+  outputs: [
+    { id: "rmin", label: "Rp min" },
+    { id: "rmax", label: "Rp max" }
+  ],
+  compute: function (v) {
+    var trMap = { "100": 1000, "400": 300, "1000": 120 };
+    var trNs = trMap[v.speed];
+    var Rmin = (v.Vdd - v.Vol) / (v.Iol / 1000);
+    var Cb_F = v.Cb * 1e-12;
+    var tr_s = trNs * 1e-9;
+    var Rmax = tr_s / (0.8473 * Cb_F);
+    if (Rmin > Rmax) {
+      return { rmin: Rmin.toFixed(0) + " Ω", rmax: Rmax.toFixed(0) + " Ω (no valid range — reduce Cb or slow down)" };
+    }
+    return { rmin: Rmin.toFixed(0) + " Ω", rmax: Rmax.toFixed(0) + " Ω" };
+  }
+});
+</script>
+```
+
+Pick something in the middle of the calculated range, not right at either edge. Lower resistance suits longer buses or faster clocks (more capacitance to charge, less time to do it); higher resistance suits a short, lightly loaded standard-mode (100 kHz) bus, where values around 2.2–4.7 kΩ at 3.3 V are common.
+
+## Other things to think about
+
+**Mixed-voltage buses.** A 5 V device and a 3.3 V device can't share pull-ups to different rails safely — use a dedicated I2C level-shifter IC, or the simple two-MOSFET bidirectional level-shifting circuit, rather than pulling up to whichever voltage is more convenient.
+
+**Bus length is really a capacitance budget.** The 400 pF total bus capacitance cap in the standard specification isn't arbitrary — it's what keeps rise time in check at the given pull-up range. Long traces or cables eat into that budget fast; an I2C bus that needs to run any real distance usually wants an active bus buffer/extender IC, not just bigger pull-ups.
+
+**Address conflicts.** Two devices with the same fixed 7-bit address can't coexist on one bus. Check datasheets before committing to a design with multiple copies of the same sensor — many parts have one or two address-select pins for exactly this reason, and if that's not enough, an I2C mux chip is the usual fix.

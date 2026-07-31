@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Series and parallel resistance – The Bench Notebook</title>
+<title>I2S – The Bench Notebook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../electrical-engineering/index.html">Electrical engineering basics</a></li><li class="breadcrumb-item"><a href="../electrical-engineering/series-parallel-resistance.html">Series and parallel resistance</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../protocols/index.html">Protocols</a></li><li class="breadcrumb-item"><a href="../protocols/i2s.html">I2S</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -193,7 +193,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link active">
+  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Series and parallel resistance</span></a>
   </div>
 </li>
@@ -363,7 +363,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../protocols/i2s.html" class="sidebar-item-text sidebar-link">
+  <a href="../protocols/i2s.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">I2S</span></a>
   </div>
 </li>
@@ -436,19 +436,20 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#series" id="toc-series" class="nav-link active" data-scroll-target="#series">Series</a></li>
-  <li><a href="#parallel" id="toc-parallel" class="nav-link" data-scroll-target="#parallel">Parallel</a></li>
-  <li><a href="#calculator" id="toc-calculator" class="nav-link" data-scroll-target="#calculator">Calculator</a></li>
+  <li><a href="#the-three-lines" id="toc-the-three-lines" class="nav-link active" data-scroll-target="#the-three-lines">The three lines</a></li>
+  <li><a href="#clock-relationship" id="toc-clock-relationship" class="nav-link" data-scroll-target="#clock-relationship">Clock relationship</a></li>
+  <li><a href="#calculator-bit-clock-frequency" id="toc-calculator-bit-clock-frequency" class="nav-link" data-scroll-target="#calculator-bit-clock-frequency">Calculator: bit clock frequency</a></li>
+  <li><a href="#implementing-it-in-circuit" id="toc-implementing-it-in-circuit" class="nav-link" data-scroll-target="#implementing-it-in-circuit">Implementing it in circuit</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../electrical-engineering/index.html">Electrical engineering basics</a></li><li class="breadcrumb-item"><a href="../electrical-engineering/series-parallel-resistance.html">Series and parallel resistance</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../protocols/index.html">Protocols</a></li><li class="breadcrumb-item"><a href="../protocols/i2s.html">I2S</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Series and parallel resistance</h1>
-<p class="subtitle lead">Electrical engineering basics</p>
+<h1 class="title">I2S</h1>
+<p class="subtitle lead">Protocols</p>
 </div>
 
 
@@ -465,51 +466,50 @@ window.Quarto = {
 </header>
 
 
-<section id="series" class="level2">
-<h2 class="anchored" data-anchor-id="series">Series</h2>
-<p>Resistors in series share the same current, and their voltage drops add — so resistance simply sums:</p>
-<p><span class="math display">\[
-R_{series} = R_1 + R_2 + R_3
-\]</span></p>
+<p>A synchronous serial protocol built specifically for streaming digital audio between chips — a DAC, a codec, a digital microphone — where SPI’s lack of a defined sample-boundary concept becomes a real problem.</p>
+<section id="the-three-lines" class="level2">
+<h2 class="anchored" data-anchor-id="the-three-lines">The three lines</h2>
+<p>BCLK (bit clock, one pulse per audio bit), WS/LRCLK (word select, marks which channel — left or right — the current bits belong to), and SD (serial data, the audio samples themselves, MSB first). Unlike SPI there’s no separate chip-select; a single I2S link is inherently point-to-point, and WS itself doubles as the frame marker.</p>
 </section>
-<section id="parallel" class="level2">
-<h2 class="anchored" data-anchor-id="parallel">Parallel</h2>
-<p>Resistors in parallel share the same voltage, and their currents add, giving a reciprocal sum:</p>
+<section id="clock-relationship" class="level2">
+<h2 class="anchored" data-anchor-id="clock-relationship">Clock relationship</h2>
+<p>The three clocks aren’t independent — BCLK, word select, and the underlying sample rate are tied together by the audio format itself:</p>
 <p><span class="math display">\[
-\frac{1}{R_{parallel}} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}
+f_{BCLK} = f_s \times \text{bits per sample} \times \text{channels}
 \]</span></p>
-<p>The parallel combination is always smaller than the smallest individual resistor — adding a path for current can only make it easier for current to flow.</p>
+<p>Get this wrong (mismatched bit depth or channel count between transmitter and receiver) and audio still often “plays,” just pitched wrong or with channels swapped — a quieter failure mode than a digital bus simply not working.</p>
 </section>
-<section id="calculator" class="level2">
-<h2 class="anchored" data-anchor-id="calculator">Calculator</h2>
-<p>Leave a value at 0 to exclude that resistor (treated as not present).</p>
-<div id="rseries-calc"></div>
+<section id="calculator-bit-clock-frequency" class="level2">
+<h2 class="anchored" data-anchor-id="calculator-bit-clock-frequency">Calculator: bit clock frequency</h2>
+<div id="i2s-calc"></div>
 <script src="../assets/js/calc-engine.js"></script>
 <script>
 Calc.create({
-  root: "rseries-calc",
+  root: "i2s-calc",
   inputs: [
-    { id: "R1", label: "R1 (Ω)", value: 100, min: 0, step: 1 },
-    { id: "R2", label: "R2 (Ω)", value: 220, min: 0, step: 1 },
-    { id: "R3", label: "R3 (Ω)", value: 0, min: 0, step: 1 }
+    { id: "fs", label: "Sample rate (kHz)", value: 48, min: 0.001, step: 1 },
+    { id: "bits", label: "Bits per sample", value: 24, min: 1, step: 1 },
+    { id: "channels", label: "Channels", value: 2, min: 1, step: 1 }
   ],
   outputs: [
-    { id: "series", label: "R series" },
-    { id: "parallel", label: "R parallel" }
+    { id: "bclk", label: "BCLK" },
+    { id: "lrclk", label: "WS / LRCLK" }
   ],
   compute: function (v) {
-    var rs = [v.R1, v.R2, v.R3].filter(function (r) { return r > 0; });
-    if (rs.length === 0) return { series: "-", parallel: "-" };
-    var sum = rs.reduce(function (a, b) { return a + b; }, 0);
-    var invSum = rs.reduce(function (a, b) { return a + 1 / b; }, 0);
-    var par = invSum > 0 ? 1 / invSum : 0;
+    var bclkHz = v.fs * 1000 * v.bits * v.channels;
     return {
-      series: sum.toFixed(2) + " Ω",
-      parallel: par.toFixed(2) + " Ω"
+      bclk: (bclkHz / 1e6).toFixed(4) + " MHz",
+      lrclk: v.fs.toFixed(3) + " kHz"
     };
   }
 });
 </script>
+</section>
+<section id="implementing-it-in-circuit" class="level2">
+<h2 class="anchored" data-anchor-id="implementing-it-in-circuit">Implementing it in circuit</h2>
+<p><strong>Clock quality matters more here than on most digital buses.</strong> Jitter on BCLK or the master clock feeding it translates directly into audible noise in the analog output — this is the one protocol on this page where the purely digital signal’s timing precision has a straight line to perceived audio quality. A clean, low-jitter clock source is worth the extra cost on anything beyond a quick prototype.</p>
+<p><strong>Keep it away from switching noise and analog sections.</strong> Route I2S digital lines clear of switching regulators and any sensitive analog audio circuitry, and give the audio codec its own quiet ground/power area where board layout allows — digital switching noise coupling into an analog output stage is a classic source of audible whine or hiss.</p>
+<p><strong>It’s a short-range, intra-board (or short-cable) protocol as specified.</strong> Raw I2S isn’t designed for long cable runs the way S/PDIF or AES3 are — if audio needs to travel any real distance, convert to one of those standards rather than extending raw I2S.</p>
 
 
 </section>

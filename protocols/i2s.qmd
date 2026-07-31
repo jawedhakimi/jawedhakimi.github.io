@@ -1,0 +1,57 @@
+---
+title: "I2S"
+subtitle: "Protocols"
+toc: true
+---
+
+A synchronous serial protocol built specifically for streaming digital audio between chips — a DAC, a codec, a digital microphone — where SPI's lack of a defined sample-boundary concept becomes a real problem.
+
+## The three lines
+
+BCLK (bit clock, one pulse per audio bit), WS/LRCLK (word select, marks which channel — left or right — the current bits belong to), and SD (serial data, the audio samples themselves, MSB first). Unlike SPI there's no separate chip-select; a single I2S link is inherently point-to-point, and WS itself doubles as the frame marker.
+
+## Clock relationship
+
+The three clocks aren't independent — BCLK, word select, and the underlying sample rate are tied together by the audio format itself:
+
+$$
+f_{BCLK} = f_s \times \text{bits per sample} \times \text{channels}
+$$
+
+Get this wrong (mismatched bit depth or channel count between transmitter and receiver) and audio still often "plays," just pitched wrong or with channels swapped — a quieter failure mode than a digital bus simply not working.
+
+## Calculator: bit clock frequency
+
+```{=html}
+<div id="i2s-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "i2s-calc",
+  inputs: [
+    { id: "fs", label: "Sample rate (kHz)", value: 48, min: 0.001, step: 1 },
+    { id: "bits", label: "Bits per sample", value: 24, min: 1, step: 1 },
+    { id: "channels", label: "Channels", value: 2, min: 1, step: 1 }
+  ],
+  outputs: [
+    { id: "bclk", label: "BCLK" },
+    { id: "lrclk", label: "WS / LRCLK" }
+  ],
+  compute: function (v) {
+    var bclkHz = v.fs * 1000 * v.bits * v.channels;
+    return {
+      bclk: (bclkHz / 1e6).toFixed(4) + " MHz",
+      lrclk: v.fs.toFixed(3) + " kHz"
+    };
+  }
+});
+</script>
+```
+
+## Implementing it in circuit
+
+**Clock quality matters more here than on most digital buses.** Jitter on BCLK or the master clock feeding it translates directly into audible noise in the analog output — this is the one protocol on this page where the purely digital signal's timing precision has a straight line to perceived audio quality. A clean, low-jitter clock source is worth the extra cost on anything beyond a quick prototype.
+
+**Keep it away from switching noise and analog sections.** Route I2S digital lines clear of switching regulators and any sensitive analog audio circuitry, and give the audio codec its own quiet ground/power area where board layout allows — digital switching noise coupling into an analog output stage is a classic source of audible whine or hiss.
+
+**It's a short-range, intra-board (or short-cable) protocol as specified.** Raw I2S isn't designed for long cable runs the way S/PDIF or AES3 are — if audio needs to travel any real distance, convert to one of those standards rather than extending raw I2S.

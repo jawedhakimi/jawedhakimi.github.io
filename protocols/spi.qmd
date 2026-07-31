@@ -1,0 +1,65 @@
+---
+title: "SPI"
+subtitle: "Protocols"
+toc: true
+---
+
+Four wires, one shared clock, full duplex, and no addressing scheme at all — the master picks which device it's talking to by which chip-select (CS) line it pulls low. That simplicity is why SPI is usually the fastest option available for a given part.
+
+## The four lines
+
+MOSI (master out, slave in), MISO (master in, slave out), SCK (clock, always driven by the master), and CS/SS (chip select, one per slave device, active low by convention). Data shifts in and out simultaneously on every clock edge — full duplex is inherent to the protocol, not an add-on.
+
+## Clock polarity and phase
+
+Devices must agree on which clock edge data is sampled on — this is the CPOL/CPHA setting, usually written as "mode 0" through "mode 3":
+
+| Mode | CPOL | CPHA | Clock idles | Data sampled on |
+|---|---|---|---|---|
+| 0 | 0 | 0 | Low | Rising edge |
+| 1 | 0 | 1 | Low | Falling edge |
+| 2 | 1 | 0 | High | Falling edge |
+| 3 | 1 | 1 | High | Rising edge |
+
+Mode 0 is by far the most common default; mismatched modes between master and slave are a frequent cause of a first-try SPI link reading garbage.
+
+## Calculator: throughput
+
+```{=html}
+<div id="spi-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "spi-calc",
+  inputs: [
+    { id: "sclk", label: "SCLK (MHz)", value: 10, min: 0.001, step: 1 },
+    { id: "bytes", label: "Bytes to transfer", value: 4096, min: 1, step: 1 }
+  ],
+  outputs: [
+    { id: "rate", label: "Byte rate" },
+    { id: "time", label: "Transfer time" }
+  ],
+  compute: function (v) {
+    var byteRate = (v.sclk * 1e6) / 8;
+    var timeS = v.bytes / byteRate;
+    var timeTxt = timeS < 1e-3 ? (timeS * 1e6).toFixed(1) + " µs" : (timeS * 1000).toFixed(2) + " ms";
+    return {
+      rate: (byteRate / 1e6).toFixed(2) + " MB/s",
+      time: timeTxt
+    };
+  }
+});
+</script>
+```
+
+Ignores per-transaction overhead (CS setup/hold time, any gaps between bytes) — real throughput on a given MCU is usually somewhat lower, especially for many small transfers where that overhead repeats.
+
+## Implementing it in circuit
+
+**No arbitration, no error checking, so signal integrity is entirely on you.** Unlike I2C or CAN, nothing in the protocol itself detects a corrupted bit — a marginal signal just produces wrong data with no indication anything went wrong. That makes trace length and clock speed a real trade-off: fine at a few MHz over several centimeters of board trace, but pushing tens of MHz over more than a few centimeters (or any real cable) risks reflections without proper termination or controlled impedance traces.
+
+**Every device needs its own CS line.** Fan-out gets expensive fast — five SPI slaves means five CS pins from the master, even though MOSI/MISO/SCK are shared. Some parts support "daisy-chaining" (each device forwards data to the next), which trades pin count for more complex framing.
+
+**Series termination resistors** (typically 22–33 Ω, placed close to the driving pin) are a cheap, common fix for ringing on SCK or MOSI when trace lengths get long relative to the clock's rise time — worth having as an option in the layout even if unpopulated on the first spin.
+
+**Keep clock and data lines length-matched** at higher speeds, and away from noisy switching signals (like a nearby buck converter's switch node) — SPI has no error correction to fall back on if coupled noise corrupts a bit.

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Series and parallel resistance – The Bench Notebook</title>
+<title>I2C – The Bench Notebook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../electrical-engineering/index.html">Electrical engineering basics</a></li><li class="breadcrumb-item"><a href="../electrical-engineering/series-parallel-resistance.html">Series and parallel resistance</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../protocols/index.html">Protocols</a></li><li class="breadcrumb-item"><a href="../protocols/i2c.html">I2C</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -193,7 +193,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link active">
+  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Series and parallel resistance</span></a>
   </div>
 </li>
@@ -351,7 +351,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../protocols/i2c.html" class="sidebar-item-text sidebar-link">
+  <a href="../protocols/i2c.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">I2C</span></a>
   </div>
 </li>
@@ -436,19 +436,19 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#series" id="toc-series" class="nav-link active" data-scroll-target="#series">Series</a></li>
-  <li><a href="#parallel" id="toc-parallel" class="nav-link" data-scroll-target="#parallel">Parallel</a></li>
-  <li><a href="#calculator" id="toc-calculator" class="nav-link" data-scroll-target="#calculator">Calculator</a></li>
+  <li><a href="#why-open-drain-and-why-it-matters-for-the-pull-ups" id="toc-why-open-drain-and-why-it-matters-for-the-pull-ups" class="nav-link active" data-scroll-target="#why-open-drain-and-why-it-matters-for-the-pull-ups">Why open-drain, and why it matters for the pull-ups</a></li>
+  <li><a href="#sizing-the-pull-up-resistors" id="toc-sizing-the-pull-up-resistors" class="nav-link" data-scroll-target="#sizing-the-pull-up-resistors">Sizing the pull-up resistors</a></li>
+  <li><a href="#other-things-to-think-about" id="toc-other-things-to-think-about" class="nav-link" data-scroll-target="#other-things-to-think-about">Other things to think about</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../electrical-engineering/index.html">Electrical engineering basics</a></li><li class="breadcrumb-item"><a href="../electrical-engineering/series-parallel-resistance.html">Series and parallel resistance</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../protocols/index.html">Protocols</a></li><li class="breadcrumb-item"><a href="../protocols/i2c.html">I2C</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Series and parallel resistance</h1>
-<p class="subtitle lead">Electrical engineering basics</p>
+<h1 class="title">I2C</h1>
+<p class="subtitle lead">Protocols</p>
 </div>
 
 
@@ -465,51 +465,59 @@ window.Quarto = {
 </header>
 
 
-<section id="series" class="level2">
-<h2 class="anchored" data-anchor-id="series">Series</h2>
-<p>Resistors in series share the same current, and their voltage drops add — so resistance simply sums:</p>
-<p><span class="math display">\[
-R_{series} = R_1 + R_2 + R_3
-\]</span></p>
+<p>Two wires — SDA (data) and SCL (clock) — shared by every device on the bus, each identified by a 7-bit (or 10-bit) address. The mechanism that makes multi-drop work with just two wires is the open-drain output: every device can only pull a line low or let it float, never drive it high, so external pull-up resistors do the work of returning the line to logic 1.</p>
+<section id="why-open-drain-and-why-it-matters-for-the-pull-ups" class="level2">
+<h2 class="anchored" data-anchor-id="why-open-drain-and-why-it-matters-for-the-pull-ups">Why open-drain, and why it matters for the pull-ups</h2>
+<p>Because no device actively drives a “1,” two devices can pull the same line low at the same time without a conflict (whichever wants it low, wins) — this is what lets multiple masters share a bus and detect collisions safely, and what lets a slave “clock stretch” (hold SCL low) to pause a master mid-transaction. The cost is that the bus relies entirely on the pull-up resistors to define the high state and to charge the bus capacitance back up to a valid “1” — which is a genuine RC time constant problem, and it’s the actual constraint on how fast and how long an I2C bus can be.</p>
 </section>
-<section id="parallel" class="level2">
-<h2 class="anchored" data-anchor-id="parallel">Parallel</h2>
-<p>Resistors in parallel share the same voltage, and their currents add, giving a reciprocal sum:</p>
+<section id="sizing-the-pull-up-resistors" class="level2">
+<h2 class="anchored" data-anchor-id="sizing-the-pull-up-resistors">Sizing the pull-up resistors</h2>
+<p>Two competing limits set the valid range. Too small a resistor and a device can’t pull the line low enough (violating <span class="math inline">\(V_{OL}\)</span>) or draws excess current; too large a resistor and the bus capacitance can’t charge fast enough to meet the rise-time spec at the chosen clock speed.</p>
 <p><span class="math display">\[
-\frac{1}{R_{parallel}} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}
+R_{p,min} = \frac{V_{DD} - V_{OL,max}}{I_{OL,max}}, \qquad R_{p,max} = \frac{t_r}{0.8473 \, C_b}
 \]</span></p>
-<p>The parallel combination is always smaller than the smallest individual resistor — adding a path for current can only make it easier for current to flow.</p>
-</section>
-<section id="calculator" class="level2">
-<h2 class="anchored" data-anchor-id="calculator">Calculator</h2>
-<p>Leave a value at 0 to exclude that resistor (treated as not present).</p>
-<div id="rseries-calc"></div>
+<p><span class="math inline">\(I_{OL,max}\)</span> and <span class="math inline">\(V_{OL,max}\)</span> come from the weakest device’s datasheet (3 mA / 0.4 V is a common spec). <span class="math inline">\(t_r\)</span> is the maximum allowed rise time for the chosen speed grade, and <span class="math inline">\(C_b\)</span> is the total bus capacitance — every device, every centimeter of trace or cable, adds to it.</p>
+<div id="i2c-pullup-calc"></div>
 <script src="../assets/js/calc-engine.js"></script>
 <script>
 Calc.create({
-  root: "rseries-calc",
+  root: "i2c-pullup-calc",
   inputs: [
-    { id: "R1", label: "R1 (Ω)", value: 100, min: 0, step: 1 },
-    { id: "R2", label: "R2 (Ω)", value: 220, min: 0, step: 1 },
-    { id: "R3", label: "R3 (Ω)", value: 0, min: 0, step: 1 }
+    { id: "Vdd", label: "VDD (V)", value: 3.3, min: 0, step: 0.1 },
+    { id: "Vol", label: "VOL max (V)", value: 0.4, min: 0, step: 0.05 },
+    { id: "Iol", label: "IOL max (mA)", value: 3, min: 0.1, step: 0.1 },
+    { id: "Cb", label: "Bus capacitance (pF)", value: 100, min: 1, step: 10 },
+    { id: "speed", label: "Speed mode", type: "select", value: "400", options: [
+      { value: "100", label: "Standard, 100 kHz (tr 1000 ns)" },
+      { value: "400", label: "Fast, 400 kHz (tr 300 ns)" },
+      { value: "1000", label: "Fast mode+, 1 MHz (tr 120 ns)" }
+    ] }
   ],
   outputs: [
-    { id: "series", label: "R series" },
-    { id: "parallel", label: "R parallel" }
+    { id: "rmin", label: "Rp min" },
+    { id: "rmax", label: "Rp max" }
   ],
   compute: function (v) {
-    var rs = [v.R1, v.R2, v.R3].filter(function (r) { return r > 0; });
-    if (rs.length === 0) return { series: "-", parallel: "-" };
-    var sum = rs.reduce(function (a, b) { return a + b; }, 0);
-    var invSum = rs.reduce(function (a, b) { return a + 1 / b; }, 0);
-    var par = invSum > 0 ? 1 / invSum : 0;
-    return {
-      series: sum.toFixed(2) + " Ω",
-      parallel: par.toFixed(2) + " Ω"
-    };
+    var trMap = { "100": 1000, "400": 300, "1000": 120 };
+    var trNs = trMap[v.speed];
+    var Rmin = (v.Vdd - v.Vol) / (v.Iol / 1000);
+    var Cb_F = v.Cb * 1e-12;
+    var tr_s = trNs * 1e-9;
+    var Rmax = tr_s / (0.8473 * Cb_F);
+    if (Rmin > Rmax) {
+      return { rmin: Rmin.toFixed(0) + " Ω", rmax: Rmax.toFixed(0) + " Ω (no valid range — reduce Cb or slow down)" };
+    }
+    return { rmin: Rmin.toFixed(0) + " Ω", rmax: Rmax.toFixed(0) + " Ω" };
   }
 });
 </script>
+<p>Pick something in the middle of the calculated range, not right at either edge. Lower resistance suits longer buses or faster clocks (more capacitance to charge, less time to do it); higher resistance suits a short, lightly loaded standard-mode (100 kHz) bus, where values around 2.2–4.7 kΩ at 3.3 V are common.</p>
+</section>
+<section id="other-things-to-think-about" class="level2">
+<h2 class="anchored" data-anchor-id="other-things-to-think-about">Other things to think about</h2>
+<p><strong>Mixed-voltage buses.</strong> A 5 V device and a 3.3 V device can’t share pull-ups to different rails safely — use a dedicated I2C level-shifter IC, or the simple two-MOSFET bidirectional level-shifting circuit, rather than pulling up to whichever voltage is more convenient.</p>
+<p><strong>Bus length is really a capacitance budget.</strong> The 400 pF total bus capacitance cap in the standard specification isn’t arbitrary — it’s what keeps rise time in check at the given pull-up range. Long traces or cables eat into that budget fast; an I2C bus that needs to run any real distance usually wants an active bus buffer/extender IC, not just bigger pull-ups.</p>
+<p><strong>Address conflicts.</strong> Two devices with the same fixed 7-bit address can’t coexist on one bus. Check datasheets before committing to a design with multiple copies of the same sensor — many parts have one or two address-select pins for exactly this reason, and if that’s not enough, an I2C mux chip is the usual fix.</p>
 
 
 </section>

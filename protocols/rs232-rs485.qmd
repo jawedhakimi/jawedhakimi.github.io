@@ -1,0 +1,39 @@
+---
+title: "RS-232 and RS-485"
+subtitle: "Protocols"
+toc: true
+---
+
+Both are electrical standards for carrying UART-style framed data over a cable — neither defines the byte framing itself (that's still start/data/parity/stop bits, as on the [UART](uart.qmd) page). What they define is how the 1s and 0s are represented as voltages on the wire, and that choice determines cable length, noise immunity, and whether more than two devices can share a bus.
+
+## RS-232: single-ended, point-to-point
+
+Logic levels are inverted and much larger than TTL: a valid "1" (mark) is −3 V to −15 V, a valid "0" (space) is +3 V to +15 V, with ±5 V to ±12 V the common real-world range. That wide swing is why it can't come straight off a microcontroller pin — it needs a dedicated line driver/receiver chip (the MAX232 family is the classic choice) to convert between TTL and RS-232 levels, generating the negative supply internally from charge-pump capacitors.
+
+Point-to-point only — one transmitter, one receiver, traditionally a DB9 connector. Reliable to roughly 15 m / 50 ft at modest baud rates; longer runs need RS-422 or RS-485 instead.
+
+## RS-485: differential, multi-drop
+
+Instead of one signal wire referenced to ground, RS-485 uses a twisted pair (A/B, sometimes called D+/D−) carrying the *same* signal as a voltage difference between the two wires. Noise picked up by the cable tends to hit both wires equally and cancels out at the differential receiver — this is why RS-485 tolerates much longer cable runs and noisier environments than single-ended RS-232 or TTL.
+
+Multiple transmitters and receivers can share one bus (up to 32 standard-load devices, more with modern reduced-load transceivers), which is why it's the usual choice for a chain of sensors or a Modbus network. Since UART itself has no arbitration, RS-485 multi-drop networks need a protocol layer above it (like Modbus) to make sure only one device drives the bus at a time.
+
+### Termination and biasing — the part people get wrong
+
+Two things a working RS-485 bus needs that a point-to-point link doesn't:
+
+**120 Ω termination resistors at both physical ends of the bus** (matching the cable's characteristic impedance), and nowhere in between. Terminating every node, or terminating only one end, causes reflections that corrupt data at higher baud rates or longer cable lengths.
+
+**Fail-safe biasing** — a pull-up on the A line and a pull-down on the B line (typically 560 Ω–650 Ω, sized with the termination resistors to keep the idle differential voltage above the receiver's threshold, around 200 mV) so the bus reads a defined idle state when no device is actively driving it. Without this, an idle bus can float into the undefined region between logic states and receivers may see noise as random bit errors. Some transceiver ICs include this internally; many don't.
+
+Distance and speed trade off directly: roughly 10 Mbps at a few meters down to about 100 kbps at 1200 m, per the standard's typical guidance — check the specific transceiver's datasheet for its real numbers.
+
+## Comparison
+
+| | TTL UART | RS-232 | RS-485 |
+|---|---|---|---|
+| Signaling | Single-ended, 0–3.3/5 V | Single-ended, ±3–15 V | Differential |
+| Devices per bus | 2 | 2 | Up to 32+ |
+| Typical max distance | ~1 m | ~15 m | ~1200 m |
+| Needs external transceiver | No | Yes (e.g. MAX232) | Yes (e.g. MAX485) |
+| Needs termination | No | No | Yes, both ends |

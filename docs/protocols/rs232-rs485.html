@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Series and parallel resistance – The Bench Notebook</title>
+<title>RS-232 and RS-485 – The Bench Notebook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -75,35 +75,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
@@ -152,7 +123,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../electrical-engineering/index.html">Electrical engineering basics</a></li><li class="breadcrumb-item"><a href="../electrical-engineering/series-parallel-resistance.html">Series and parallel resistance</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../protocols/index.html">Protocols</a></li><li class="breadcrumb-item"><a href="../protocols/rs232-rs485.html">RS-232 and RS-485</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -193,7 +164,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link active">
+  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Series and parallel resistance</span></a>
   </div>
 </li>
@@ -345,7 +316,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../protocols/rs232-rs485.html" class="sidebar-item-text sidebar-link">
+  <a href="../protocols/rs232-rs485.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">RS-232 and RS-485</span></a>
   </div>
 </li>
@@ -436,19 +407,22 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#series" id="toc-series" class="nav-link active" data-scroll-target="#series">Series</a></li>
-  <li><a href="#parallel" id="toc-parallel" class="nav-link" data-scroll-target="#parallel">Parallel</a></li>
-  <li><a href="#calculator" id="toc-calculator" class="nav-link" data-scroll-target="#calculator">Calculator</a></li>
+  <li><a href="#rs-232-single-ended-point-to-point" id="toc-rs-232-single-ended-point-to-point" class="nav-link active" data-scroll-target="#rs-232-single-ended-point-to-point">RS-232: single-ended, point-to-point</a></li>
+  <li><a href="#rs-485-differential-multi-drop" id="toc-rs-485-differential-multi-drop" class="nav-link" data-scroll-target="#rs-485-differential-multi-drop">RS-485: differential, multi-drop</a>
+  <ul class="collapse">
+  <li><a href="#termination-and-biasing-the-part-people-get-wrong" id="toc-termination-and-biasing-the-part-people-get-wrong" class="nav-link" data-scroll-target="#termination-and-biasing-the-part-people-get-wrong">Termination and biasing — the part people get wrong</a></li>
+  </ul></li>
+  <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison">Comparison</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../electrical-engineering/index.html">Electrical engineering basics</a></li><li class="breadcrumb-item"><a href="../electrical-engineering/series-parallel-resistance.html">Series and parallel resistance</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../protocols/index.html">Protocols</a></li><li class="breadcrumb-item"><a href="../protocols/rs232-rs485.html">RS-232 and RS-485</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Series and parallel resistance</h1>
-<p class="subtitle lead">Electrical engineering basics</p>
+<h1 class="title">RS-232 and RS-485</h1>
+<p class="subtitle lead">Protocols</p>
 </div>
 
 
@@ -465,51 +439,74 @@ window.Quarto = {
 </header>
 
 
-<section id="series" class="level2">
-<h2 class="anchored" data-anchor-id="series">Series</h2>
-<p>Resistors in series share the same current, and their voltage drops add — so resistance simply sums:</p>
-<p><span class="math display">\[
-R_{series} = R_1 + R_2 + R_3
-\]</span></p>
+<p>Both are electrical standards for carrying UART-style framed data over a cable — neither defines the byte framing itself (that’s still start/data/parity/stop bits, as on the <a href="../protocols/uart.html">UART</a> page). What they define is how the 1s and 0s are represented as voltages on the wire, and that choice determines cable length, noise immunity, and whether more than two devices can share a bus.</p>
+<section id="rs-232-single-ended-point-to-point" class="level2">
+<h2 class="anchored" data-anchor-id="rs-232-single-ended-point-to-point">RS-232: single-ended, point-to-point</h2>
+<p>Logic levels are inverted and much larger than TTL: a valid “1” (mark) is −3 V to −15 V, a valid “0” (space) is +3 V to +15 V, with ±5 V to ±12 V the common real-world range. That wide swing is why it can’t come straight off a microcontroller pin — it needs a dedicated line driver/receiver chip (the MAX232 family is the classic choice) to convert between TTL and RS-232 levels, generating the negative supply internally from charge-pump capacitors.</p>
+<p>Point-to-point only — one transmitter, one receiver, traditionally a DB9 connector. Reliable to roughly 15 m / 50 ft at modest baud rates; longer runs need RS-422 or RS-485 instead.</p>
 </section>
-<section id="parallel" class="level2">
-<h2 class="anchored" data-anchor-id="parallel">Parallel</h2>
-<p>Resistors in parallel share the same voltage, and their currents add, giving a reciprocal sum:</p>
-<p><span class="math display">\[
-\frac{1}{R_{parallel}} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}
-\]</span></p>
-<p>The parallel combination is always smaller than the smallest individual resistor — adding a path for current can only make it easier for current to flow.</p>
+<section id="rs-485-differential-multi-drop" class="level2">
+<h2 class="anchored" data-anchor-id="rs-485-differential-multi-drop">RS-485: differential, multi-drop</h2>
+<p>Instead of one signal wire referenced to ground, RS-485 uses a twisted pair (A/B, sometimes called D+/D−) carrying the <em>same</em> signal as a voltage difference between the two wires. Noise picked up by the cable tends to hit both wires equally and cancels out at the differential receiver — this is why RS-485 tolerates much longer cable runs and noisier environments than single-ended RS-232 or TTL.</p>
+<p>Multiple transmitters and receivers can share one bus (up to 32 standard-load devices, more with modern reduced-load transceivers), which is why it’s the usual choice for a chain of sensors or a Modbus network. Since UART itself has no arbitration, RS-485 multi-drop networks need a protocol layer above it (like Modbus) to make sure only one device drives the bus at a time.</p>
+<section id="termination-and-biasing-the-part-people-get-wrong" class="level3">
+<h3 class="anchored" data-anchor-id="termination-and-biasing-the-part-people-get-wrong">Termination and biasing — the part people get wrong</h3>
+<p>Two things a working RS-485 bus needs that a point-to-point link doesn’t:</p>
+<p><strong>120 Ω termination resistors at both physical ends of the bus</strong> (matching the cable’s characteristic impedance), and nowhere in between. Terminating every node, or terminating only one end, causes reflections that corrupt data at higher baud rates or longer cable lengths.</p>
+<p><strong>Fail-safe biasing</strong> — a pull-up on the A line and a pull-down on the B line (typically 560 Ω–650 Ω, sized with the termination resistors to keep the idle differential voltage above the receiver’s threshold, around 200 mV) so the bus reads a defined idle state when no device is actively driving it. Without this, an idle bus can float into the undefined region between logic states and receivers may see noise as random bit errors. Some transceiver ICs include this internally; many don’t.</p>
+<p>Distance and speed trade off directly: roughly 10 Mbps at a few meters down to about 100 kbps at 1200 m, per the standard’s typical guidance — check the specific transceiver’s datasheet for its real numbers.</p>
 </section>
-<section id="calculator" class="level2">
-<h2 class="anchored" data-anchor-id="calculator">Calculator</h2>
-<p>Leave a value at 0 to exclude that resistor (treated as not present).</p>
-<div id="rseries-calc"></div>
-<script src="../assets/js/calc-engine.js"></script>
-<script>
-Calc.create({
-  root: "rseries-calc",
-  inputs: [
-    { id: "R1", label: "R1 (Ω)", value: 100, min: 0, step: 1 },
-    { id: "R2", label: "R2 (Ω)", value: 220, min: 0, step: 1 },
-    { id: "R3", label: "R3 (Ω)", value: 0, min: 0, step: 1 }
-  ],
-  outputs: [
-    { id: "series", label: "R series" },
-    { id: "parallel", label: "R parallel" }
-  ],
-  compute: function (v) {
-    var rs = [v.R1, v.R2, v.R3].filter(function (r) { return r > 0; });
-    if (rs.length === 0) return { series: "-", parallel: "-" };
-    var sum = rs.reduce(function (a, b) { return a + b; }, 0);
-    var invSum = rs.reduce(function (a, b) { return a + 1 / b; }, 0);
-    var par = invSum > 0 ? 1 / invSum : 0;
-    return {
-      series: sum.toFixed(2) + " Ω",
-      parallel: par.toFixed(2) + " Ω"
-    };
-  }
-});
-</script>
+</section>
+<section id="comparison" class="level2">
+<h2 class="anchored" data-anchor-id="comparison">Comparison</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>TTL UART</th>
+<th>RS-232</th>
+<th>RS-485</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Signaling</td>
+<td>Single-ended, 0–3.3/5 V</td>
+<td>Single-ended, ±3–15 V</td>
+<td>Differential</td>
+</tr>
+<tr class="even">
+<td>Devices per bus</td>
+<td>2</td>
+<td>2</td>
+<td>Up to 32+</td>
+</tr>
+<tr class="odd">
+<td>Typical max distance</td>
+<td>~1 m</td>
+<td>~15 m</td>
+<td>~1200 m</td>
+</tr>
+<tr class="even">
+<td>Needs external transceiver</td>
+<td>No</td>
+<td>Yes (e.g.&nbsp;MAX232)</td>
+<td>Yes (e.g.&nbsp;MAX485)</td>
+</tr>
+<tr class="odd">
+<td>Needs termination</td>
+<td>No</td>
+<td>No</td>
+<td>Yes, both ends</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>

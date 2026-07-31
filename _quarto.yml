@@ -49,6 +49,15 @@ website:
             - power-electronics/boost-converter.qmd
             - power-electronics/buck-boost-converter.qmd
             - power-electronics/lc-filter-design.qmd
+        - section: "Protocols"
+          contents:
+            - protocols/index.qmd
+            - protocols/uart.qmd
+            - protocols/rs232-rs485.qmd
+            - protocols/i2c.qmd
+            - protocols/spi.qmd
+            - protocols/i2s.qmd
+            - protocols/can.qmd
         - section: "Integrated circuits"
           contents:
             - integrated-circuits/index.qmd

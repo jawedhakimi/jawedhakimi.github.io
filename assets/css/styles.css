@@ -3,6 +3,7 @@
   --cat-magnetics: #c1440e;
   --cat-components: #534ab7;
   --cat-power: #b45309;
+  --cat-protocols: #0e7490;
   --cat-ic: #0f6e56;
   --cat-mcu: #993556;
   --cat-sw: #3b6d11;
@@ -121,6 +122,8 @@
 .card-grid .card.cat-components .tag { color: var(--cat-components); }
 .card-grid .card.cat-power { border-top-color: var(--cat-power); }
 .card-grid .card.cat-power .tag { color: var(--cat-power); }
+.card-grid .card.cat-protocols { border-top-color: var(--cat-protocols); }
+.card-grid .card.cat-protocols .tag { color: var(--cat-protocols); }
 .card-grid .card.cat-ic { border-top-color: var(--cat-ic); }
 .card-grid .card.cat-ic .tag { color: var(--cat-ic); }
 .card-grid .card.cat-mcu { border-top-color: var(--cat-mcu); }

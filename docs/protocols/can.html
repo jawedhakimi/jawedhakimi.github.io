@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Series and parallel resistance – The Bench Notebook</title>
+<title>CAN – The Bench Notebook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -152,7 +152,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../electrical-engineering/index.html">Electrical engineering basics</a></li><li class="breadcrumb-item"><a href="../electrical-engineering/series-parallel-resistance.html">Series and parallel resistance</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../protocols/index.html">Protocols</a></li><li class="breadcrumb-item"><a href="../protocols/can.html">CAN</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -193,7 +193,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link active">
+  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Series and parallel resistance</span></a>
   </div>
 </li>
@@ -369,7 +369,7 @@ window.Quarto = {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../protocols/can.html" class="sidebar-item-text sidebar-link">
+  <a href="../protocols/can.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">CAN</span></a>
   </div>
 </li>
@@ -436,19 +436,19 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#series" id="toc-series" class="nav-link active" data-scroll-target="#series">Series</a></li>
-  <li><a href="#parallel" id="toc-parallel" class="nav-link" data-scroll-target="#parallel">Parallel</a></li>
-  <li><a href="#calculator" id="toc-calculator" class="nav-link" data-scroll-target="#calculator">Calculator</a></li>
+  <li><a href="#differential-signaling-and-arbitration" id="toc-differential-signaling-and-arbitration" class="nav-link active" data-scroll-target="#differential-signaling-and-arbitration">Differential signaling and arbitration</a></li>
+  <li><a href="#bit-timing" id="toc-bit-timing" class="nav-link" data-scroll-target="#bit-timing">Bit timing</a></li>
+  <li><a href="#implementing-it-in-circuit" id="toc-implementing-it-in-circuit" class="nav-link" data-scroll-target="#implementing-it-in-circuit">Implementing it in circuit</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../electrical-engineering/index.html">Electrical engineering basics</a></li><li class="breadcrumb-item"><a href="../electrical-engineering/series-parallel-resistance.html">Series and parallel resistance</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../protocols/index.html">Protocols</a></li><li class="breadcrumb-item"><a href="../protocols/can.html">CAN</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Series and parallel resistance</h1>
-<p class="subtitle lead">Electrical engineering basics</p>
+<h1 class="title">CAN</h1>
+<p class="subtitle lead">Protocols</p>
 </div>
 
 
@@ -465,51 +465,53 @@ window.Quarto = {
 </header>
 
 
-<section id="series" class="level2">
-<h2 class="anchored" data-anchor-id="series">Series</h2>
-<p>Resistors in series share the same current, and their voltage drops add — so resistance simply sums:</p>
-<p><span class="math display">\[
-R_{series} = R_1 + R_2 + R_3
-\]</span></p>
+<p>Controller Area Network was built for automotive wiring harnesses: many nodes on one twisted pair, no central controller, and a message-based model where nodes don’t address each other directly — a message just carries an identifier, and every node decides for itself whether to care.</p>
+<section id="differential-signaling-and-arbitration" class="level2">
+<h2 class="anchored" data-anchor-id="differential-signaling-and-arbitration">Differential signaling and arbitration</h2>
+<p>Like RS-485, CAN_H and CAN_L carry the same signal as a voltage difference, giving it the same noise-immunity advantage over long, electrically noisy cable runs (an engine bay is about as hostile an EMI environment as automotive electronics gets). Idle/recessive is both lines near the same voltage (~2.5 V, near-zero differential); a dominant bit pulls them apart.</p>
+<p>That dominant/recessive asymmetry is what makes CAN’s arbitration work without a bus master: if multiple nodes start transmitting at the same time, they all monitor the bus while sending their identifier bit by bit. A node sending a recessive bit while it reads back a dominant one on the bus knows it lost arbitration — someone else’s frame has a lower (higher-priority) ID — and it silently backs off. The bus never collides in the way, say, early Ethernet could; the highest-priority message simply wins and keeps going.</p>
 </section>
-<section id="parallel" class="level2">
-<h2 class="anchored" data-anchor-id="parallel">Parallel</h2>
-<p>Resistors in parallel share the same voltage, and their currents add, giving a reciprocal sum:</p>
+<section id="bit-timing" class="level2">
+<h2 class="anchored" data-anchor-id="bit-timing">Bit timing</h2>
+<p>A CAN bit is divided into time quanta — sync segment, propagation segment, phase segment 1, phase segment 2 — configured in the controller’s bit timing registers as a prescaler and quanta-per-segment count. The resulting bit rate:</p>
 <p><span class="math display">\[
-\frac{1}{R_{parallel}} = \frac{1}{R_1} + \frac{1}{R_2} + \frac{1}{R_3}
+f_{bit} = \frac{f_{clk}}{\text{BRP} \times (1 + T_{SEG1} + T_{SEG2})}
 \]</span></p>
-<p>The parallel combination is always smaller than the smallest individual resistor — adding a path for current can only make it easier for current to flow.</p>
-</section>
-<section id="calculator" class="level2">
-<h2 class="anchored" data-anchor-id="calculator">Calculator</h2>
-<p>Leave a value at 0 to exclude that resistor (treated as not present).</p>
-<div id="rseries-calc"></div>
+<div id="can-calc"></div>
 <script src="../assets/js/calc-engine.js"></script>
 <script>
 Calc.create({
-  root: "rseries-calc",
+  root: "can-calc",
   inputs: [
-    { id: "R1", label: "R1 (Ω)", value: 100, min: 0, step: 1 },
-    { id: "R2", label: "R2 (Ω)", value: 220, min: 0, step: 1 },
-    { id: "R3", label: "R3 (Ω)", value: 0, min: 0, step: 1 }
+    { id: "clk", label: "CAN clock (MHz)", value: 40, min: 0.001, step: 1 },
+    { id: "brp", label: "Prescaler (BRP)", value: 4, min: 1, step: 1 },
+    { id: "tseg1", label: "TSEG1 (quanta)", value: 13, min: 1, step: 1 },
+    { id: "tseg2", label: "TSEG2 (quanta)", value: 2, min: 1, step: 1 }
   ],
   outputs: [
-    { id: "series", label: "R series" },
-    { id: "parallel", label: "R parallel" }
+    { id: "bitrate", label: "Bit rate" },
+    { id: "samplePoint", label: "Sample point" }
   ],
   compute: function (v) {
-    var rs = [v.R1, v.R2, v.R3].filter(function (r) { return r > 0; });
-    if (rs.length === 0) return { series: "-", parallel: "-" };
-    var sum = rs.reduce(function (a, b) { return a + b; }, 0);
-    var invSum = rs.reduce(function (a, b) { return a + 1 / b; }, 0);
-    var par = invSum > 0 ? 1 / invSum : 0;
+    var totalTq = 1 + v.tseg1 + v.tseg2;
+    var bitRate = (v.clk * 1e6) / (v.brp * totalTq);
+    var samplePoint = ((1 + v.tseg1) / totalTq) * 100;
+    var rateTxt = bitRate >= 1e6 ? (bitRate / 1e6).toFixed(3) + " Mbps" : (bitRate / 1000).toFixed(1) + " kbps";
     return {
-      series: sum.toFixed(2) + " Ω",
-      parallel: par.toFixed(2) + " Ω"
+      bitrate: rateTxt,
+      samplePoint: samplePoint.toFixed(1) + "%"
     };
   }
 });
 </script>
+<p>Sample point (where in the bit the receiver actually latches the value) is normally targeted around 75–87.5% — check that number after changing segment values, not just the bit rate, since a bad sample point causes intermittent errors that only show up under specific bus loading or temperature.</p>
+</section>
+<section id="implementing-it-in-circuit" class="level2">
+<h2 class="anchored" data-anchor-id="implementing-it-in-circuit">Implementing it in circuit</h2>
+<p><strong>120 Ω termination at both physical ends of the bus, and only the ends.</strong> Same rule as RS-485, for the same reason — CAN is a linear bus topology, and unterminated or over-terminated ends cause reflections. A dedicated CAN transceiver IC (the TJA1050/TJA1051 family and equivalents are common) handles the differential drive; it is not something to attempt directly off microcontroller pins.</p>
+<p><strong>Keep stubs short.</strong> Branches off the main bus to reach a connector or node should be as short as practical (centimeters, not meters) — long stubs create their own reflections independent of the main bus termination.</p>
+<p><strong>Common-mode range and ground.</strong> CAN is differential, but it’s not immune to ground offset between nodes — the transceiver has a limited common-mode voltage range it can tolerate, and in installations spanning different power domains or long cable runs, that’s worth checking against the transceiver’s datasheet rather than assuming differential signaling makes ground irrelevant.</p>
+<p><strong>Isolation is common in industrial designs.</strong> Where a CAN node needs to survive a fault on the bus without taking the rest of the board down with it, an isolated CAN transceiver (or a non-isolated transceiver behind an isolated DC-DC and digital isolator) is the standard approach — automotive designs usually skip this since the whole vehicle shares one ground and power system, but industrial and multi-enclosure setups often can’t.</p>
 
 
 </section>

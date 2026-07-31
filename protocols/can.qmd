@@ -1,0 +1,63 @@
+---
+title: "CAN"
+subtitle: "Protocols"
+toc: true
+---
+
+Controller Area Network was built for automotive wiring harnesses: many nodes on one twisted pair, no central controller, and a message-based model where nodes don't address each other directly — a message just carries an identifier, and every node decides for itself whether to care.
+
+## Differential signaling and arbitration
+
+Like RS-485, CAN_H and CAN_L carry the same signal as a voltage difference, giving it the same noise-immunity advantage over long, electrically noisy cable runs (an engine bay is about as hostile an EMI environment as automotive electronics gets). Idle/recessive is both lines near the same voltage (~2.5 V, near-zero differential); a dominant bit pulls them apart.
+
+That dominant/recessive asymmetry is what makes CAN's arbitration work without a bus master: if multiple nodes start transmitting at the same time, they all monitor the bus while sending their identifier bit by bit. A node sending a recessive bit while it reads back a dominant one on the bus knows it lost arbitration — someone else's frame has a lower (higher-priority) ID — and it silently backs off. The bus never collides in the way, say, early Ethernet could; the highest-priority message simply wins and keeps going.
+
+## Bit timing
+
+A CAN bit is divided into time quanta — sync segment, propagation segment, phase segment 1, phase segment 2 — configured in the controller's bit timing registers as a prescaler and quanta-per-segment count. The resulting bit rate:
+
+$$
+f_{bit} = \frac{f_{clk}}{\text{BRP} \times (1 + T_{SEG1} + T_{SEG2})}
+$$
+
+```{=html}
+<div id="can-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "can-calc",
+  inputs: [
+    { id: "clk", label: "CAN clock (MHz)", value: 40, min: 0.001, step: 1 },
+    { id: "brp", label: "Prescaler (BRP)", value: 4, min: 1, step: 1 },
+    { id: "tseg1", label: "TSEG1 (quanta)", value: 13, min: 1, step: 1 },
+    { id: "tseg2", label: "TSEG2 (quanta)", value: 2, min: 1, step: 1 }
+  ],
+  outputs: [
+    { id: "bitrate", label: "Bit rate" },
+    { id: "samplePoint", label: "Sample point" }
+  ],
+  compute: function (v) {
+    var totalTq = 1 + v.tseg1 + v.tseg2;
+    var bitRate = (v.clk * 1e6) / (v.brp * totalTq);
+    var samplePoint = ((1 + v.tseg1) / totalTq) * 100;
+    var rateTxt = bitRate >= 1e6 ? (bitRate / 1e6).toFixed(3) + " Mbps" : (bitRate / 1000).toFixed(1) + " kbps";
+    return {
+      bitrate: rateTxt,
+      samplePoint: samplePoint.toFixed(1) + "%"
+    };
+  }
+});
+</script>
+```
+
+Sample point (where in the bit the receiver actually latches the value) is normally targeted around 75–87.5% — check that number after changing segment values, not just the bit rate, since a bad sample point causes intermittent errors that only show up under specific bus loading or temperature.
+
+## Implementing it in circuit
+
+**120 Ω termination at both physical ends of the bus, and only the ends.** Same rule as RS-485, for the same reason — CAN is a linear bus topology, and unterminated or over-terminated ends cause reflections. A dedicated CAN transceiver IC (the TJA1050/TJA1051 family and equivalents are common) handles the differential drive; it is not something to attempt directly off microcontroller pins.
+
+**Keep stubs short.** Branches off the main bus to reach a connector or node should be as short as practical (centimeters, not meters) — long stubs create their own reflections independent of the main bus termination.
+
+**Common-mode range and ground.** CAN is differential, but it's not immune to ground offset between nodes — the transceiver has a limited common-mode voltage range it can tolerate, and in installations spanning different power domains or long cable runs, that's worth checking against the transceiver's datasheet rather than assuming differential signaling makes ground irrelevant.
+
+**Isolation is common in industrial designs.** Where a CAN node needs to survive a fault on the bus without taking the rest of the board down with it, an isolated CAN transceiver (or a non-isolated transceiver behind an isolated DC-DC and digital isolator) is the standard approach — automotive designs usually skip this since the whole vehicle shares one ground and power system, but industrial and multi-enclosure setups often can't.

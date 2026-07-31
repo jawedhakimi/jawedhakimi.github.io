@@ -1,0 +1,66 @@
+---
+title: "UART"
+subtitle: "Protocols"
+toc: true
+---
+
+A Universal Asynchronous Receiver/Transmitter sends bytes with no shared clock line — timing is agreed in advance (the baud rate) and each byte is framed with start/stop bits so the receiver can find the edges on its own.
+
+## Framing
+
+Idle line sits high. A frame is: one start bit (line pulled low), 5–9 data bits (LSB first), an optional parity bit, then one or more stop bits (line released high):
+
+$$
+\text{frame bits} = 1 + \text{data bits} + [\text{parity?} 1 : 0] + \text{stop bits}
+$$
+
+Both ends must agree on baud rate, data bits, parity, and stop bits beforehand — there's no negotiation. Get any of the four wrong and you get garbage or nothing.
+
+## Calculator: bit time and frame time
+
+```{=html}
+<div id="uart-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "uart-calc",
+  inputs: [
+    { id: "baud", label: "Baud rate", value: 115200, min: 1, step: 100 },
+    { id: "dataBits", label: "Data bits", value: 8, min: 5, step: 1 },
+    { id: "parity", label: "Parity", type: "select", value: "none", options: [
+      { value: "none", label: "None" },
+      { value: "even", label: "Even" },
+      { value: "odd", label: "Odd" }
+    ] },
+    { id: "stopBits", label: "Stop bits", type: "select", value: "1", options: ["1", "1.5", "2"] }
+  ],
+  outputs: [
+    { id: "bitTime", label: "Bit time" },
+    { id: "frameBits", label: "Frame bits" },
+    { id: "frameTime", label: "Frame time" }
+  ],
+  compute: function (v) {
+    if (v.baud <= 0) return { bitTime: "-", frameBits: "-", frameTime: "-" };
+    var bitTimeUs = 1e6 / v.baud;
+    var parityBit = v.parity === "none" ? 0 : 1;
+    var frameBits = 1 + v.dataBits + parityBit + parseFloat(v.stopBits);
+    var frameTimeUs = frameBits * bitTimeUs;
+    return {
+      bitTime: bitTimeUs.toFixed(2) + " µs",
+      frameBits: frameBits.toString(),
+      frameTime: frameTimeUs.toFixed(2) + " µs"
+    };
+  }
+});
+</script>
+```
+
+## Implementing it in circuit
+
+**Voltage levels first.** A microcontroller's UART pins swing between 0 V and its logic supply (3.3 V or 5 V) — that's TTL/CMOS-level UART, not RS-232 (see the next page). Connecting a 5 V UART TX directly into a 3.3 V-only RX pin can overstress the input; check the receiving device's absolute maximum, and add a level shifter or a simple resistor divider if there's any doubt.
+
+**TX goes to RX.** Obvious once stated, a common wiring mistake otherwise — device A's TX connects to device B's RX, and vice versa. Boards labeled from the device's own perspective (a USB-serial adapter's "TX" is what *it* transmits) make this easy to get backwards.
+
+**Common ground is mandatory.** UART is single-ended — the receiver decides high/low relative to its own ground pin. If the two devices don't share a ground reference (separate power supplies, long cable runs), add a ground wire alongside the signal wires, or use an isolated UART transceiver if the two sides genuinely need to float independently.
+
+**Cable length and speed trade off.** Bare TTL-level UART over an unshielded wire is only reliable for short runs (tens of centimeters to maybe a meter, more at lower baud rates) before ringing and noise pickup cause errors — for anything longer, convert to RS-232 or RS-485 at the electrical layer instead of pushing raw TTL levels down a long cable.

@@ -5,7 +5,7 @@ page-layout: full
 toc: false
 ---
 
-A running notebook of what I'm learning — electrical engineering fundamentals, magnetics, components, power electronics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers. For just the calculators without the derivations, see the [Calculators](calculators/index.qmd) section.
+A running notebook of what I'm learning — electrical engineering fundamentals, magnetics, components, power electronics, communication protocols, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers. For just the calculators without the derivations, see the [Calculators](calculators/index.qmd) section.
 
 ::: {.card-grid}
 
@@ -47,6 +47,16 @@ Diodes, Zener and Schottky diodes, BJTs, MOSFETs, and thyristors — how each wo
 Duty cycle, inductor selection, and output filtering for the three core DC-DC topologies, plus RC/LC filter design.
 
 [Open chapter →](power-electronics/index.qmd){.open}
+:::
+
+::: {.card .cat-protocols}
+[Protocols]{.tag}
+
+### UART, SPI, I2C, I2S, CAN, RS-232/485
+
+How each bus works and what to think about wiring it into a real circuit — termination, pull-ups, level shifting, isolation.
+
+[Open chapter →](protocols/index.qmd){.open}
 :::
 
 ::: {.card .cat-ic .disabled}

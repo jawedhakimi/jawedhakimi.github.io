@@ -136,7 +136,7 @@
     "href": "notebook.html",
     "title": "Notebook",
     "section": "",
-    "text": "A running notebook of what I’m learning — electrical engineering fundamentals, magnetics, components, power electronics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers. For just the calculators without the derivations, see the Calculators section.\n\n\nElectrical engineering\n\nBasics\nOhm’s law, series/parallel resistance, voltage dividers, RC charging, and R/L/C impedance — five notes, each with a calculator.\nOpen chapter →\n\n\n\nMagnetics\n\nSolenoid inductance\nDeriving inductance from Ampere’s law, then correcting for a finite coil with Wheeler’s formula. Includes a live calculator.\nOpen note →\n\n\n\nComponents\n\nDiscrete semiconductors\nDiodes, Zener and Schottky diodes, BJTs, MOSFETs, and thyristors — how each works, the equations, and a calculator for each.\nOpen chapter →\n\n\n\nPower electronics\n\nBuck, boost, buck-boost, filters\nDuty cycle, inductor selection, and output filtering for the three core DC-DC topologies, plus RC/LC filter design.\nOpen chapter →\n\n\n\nIntegrated circuits\n\nOp-amp noise budgets\nWorking through input-referred noise for a transimpedance front end.\nComing soon\n\n\n\nMicrocontrollers\n\nTimer/PWM resolution\nChoosing prescaler and ARR values for a target frequency and duty resolution.\nComing soon\n\n\n\nSoftware\n\nFixed-point vs. float on MCUs\nWhen Q-format fixed point actually beats software float on a Cortex-M0.\nComing soon",
+    "text": "A running notebook of what I’m learning — electrical engineering fundamentals, magnetics, components, power electronics, communication protocols, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers. For just the calculators without the derivations, see the Calculators section.\n\n\nElectrical engineering\n\nBasics\nOhm’s law, series/parallel resistance, voltage dividers, RC charging, and R/L/C impedance — five notes, each with a calculator.\nOpen chapter →\n\n\n\nMagnetics\n\nSolenoid inductance\nDeriving inductance from Ampere’s law, then correcting for a finite coil with Wheeler’s formula. Includes a live calculator.\nOpen note →\n\n\n\nComponents\n\nDiscrete semiconductors\nDiodes, Zener and Schottky diodes, BJTs, MOSFETs, and thyristors — how each works, the equations, and a calculator for each.\nOpen chapter →\n\n\n\nPower electronics\n\nBuck, boost, buck-boost, filters\nDuty cycle, inductor selection, and output filtering for the three core DC-DC topologies, plus RC/LC filter design.\nOpen chapter →\n\n\n\nProtocols\n\nUART, SPI, I2C, I2S, CAN, RS-232/485\nHow each bus works and what to think about wiring it into a real circuit — termination, pull-ups, level shifting, isolation.\nOpen chapter →\n\n\n\nIntegrated circuits\n\nOp-amp noise budgets\nWorking through input-referred noise for a transimpedance front end.\nComing soon\n\n\n\nMicrocontrollers\n\nTimer/PWM resolution\nChoosing prescaler and ARR values for a target frequency and duty resolution.\nComing soon\n\n\n\nSoftware\n\nFixed-point vs. float on MCUs\nWhen Q-format fixed point actually beats software float on a Cortex-M0.\nComing soon",
     "crumbs": [
       "Notebook"
     ]
@@ -498,183 +498,219 @@
     ]
   },
   {
-    "objectID": "components/zener-schottky-diodes.html",
-    "href": "components/zener-schottky-diodes.html",
-    "title": "Zener and Schottky diodes",
+    "objectID": "protocols/can.html",
+    "href": "protocols/can.html",
+    "title": "CAN",
     "section": "",
-    "text": "Two diode variants built around a normal PN junction’s least-wanted properties — breakdown and switching delay — turned into features.",
+    "text": "Controller Area Network was built for automotive wiring harnesses: many nodes on one twisted pair, no central controller, and a message-based model where nodes don’t address each other directly — a message just carries an identifier, and every node decides for itself whether to care.",
     "crumbs": [
       "Notebook",
-      "Components",
-      "Zener and Schottky diodes"
+      "Protocols",
+      "CAN"
     ]
   },
   {
-    "objectID": "components/zener-schottky-diodes.html#zener-diodes",
-    "href": "components/zener-schottky-diodes.html#zener-diodes",
-    "title": "Zener and Schottky diodes",
-    "section": "Zener diodes",
-    "text": "Zener diodes\nA standard diode’s reverse breakdown is destructive if the current isn’t limited — but a Zener is doped specifically to break down at a well-controlled voltage \\(V_Z\\) and survive it indefinitely, provided power dissipation stays within its rating. That gives a cheap, if imprecise (a few percent, and temperature-sensitive), voltage reference.\n\nBasic shunt regulator\nA series resistor from the supply into the Zener (with the load in parallel) sets the Zener current; the resistor must be sized so the Zener always sees at least its minimum regulation current, across the full load current range:\n\\[\nR = \\frac{V_{in} - V_Z}{I_Z + I_{load}}\n\\]\nSimple and lossy — the series resistor burns power continuously, and regulation is only as good as the Zener’s own impedance. Fine for a low-current reference or bias supply, not for anything power-hungry (a linear or switching regulator does the same job far more efficiently).\n\n\nCalculator",
+    "objectID": "protocols/can.html#differential-signaling-and-arbitration",
+    "href": "protocols/can.html#differential-signaling-and-arbitration",
+    "title": "CAN",
+    "section": "Differential signaling and arbitration",
+    "text": "Differential signaling and arbitration\nLike RS-485, CAN_H and CAN_L carry the same signal as a voltage difference, giving it the same noise-immunity advantage over long, electrically noisy cable runs (an engine bay is about as hostile an EMI environment as automotive electronics gets). Idle/recessive is both lines near the same voltage (~2.5 V, near-zero differential); a dominant bit pulls them apart.\nThat dominant/recessive asymmetry is what makes CAN’s arbitration work without a bus master: if multiple nodes start transmitting at the same time, they all monitor the bus while sending their identifier bit by bit. A node sending a recessive bit while it reads back a dominant one on the bus knows it lost arbitration — someone else’s frame has a lower (higher-priority) ID — and it silently backs off. The bus never collides in the way, say, early Ethernet could; the highest-priority message simply wins and keeps going.",
     "crumbs": [
       "Notebook",
-      "Components",
-      "Zener and Schottky diodes"
+      "Protocols",
+      "CAN"
     ]
   },
   {
-    "objectID": "components/zener-schottky-diodes.html#schottky-diodes",
-    "href": "components/zener-schottky-diodes.html#schottky-diodes",
-    "title": "Zener and Schottky diodes",
-    "section": "Schottky diodes",
-    "text": "Schottky diodes\nA Schottky diode replaces the PN junction with a metal-semiconductor junction. Two practical consequences follow directly from that:\nLower forward voltage — typically 0.2–0.4 V versus 0.6–0.7 V for silicon PN — because there’s no minority-carrier injection barrier to overcome in the same way.\nNo reverse-recovery time — a PN diode stores minority charge while conducting and takes tens to hundreds of nanoseconds to stop conducting when reverse-biased; a Schottky is a majority-carrier device with essentially none of that, so it switches off almost instantly.\nThat combination is exactly why Schottkys show up as the freewheeling/catch diode in unsynchronized buck converters and as reverse-polarity protection where the forward drop matters. The trade-offs: higher reverse leakage current (worse with temperature) and generally lower reverse voltage ratings than comparable PN diodes.",
+    "objectID": "protocols/can.html#bit-timing",
+    "href": "protocols/can.html#bit-timing",
+    "title": "CAN",
+    "section": "Bit timing",
+    "text": "Bit timing\nA CAN bit is divided into time quanta — sync segment, propagation segment, phase segment 1, phase segment 2 — configured in the controller’s bit timing registers as a prescaler and quanta-per-segment count. The resulting bit rate:\n\\[\nf_{bit} = \\frac{f_{clk}}{\\text{BRP} \\times (1 + T_{SEG1} + T_{SEG2})}\n\\]\n\n\n\nSample point (where in the bit the receiver actually latches the value) is normally targeted around 75–87.5% — check that number after changing segment values, not just the bit rate, since a bad sample point causes intermittent errors that only show up under specific bus loading or temperature.",
     "crumbs": [
       "Notebook",
-      "Components",
-      "Zener and Schottky diodes"
+      "Protocols",
+      "CAN"
     ]
   },
   {
-    "objectID": "components/index.html",
-    "href": "components/index.html",
-    "title": "Components",
+    "objectID": "protocols/can.html#implementing-it-in-circuit",
+    "href": "protocols/can.html#implementing-it-in-circuit",
+    "title": "CAN",
+    "section": "Implementing it in circuit",
+    "text": "Implementing it in circuit\n120 Ω termination at both physical ends of the bus, and only the ends. Same rule as RS-485, for the same reason — CAN is a linear bus topology, and unterminated or over-terminated ends cause reflections. A dedicated CAN transceiver IC (the TJA1050/TJA1051 family and equivalents are common) handles the differential drive; it is not something to attempt directly off microcontroller pins.\nKeep stubs short. Branches off the main bus to reach a connector or node should be as short as practical (centimeters, not meters) — long stubs create their own reflections independent of the main bus termination.\nCommon-mode range and ground. CAN is differential, but it’s not immune to ground offset between nodes — the transceiver has a limited common-mode voltage range it can tolerate, and in installations spanning different power domains or long cable runs, that’s worth checking against the transceiver’s datasheet rather than assuming differential signaling makes ground irrelevant.\nIsolation is common in industrial designs. Where a CAN node needs to survive a fault on the bus without taking the rest of the board down with it, an isolated CAN transceiver (or a non-isolated transceiver behind an isolated DC-DC and digital isolator) is the standard approach — automotive designs usually skip this since the whole vehicle shares one ground and power system, but industrial and multi-enclosure setups often can’t.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "CAN"
+    ]
+  },
+  {
+    "objectID": "protocols/i2c.html",
+    "href": "protocols/i2c.html",
+    "title": "I2C",
     "section": "",
-    "text": "Discrete semiconductors — the individual diodes and transistors everything else gets built from, as opposed to integrated circuits where dozens to billions of them are fabricated together on one die.\n\nDiodes\nZener and Schottky diodes\nBipolar junction transistors (BJT)\nMOSFETs\nThyristors (SCR / TRIAC)\n\n\n\n\n\n\n\n\n\n\nDevice\nTerminals\nControlled by\nTypical role\n\n\n\n\nDiode\n2\n— (one-way by construction)\nRectification, protection, reference\n\n\nBJT\n3\nBase current\nAmplification, switching\n\n\nMOSFET\n3\nGate voltage\nSwitching, power conversion\n\n\nThyristor\n3 (or 4 leads for TRIAC)\nGate trigger pulse, then latches\nAC power control\n\n\n\nMore devices (JFETs, IGBTs) may get added here as I work through them.",
+    "text": "Two wires — SDA (data) and SCL (clock) — shared by every device on the bus, each identified by a 7-bit (or 10-bit) address. The mechanism that makes multi-drop work with just two wires is the open-drain output: every device can only pull a line low or let it float, never drive it high, so external pull-up resistors do the work of returning the line to logic 1.",
     "crumbs": [
       "Notebook",
-      "Components",
-      "Components"
+      "Protocols",
+      "I2C"
     ]
   },
   {
-    "objectID": "components/diodes.html",
-    "href": "components/diodes.html",
-    "title": "Diodes",
+    "objectID": "protocols/i2c.html#why-open-drain-and-why-it-matters-for-the-pull-ups",
+    "href": "protocols/i2c.html#why-open-drain-and-why-it-matters-for-the-pull-ups",
+    "title": "I2C",
+    "section": "Why open-drain, and why it matters for the pull-ups",
+    "text": "Why open-drain, and why it matters for the pull-ups\nBecause no device actively drives a “1,” two devices can pull the same line low at the same time without a conflict (whichever wants it low, wins) — this is what lets multiple masters share a bus and detect collisions safely, and what lets a slave “clock stretch” (hold SCL low) to pause a master mid-transaction. The cost is that the bus relies entirely on the pull-up resistors to define the high state and to charge the bus capacitance back up to a valid “1” — which is a genuine RC time constant problem, and it’s the actual constraint on how fast and how long an I2C bus can be.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "I2C"
+    ]
+  },
+  {
+    "objectID": "protocols/i2c.html#sizing-the-pull-up-resistors",
+    "href": "protocols/i2c.html#sizing-the-pull-up-resistors",
+    "title": "I2C",
+    "section": "Sizing the pull-up resistors",
+    "text": "Sizing the pull-up resistors\nTwo competing limits set the valid range. Too small a resistor and a device can’t pull the line low enough (violating \\(V_{OL}\\)) or draws excess current; too large a resistor and the bus capacitance can’t charge fast enough to meet the rise-time spec at the chosen clock speed.\n\\[\nR_{p,min} = \\frac{V_{DD} - V_{OL,max}}{I_{OL,max}}, \\qquad R_{p,max} = \\frac{t_r}{0.8473 \\, C_b}\n\\]\n\\(I_{OL,max}\\) and \\(V_{OL,max}\\) come from the weakest device’s datasheet (3 mA / 0.4 V is a common spec). \\(t_r\\) is the maximum allowed rise time for the chosen speed grade, and \\(C_b\\) is the total bus capacitance — every device, every centimeter of trace or cable, adds to it.\n\n\n\nPick something in the middle of the calculated range, not right at either edge. Lower resistance suits longer buses or faster clocks (more capacitance to charge, less time to do it); higher resistance suits a short, lightly loaded standard-mode (100 kHz) bus, where values around 2.2–4.7 kΩ at 3.3 V are common.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "I2C"
+    ]
+  },
+  {
+    "objectID": "protocols/i2c.html#other-things-to-think-about",
+    "href": "protocols/i2c.html#other-things-to-think-about",
+    "title": "I2C",
+    "section": "Other things to think about",
+    "text": "Other things to think about\nMixed-voltage buses. A 5 V device and a 3.3 V device can’t share pull-ups to different rails safely — use a dedicated I2C level-shifter IC, or the simple two-MOSFET bidirectional level-shifting circuit, rather than pulling up to whichever voltage is more convenient.\nBus length is really a capacitance budget. The 400 pF total bus capacitance cap in the standard specification isn’t arbitrary — it’s what keeps rise time in check at the given pull-up range. Long traces or cables eat into that budget fast; an I2C bus that needs to run any real distance usually wants an active bus buffer/extender IC, not just bigger pull-ups.\nAddress conflicts. Two devices with the same fixed 7-bit address can’t coexist on one bus. Check datasheets before committing to a design with multiple copies of the same sensor — many parts have one or two address-select pins for exactly this reason, and if that’s not enough, an I2C mux chip is the usual fix.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "I2C"
+    ]
+  },
+  {
+    "objectID": "protocols/index.html",
+    "href": "protocols/index.html",
+    "title": "Protocols",
     "section": "",
-    "text": "A diode is a single junction between P-type material (doped with acceptor atoms, majority carriers are holes) and N-type material (doped with donor atoms, majority carriers are electrons). Where they meet, carriers diffuse across and recombine, leaving behind a region stripped of free carriers — the depletion region — with a built-in electric field opposing further diffusion.\nForward bias (P side positive relative to N) narrows the depletion region and, past a threshold, lets current flow easily. Reverse bias widens it and current stays near zero — until reverse breakdown.\n\n\n\nFig. 1 — diode symbol, and current vs. voltage for both bias directions.",
+    "text": "How the common communication buses actually work at the wire level, and the circuit-level decisions each one forces — termination, pull-ups, level shifting, isolation, cable length.\n\nUART\nRS-232 and RS-485\nI2C\nSPI\nI2S\nCAN\n\n\n\n\n\n\n\n\n\n\n\nProtocol\nWires\nTopology\nTypical speed\nAddressing\n\n\n\n\nUART\n2 (TX/RX) + GND\nPoint-to-point\nUp to a few Mbps\nNone\n\n\nRS-232\n2–3 signal + GND\nPoint-to-point\nUp to ~1 Mbps, short range\nNone\n\n\nRS-485\n2 (differential) + GND\nMulti-drop bus\nUp to 10 Mbps (short), 100 kbps at 1200 m\nSoftware (in-band)\n\n\nI2C\n2 (SDA/SCL) + GND\nMulti-drop bus\n100 kHz – 3.4 MHz\n7/10-bit hardware address\n\n\nSPI\n4 (MOSI/MISO/SCK/CS)\nPoint-to-point (per CS)\nTens of MHz\nChip-select line\n\n\nI2S\n3 (BCLK/WS/SD)\nPoint-to-point\nSet by sample rate\nNone\n\n\nCAN\n2 (differential) + GND\nMulti-drop bus\nUp to 1 Mbps (FD: up to ~8 Mbps)\nMessage ID, not device",
     "crumbs": [
       "Notebook",
-      "Components",
-      "Diodes"
+      "Protocols",
+      "Protocols"
     ]
   },
   {
-    "objectID": "components/diodes.html#the-pn-junction",
-    "href": "components/diodes.html#the-pn-junction",
-    "title": "Diodes",
+    "objectID": "protocols/i2s.html",
+    "href": "protocols/i2s.html",
+    "title": "I2S",
     "section": "",
-    "text": "A diode is a single junction between P-type material (doped with acceptor atoms, majority carriers are holes) and N-type material (doped with donor atoms, majority carriers are electrons). Where they meet, carriers diffuse across and recombine, leaving behind a region stripped of free carriers — the depletion region — with a built-in electric field opposing further diffusion.\nForward bias (P side positive relative to N) narrows the depletion region and, past a threshold, lets current flow easily. Reverse bias widens it and current stays near zero — until reverse breakdown.\n\n\n\nFig. 1 — diode symbol, and current vs. voltage for both bias directions.",
+    "text": "A synchronous serial protocol built specifically for streaming digital audio between chips — a DAC, a codec, a digital microphone — where SPI’s lack of a defined sample-boundary concept becomes a real problem.",
     "crumbs": [
       "Notebook",
-      "Components",
-      "Diodes"
+      "Protocols",
+      "I2S"
     ]
   },
   {
-    "objectID": "components/diodes.html#the-diode-equation",
-    "href": "components/diodes.html#the-diode-equation",
-    "title": "Diodes",
-    "section": "The diode equation",
-    "text": "The diode equation\n\\[\nI = I_S \\left( e^{V / (nV_T)} - 1 \\right)\n\\]\n\\(I_S\\) is the reverse saturation current (tiny, often pA–nA), \\(n\\) is the ideality factor (close to 1 for a good diode), and \\(V_T = kT/q \\approx 25.85\\,\\text{mV}\\) at room temperature. The exponential is why forward voltage looks almost like a fixed ~0.6–0.7 V (silicon) rather than a smooth ramp — current changes by roughly 10× for every ~60 mV of forward voltage.\nForward voltage drops slightly with temperature, about \\(-2\\,\\text{mV/°C}\\) for silicon — worth remembering when a design runs hot.",
+    "objectID": "protocols/i2s.html#the-three-lines",
+    "href": "protocols/i2s.html#the-three-lines",
+    "title": "I2S",
+    "section": "The three lines",
+    "text": "The three lines\nBCLK (bit clock, one pulse per audio bit), WS/LRCLK (word select, marks which channel — left or right — the current bits belong to), and SD (serial data, the audio samples themselves, MSB first). Unlike SPI there’s no separate chip-select; a single I2S link is inherently point-to-point, and WS itself doubles as the frame marker.",
     "crumbs": [
       "Notebook",
-      "Components",
-      "Diodes"
+      "Protocols",
+      "I2S"
     ]
   },
   {
-    "objectID": "components/diodes.html#rectification",
-    "href": "components/diodes.html#rectification",
-    "title": "Diodes",
-    "section": "Rectification",
-    "text": "Rectification\nA single diode passes only one half of an AC waveform (half-wave rectification). Four diodes in a bridge pass both halves in the same direction (full-wave), roughly doubling the ripple frequency seen by the output filter capacitor and halving the required capacitance for the same ripple — the same \\(C = \\Delta I / (f \\cdot \\Delta V)\\) relationship as the buck converter’s output cap, just driven by load current instead of inductor ripple current.",
+    "objectID": "protocols/i2s.html#clock-relationship",
+    "href": "protocols/i2s.html#clock-relationship",
+    "title": "I2S",
+    "section": "Clock relationship",
+    "text": "Clock relationship\nThe three clocks aren’t independent — BCLK, word select, and the underlying sample rate are tied together by the audio format itself:\n\\[\nf_{BCLK} = f_s \\times \\text{bits per sample} \\times \\text{channels}\n\\]\nGet this wrong (mismatched bit depth or channel count between transmitter and receiver) and audio still often “plays,” just pitched wrong or with channels swapped — a quieter failure mode than a digital bus simply not working.",
     "crumbs": [
       "Notebook",
-      "Components",
-      "Diodes"
+      "Protocols",
+      "I2S"
     ]
   },
   {
-    "objectID": "components/diodes.html#calculator-series-resistor-for-a-diode-or-led",
-    "href": "components/diodes.html#calculator-series-resistor-for-a-diode-or-led",
-    "title": "Diodes",
-    "section": "Calculator: series resistor for a diode or LED",
-    "text": "Calculator: series resistor for a diode or LED\nThe most common practical use of the diode equation: given a supply and a target forward current, size the series resistor. Treats the diode’s forward drop as roughly constant, which is accurate enough for design work once \\(V_f\\) is known from a datasheet.\n\\[\nR = \\frac{V_{supply} - V_f}{I_f}\n\\]",
+    "objectID": "protocols/i2s.html#calculator-bit-clock-frequency",
+    "href": "protocols/i2s.html#calculator-bit-clock-frequency",
+    "title": "I2S",
+    "section": "Calculator: bit clock frequency",
+    "text": "Calculator: bit clock frequency",
     "crumbs": [
       "Notebook",
-      "Components",
-      "Diodes"
+      "Protocols",
+      "I2S"
     ]
   },
   {
-    "objectID": "microcontrollers/index.html",
-    "href": "microcontrollers/index.html",
-    "title": "Microcontrollers",
+    "objectID": "protocols/i2s.html#implementing-it-in-circuit",
+    "href": "protocols/i2s.html#implementing-it-in-circuit",
+    "title": "I2S",
+    "section": "Implementing it in circuit",
+    "text": "Implementing it in circuit\nClock quality matters more here than on most digital buses. Jitter on BCLK or the master clock feeding it translates directly into audible noise in the analog output — this is the one protocol on this page where the purely digital signal’s timing precision has a straight line to perceived audio quality. A clean, low-jitter clock source is worth the extra cost on anything beyond a quick prototype.\nKeep it away from switching noise and analog sections. Route I2S digital lines clear of switching regulators and any sensitive analog audio circuitry, and give the audio codec its own quiet ground/power area where board layout allows — digital switching noise coupling into an analog output stage is a classic source of audible whine or hiss.\nIt’s a short-range, intra-board (or short-cable) protocol as specified. Raw I2S isn’t designed for long cable runs the way S/PDIF or AES3 are — if audio needs to travel any real distance, convert to one of those standards rather than extending raw I2S.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "I2S"
+    ]
+  },
+  {
+    "objectID": "components/thyristors.html",
+    "href": "components/thyristors.html",
+    "title": "Thyristors (SCR / TRIAC)",
     "section": "",
-    "text": "Notes on timers, peripherals, and firmware-level hardware interfacing coming here — starting with timer/PWM resolution.\nNothing published yet.",
-    "crumbs": [
-      "Notebook",
-      "Microcontrollers",
-      "Microcontrollers"
-    ]
-  },
-  {
-    "objectID": "components/mosfet.html",
-    "href": "components/mosfet.html",
-    "title": "MOSFETs",
-    "section": "",
-    "text": "A voltage on an insulated gate creates (or removes) a conductive channel between source and drain — no gate current flows in steady state, which is the main practical difference from a BJT’s current-controlled base.",
+    "text": "A thyristor is a four-layer PNPN device that behaves like nothing else on this page: it latches. A gate pulse triggers it into conduction, and it then stays conducting — no continued gate drive needed — until the main current drops below a minimum holding current \\(I_H\\), at which point it turns off on its own.",
     "crumbs": [
       "Notebook",
       "Components",
-      "MOSFETs"
+      "Thyristors (SCR / TRIAC)"
     ]
   },
   {
-    "objectID": "components/mosfet.html#enhancement-vs.-depletion-n-vs.-p-channel",
-    "href": "components/mosfet.html#enhancement-vs.-depletion-n-vs.-p-channel",
-    "title": "MOSFETs",
-    "section": "Enhancement vs. depletion, N vs. P channel",
-    "text": "Enhancement vs. depletion, N vs. P channel\nEnhancement-mode devices (the vast majority in use today) are off at \\(V_{GS}=0\\) and need gate voltage past a threshold to turn on — safer as a default state, which is why they dominate. Depletion-mode devices are on at \\(V_{GS}=0\\) and need gate voltage to turn off. N-channel conducts with electrons and needs positive \\(V_{GS}\\); P-channel conducts with holes and needs negative \\(V_{GS}\\). N-channel is preferred where possible — electron mobility gives lower on-resistance for the same die area.",
+    "objectID": "components/thyristors.html#silicon-controlled-rectifier-scr",
+    "href": "components/thyristors.html#silicon-controlled-rectifier-scr",
+    "title": "Thyristors (SCR / TRIAC)",
+    "section": "Silicon-controlled rectifier (SCR)",
+    "text": "Silicon-controlled rectifier (SCR)\nThe basic thyristor: conducts in one direction only, like a diode, but stays off even when forward biased until the gate receives a trigger pulse. Once triggered and above \\(I_H\\), the gate loses all further control — the only way to turn it off is to bring the main current below \\(I_H\\), which in an AC circuit happens automatically every half-cycle as the waveform crosses zero.\nThat zero-crossing turn-off is exactly what makes SCRs useful for phase-controlled AC power delivery: triggering the gate at a chosen delay (firing angle \\(\\alpha\\)) after each zero crossing controls how much of each half-cycle actually reaches the load, and the device turns itself off cleanly at the next crossing regardless.\n\nPhase control and RMS output\nFor a resistive load, delaying the firing angle \\(\\alpha\\) (0 to \\(\\pi\\) radians within each half-cycle) reduces the RMS voltage delivered to the load:\n\\[\nV_{RMS} = V_{in,RMS}\\sqrt{1 - \\frac{\\alpha}{\\pi} + \\frac{\\sin(2\\alpha)}{2\\pi}}\n\\]\n\\(\\alpha = 0\\) delivers the full waveform; \\(\\alpha = \\pi\\) delivers none. This is the mechanism behind old-style incandescent light dimmers.",
     "crumbs": [
       "Notebook",
       "Components",
-      "MOSFETs"
+      "Thyristors (SCR / TRIAC)"
     ]
   },
   {
-    "objectID": "components/mosfet.html#regions-of-operation",
-    "href": "components/mosfet.html#regions-of-operation",
-    "title": "MOSFETs",
-    "section": "Regions of operation",
-    "text": "Regions of operation\nLet \\(V_{ov} = V_{GS} - V_{th}\\) (the “overdrive” voltage). Using the simple square-law model:\n\nCutoff: \\(V_{GS} &lt; V_{th}\\), no channel, \\(I_D = 0\\).\nTriode / linear: \\(V_{DS} &lt; V_{ov}\\), behaves like a voltage-controlled resistor: \\(I_D = k\\left(V_{ov}V_{DS} - \\frac{V_{DS}^2}{2}\\right)\\)\nSaturation: \\(V_{DS} \\geq V_{ov}\\), current roughly flat (ideally independent of \\(V_{DS}\\)): \\(I_D \\approx \\frac{k}{2}V_{ov}^2\\)\n\nPower MOSFETs are almost always operated either fully in triode (as a low-resistance switch) or fully off — the region in between is where switching loss happens, and a well-designed switching circuit spends as little time there as possible.",
+    "objectID": "components/thyristors.html#triac",
+    "href": "components/thyristors.html#triac",
+    "title": "Thyristors (SCR / TRIAC)",
+    "section": "TRIAC",
+    "text": "TRIAC\nAn SCR only conducts one direction, so it only controls one half of an AC waveform. A TRIAC is functionally two SCRs wired anti-parallel in a single package, controllable from a single gate — it conducts (and can be triggered) on both half-cycles, which is why it’s the part actually found in most household dimmers and AC motor speed controls rather than a pair of discrete SCRs.",
     "crumbs": [
       "Notebook",
       "Components",
-      "MOSFETs"
+      "Thyristors (SCR / TRIAC)"
     ]
   },
   {
-    "objectID": "components/mosfet.html#on-resistance-and-conduction-loss",
-    "href": "components/mosfet.html#on-resistance-and-conduction-loss",
-    "title": "MOSFETs",
-    "section": "On-resistance and conduction loss",
-    "text": "On-resistance and conduction loss\nFor a MOSFET used as a switch, the datasheet parameter that matters most is \\(R_{DS(on)}\\) — resistance while fully on. Conduction power loss follows directly:\n\\[\nP_{cond} = I_{RMS}^2 \\cdot R_{DS(on)}\n\\]\n\\(R_{DS(on)}\\) rises with temperature (typically 30–50% higher at 125°C than at 25°C) and with gate drive that’s lower than the datasheet test condition — both worth checking against the datasheet curves, not just the headline number.",
+    "objectID": "components/thyristors.html#a-caution-worth-stating-plainly",
+    "href": "components/thyristors.html#a-caution-worth-stating-plainly",
+    "title": "Thyristors (SCR / TRIAC)",
+    "section": "A caution worth stating plainly",
+    "text": "A caution worth stating plainly\nThyristor circuits usually work directly with mains voltage. That combination of high voltage and latching behavior (a triggered device won’t turn off just because the gate signal goes away) is genuinely dangerous to prototype casually — isolation, proper fusing, and mains-rated components matter here more than almost anywhere else on this site.",
     "crumbs": [
       "Notebook",
       "Components",
-      "MOSFETs"
-    ]
-  },
-  {
-    "objectID": "components/mosfet.html#calculator-conduction-loss",
-    "href": "components/mosfet.html#calculator-conduction-loss",
-    "title": "MOSFETs",
-    "section": "Calculator: conduction loss",
-    "text": "Calculator: conduction loss\n\n\n\nSwitching loss — the energy lost transitioning through the linear region on every turn-on/turn-off — depends on gate charge \\(Q_g\\), drive strength, and switching frequency, and generally dominates conduction loss at higher frequencies. Worth its own page once it’s next in the queue.",
-    "crumbs": [
-      "Notebook",
-      "Components",
-      "MOSFETs"
+      "Thyristors (SCR / TRIAC)"
     ]
   },
   {
@@ -750,51 +786,339 @@
     ]
   },
   {
-    "objectID": "components/thyristors.html",
-    "href": "components/thyristors.html",
-    "title": "Thyristors (SCR / TRIAC)",
+    "objectID": "components/mosfet.html",
+    "href": "components/mosfet.html",
+    "title": "MOSFETs",
     "section": "",
-    "text": "A thyristor is a four-layer PNPN device that behaves like nothing else on this page: it latches. A gate pulse triggers it into conduction, and it then stays conducting — no continued gate drive needed — until the main current drops below a minimum holding current \\(I_H\\), at which point it turns off on its own.",
+    "text": "A voltage on an insulated gate creates (or removes) a conductive channel between source and drain — no gate current flows in steady state, which is the main practical difference from a BJT’s current-controlled base.",
     "crumbs": [
       "Notebook",
       "Components",
-      "Thyristors (SCR / TRIAC)"
+      "MOSFETs"
     ]
   },
   {
-    "objectID": "components/thyristors.html#silicon-controlled-rectifier-scr",
-    "href": "components/thyristors.html#silicon-controlled-rectifier-scr",
-    "title": "Thyristors (SCR / TRIAC)",
-    "section": "Silicon-controlled rectifier (SCR)",
-    "text": "Silicon-controlled rectifier (SCR)\nThe basic thyristor: conducts in one direction only, like a diode, but stays off even when forward biased until the gate receives a trigger pulse. Once triggered and above \\(I_H\\), the gate loses all further control — the only way to turn it off is to bring the main current below \\(I_H\\), which in an AC circuit happens automatically every half-cycle as the waveform crosses zero.\nThat zero-crossing turn-off is exactly what makes SCRs useful for phase-controlled AC power delivery: triggering the gate at a chosen delay (firing angle \\(\\alpha\\)) after each zero crossing controls how much of each half-cycle actually reaches the load, and the device turns itself off cleanly at the next crossing regardless.\n\nPhase control and RMS output\nFor a resistive load, delaying the firing angle \\(\\alpha\\) (0 to \\(\\pi\\) radians within each half-cycle) reduces the RMS voltage delivered to the load:\n\\[\nV_{RMS} = V_{in,RMS}\\sqrt{1 - \\frac{\\alpha}{\\pi} + \\frac{\\sin(2\\alpha)}{2\\pi}}\n\\]\n\\(\\alpha = 0\\) delivers the full waveform; \\(\\alpha = \\pi\\) delivers none. This is the mechanism behind old-style incandescent light dimmers.",
+    "objectID": "components/mosfet.html#enhancement-vs.-depletion-n-vs.-p-channel",
+    "href": "components/mosfet.html#enhancement-vs.-depletion-n-vs.-p-channel",
+    "title": "MOSFETs",
+    "section": "Enhancement vs. depletion, N vs. P channel",
+    "text": "Enhancement vs. depletion, N vs. P channel\nEnhancement-mode devices (the vast majority in use today) are off at \\(V_{GS}=0\\) and need gate voltage past a threshold to turn on — safer as a default state, which is why they dominate. Depletion-mode devices are on at \\(V_{GS}=0\\) and need gate voltage to turn off. N-channel conducts with electrons and needs positive \\(V_{GS}\\); P-channel conducts with holes and needs negative \\(V_{GS}\\). N-channel is preferred where possible — electron mobility gives lower on-resistance for the same die area.",
     "crumbs": [
       "Notebook",
       "Components",
-      "Thyristors (SCR / TRIAC)"
+      "MOSFETs"
     ]
   },
   {
-    "objectID": "components/thyristors.html#triac",
-    "href": "components/thyristors.html#triac",
-    "title": "Thyristors (SCR / TRIAC)",
-    "section": "TRIAC",
-    "text": "TRIAC\nAn SCR only conducts one direction, so it only controls one half of an AC waveform. A TRIAC is functionally two SCRs wired anti-parallel in a single package, controllable from a single gate — it conducts (and can be triggered) on both half-cycles, which is why it’s the part actually found in most household dimmers and AC motor speed controls rather than a pair of discrete SCRs.",
+    "objectID": "components/mosfet.html#regions-of-operation",
+    "href": "components/mosfet.html#regions-of-operation",
+    "title": "MOSFETs",
+    "section": "Regions of operation",
+    "text": "Regions of operation\nLet \\(V_{ov} = V_{GS} - V_{th}\\) (the “overdrive” voltage). Using the simple square-law model:\n\nCutoff: \\(V_{GS} &lt; V_{th}\\), no channel, \\(I_D = 0\\).\nTriode / linear: \\(V_{DS} &lt; V_{ov}\\), behaves like a voltage-controlled resistor: \\(I_D = k\\left(V_{ov}V_{DS} - \\frac{V_{DS}^2}{2}\\right)\\)\nSaturation: \\(V_{DS} \\geq V_{ov}\\), current roughly flat (ideally independent of \\(V_{DS}\\)): \\(I_D \\approx \\frac{k}{2}V_{ov}^2\\)\n\nPower MOSFETs are almost always operated either fully in triode (as a low-resistance switch) or fully off — the region in between is where switching loss happens, and a well-designed switching circuit spends as little time there as possible.",
     "crumbs": [
       "Notebook",
       "Components",
-      "Thyristors (SCR / TRIAC)"
+      "MOSFETs"
     ]
   },
   {
-    "objectID": "components/thyristors.html#a-caution-worth-stating-plainly",
-    "href": "components/thyristors.html#a-caution-worth-stating-plainly",
-    "title": "Thyristors (SCR / TRIAC)",
-    "section": "A caution worth stating plainly",
-    "text": "A caution worth stating plainly\nThyristor circuits usually work directly with mains voltage. That combination of high voltage and latching behavior (a triggered device won’t turn off just because the gate signal goes away) is genuinely dangerous to prototype casually — isolation, proper fusing, and mains-rated components matter here more than almost anywhere else on this site.",
+    "objectID": "components/mosfet.html#on-resistance-and-conduction-loss",
+    "href": "components/mosfet.html#on-resistance-and-conduction-loss",
+    "title": "MOSFETs",
+    "section": "On-resistance and conduction loss",
+    "text": "On-resistance and conduction loss\nFor a MOSFET used as a switch, the datasheet parameter that matters most is \\(R_{DS(on)}\\) — resistance while fully on. Conduction power loss follows directly:\n\\[\nP_{cond} = I_{RMS}^2 \\cdot R_{DS(on)}\n\\]\n\\(R_{DS(on)}\\) rises with temperature (typically 30–50% higher at 125°C than at 25°C) and with gate drive that’s lower than the datasheet test condition — both worth checking against the datasheet curves, not just the headline number.",
     "crumbs": [
       "Notebook",
       "Components",
-      "Thyristors (SCR / TRIAC)"
+      "MOSFETs"
+    ]
+  },
+  {
+    "objectID": "components/mosfet.html#calculator-conduction-loss",
+    "href": "components/mosfet.html#calculator-conduction-loss",
+    "title": "MOSFETs",
+    "section": "Calculator: conduction loss",
+    "text": "Calculator: conduction loss\n\n\n\nSwitching loss — the energy lost transitioning through the linear region on every turn-on/turn-off — depends on gate charge \\(Q_g\\), drive strength, and switching frequency, and generally dominates conduction loss at higher frequencies. Worth its own page once it’s next in the queue.",
+    "crumbs": [
+      "Notebook",
+      "Components",
+      "MOSFETs"
+    ]
+  },
+  {
+    "objectID": "microcontrollers/index.html",
+    "href": "microcontrollers/index.html",
+    "title": "Microcontrollers",
+    "section": "",
+    "text": "Notes on timers, peripherals, and firmware-level hardware interfacing coming here — starting with timer/PWM resolution.\nNothing published yet.",
+    "crumbs": [
+      "Notebook",
+      "Microcontrollers",
+      "Microcontrollers"
+    ]
+  },
+  {
+    "objectID": "components/diodes.html",
+    "href": "components/diodes.html",
+    "title": "Diodes",
+    "section": "",
+    "text": "A diode is a single junction between P-type material (doped with acceptor atoms, majority carriers are holes) and N-type material (doped with donor atoms, majority carriers are electrons). Where they meet, carriers diffuse across and recombine, leaving behind a region stripped of free carriers — the depletion region — with a built-in electric field opposing further diffusion.\nForward bias (P side positive relative to N) narrows the depletion region and, past a threshold, lets current flow easily. Reverse bias widens it and current stays near zero — until reverse breakdown.\n\n\n\nFig. 1 — diode symbol, and current vs. voltage for both bias directions.",
+    "crumbs": [
+      "Notebook",
+      "Components",
+      "Diodes"
+    ]
+  },
+  {
+    "objectID": "components/diodes.html#the-pn-junction",
+    "href": "components/diodes.html#the-pn-junction",
+    "title": "Diodes",
+    "section": "",
+    "text": "A diode is a single junction between P-type material (doped with acceptor atoms, majority carriers are holes) and N-type material (doped with donor atoms, majority carriers are electrons). Where they meet, carriers diffuse across and recombine, leaving behind a region stripped of free carriers — the depletion region — with a built-in electric field opposing further diffusion.\nForward bias (P side positive relative to N) narrows the depletion region and, past a threshold, lets current flow easily. Reverse bias widens it and current stays near zero — until reverse breakdown.\n\n\n\nFig. 1 — diode symbol, and current vs. voltage for both bias directions.",
+    "crumbs": [
+      "Notebook",
+      "Components",
+      "Diodes"
+    ]
+  },
+  {
+    "objectID": "components/diodes.html#the-diode-equation",
+    "href": "components/diodes.html#the-diode-equation",
+    "title": "Diodes",
+    "section": "The diode equation",
+    "text": "The diode equation\n\\[\nI = I_S \\left( e^{V / (nV_T)} - 1 \\right)\n\\]\n\\(I_S\\) is the reverse saturation current (tiny, often pA–nA), \\(n\\) is the ideality factor (close to 1 for a good diode), and \\(V_T = kT/q \\approx 25.85\\,\\text{mV}\\) at room temperature. The exponential is why forward voltage looks almost like a fixed ~0.6–0.7 V (silicon) rather than a smooth ramp — current changes by roughly 10× for every ~60 mV of forward voltage.\nForward voltage drops slightly with temperature, about \\(-2\\,\\text{mV/°C}\\) for silicon — worth remembering when a design runs hot.",
+    "crumbs": [
+      "Notebook",
+      "Components",
+      "Diodes"
+    ]
+  },
+  {
+    "objectID": "components/diodes.html#rectification",
+    "href": "components/diodes.html#rectification",
+    "title": "Diodes",
+    "section": "Rectification",
+    "text": "Rectification\nA single diode passes only one half of an AC waveform (half-wave rectification). Four diodes in a bridge pass both halves in the same direction (full-wave), roughly doubling the ripple frequency seen by the output filter capacitor and halving the required capacitance for the same ripple — the same \\(C = \\Delta I / (f \\cdot \\Delta V)\\) relationship as the buck converter’s output cap, just driven by load current instead of inductor ripple current.",
+    "crumbs": [
+      "Notebook",
+      "Components",
+      "Diodes"
+    ]
+  },
+  {
+    "objectID": "components/diodes.html#calculator-series-resistor-for-a-diode-or-led",
+    "href": "components/diodes.html#calculator-series-resistor-for-a-diode-or-led",
+    "title": "Diodes",
+    "section": "Calculator: series resistor for a diode or LED",
+    "text": "Calculator: series resistor for a diode or LED\nThe most common practical use of the diode equation: given a supply and a target forward current, size the series resistor. Treats the diode’s forward drop as roughly constant, which is accurate enough for design work once \\(V_f\\) is known from a datasheet.\n\\[\nR = \\frac{V_{supply} - V_f}{I_f}\n\\]",
+    "crumbs": [
+      "Notebook",
+      "Components",
+      "Diodes"
+    ]
+  },
+  {
+    "objectID": "components/index.html",
+    "href": "components/index.html",
+    "title": "Components",
+    "section": "",
+    "text": "Discrete semiconductors — the individual diodes and transistors everything else gets built from, as opposed to integrated circuits where dozens to billions of them are fabricated together on one die.\n\nDiodes\nZener and Schottky diodes\nBipolar junction transistors (BJT)\nMOSFETs\nThyristors (SCR / TRIAC)\n\n\n\n\n\n\n\n\n\n\nDevice\nTerminals\nControlled by\nTypical role\n\n\n\n\nDiode\n2\n— (one-way by construction)\nRectification, protection, reference\n\n\nBJT\n3\nBase current\nAmplification, switching\n\n\nMOSFET\n3\nGate voltage\nSwitching, power conversion\n\n\nThyristor\n3 (or 4 leads for TRIAC)\nGate trigger pulse, then latches\nAC power control\n\n\n\nMore devices (JFETs, IGBTs) may get added here as I work through them.",
+    "crumbs": [
+      "Notebook",
+      "Components",
+      "Components"
+    ]
+  },
+  {
+    "objectID": "components/zener-schottky-diodes.html",
+    "href": "components/zener-schottky-diodes.html",
+    "title": "Zener and Schottky diodes",
+    "section": "",
+    "text": "Two diode variants built around a normal PN junction’s least-wanted properties — breakdown and switching delay — turned into features.",
+    "crumbs": [
+      "Notebook",
+      "Components",
+      "Zener and Schottky diodes"
+    ]
+  },
+  {
+    "objectID": "components/zener-schottky-diodes.html#zener-diodes",
+    "href": "components/zener-schottky-diodes.html#zener-diodes",
+    "title": "Zener and Schottky diodes",
+    "section": "Zener diodes",
+    "text": "Zener diodes\nA standard diode’s reverse breakdown is destructive if the current isn’t limited — but a Zener is doped specifically to break down at a well-controlled voltage \\(V_Z\\) and survive it indefinitely, provided power dissipation stays within its rating. That gives a cheap, if imprecise (a few percent, and temperature-sensitive), voltage reference.\n\nBasic shunt regulator\nA series resistor from the supply into the Zener (with the load in parallel) sets the Zener current; the resistor must be sized so the Zener always sees at least its minimum regulation current, across the full load current range:\n\\[\nR = \\frac{V_{in} - V_Z}{I_Z + I_{load}}\n\\]\nSimple and lossy — the series resistor burns power continuously, and regulation is only as good as the Zener’s own impedance. Fine for a low-current reference or bias supply, not for anything power-hungry (a linear or switching regulator does the same job far more efficiently).\n\n\nCalculator",
+    "crumbs": [
+      "Notebook",
+      "Components",
+      "Zener and Schottky diodes"
+    ]
+  },
+  {
+    "objectID": "components/zener-schottky-diodes.html#schottky-diodes",
+    "href": "components/zener-schottky-diodes.html#schottky-diodes",
+    "title": "Zener and Schottky diodes",
+    "section": "Schottky diodes",
+    "text": "Schottky diodes\nA Schottky diode replaces the PN junction with a metal-semiconductor junction. Two practical consequences follow directly from that:\nLower forward voltage — typically 0.2–0.4 V versus 0.6–0.7 V for silicon PN — because there’s no minority-carrier injection barrier to overcome in the same way.\nNo reverse-recovery time — a PN diode stores minority charge while conducting and takes tens to hundreds of nanoseconds to stop conducting when reverse-biased; a Schottky is a majority-carrier device with essentially none of that, so it switches off almost instantly.\nThat combination is exactly why Schottkys show up as the freewheeling/catch diode in unsynchronized buck converters and as reverse-polarity protection where the forward drop matters. The trade-offs: higher reverse leakage current (worse with temperature) and generally lower reverse voltage ratings than comparable PN diodes.",
+    "crumbs": [
+      "Notebook",
+      "Components",
+      "Zener and Schottky diodes"
+    ]
+  },
+  {
+    "objectID": "protocols/spi.html",
+    "href": "protocols/spi.html",
+    "title": "SPI",
+    "section": "",
+    "text": "Four wires, one shared clock, full duplex, and no addressing scheme at all — the master picks which device it’s talking to by which chip-select (CS) line it pulls low. That simplicity is why SPI is usually the fastest option available for a given part.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "SPI"
+    ]
+  },
+  {
+    "objectID": "protocols/spi.html#the-four-lines",
+    "href": "protocols/spi.html#the-four-lines",
+    "title": "SPI",
+    "section": "The four lines",
+    "text": "The four lines\nMOSI (master out, slave in), MISO (master in, slave out), SCK (clock, always driven by the master), and CS/SS (chip select, one per slave device, active low by convention). Data shifts in and out simultaneously on every clock edge — full duplex is inherent to the protocol, not an add-on.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "SPI"
+    ]
+  },
+  {
+    "objectID": "protocols/spi.html#clock-polarity-and-phase",
+    "href": "protocols/spi.html#clock-polarity-and-phase",
+    "title": "SPI",
+    "section": "Clock polarity and phase",
+    "text": "Clock polarity and phase\nDevices must agree on which clock edge data is sampled on — this is the CPOL/CPHA setting, usually written as “mode 0” through “mode 3”:\n\n\n\nMode\nCPOL\nCPHA\nClock idles\nData sampled on\n\n\n\n\n0\n0\n0\nLow\nRising edge\n\n\n1\n0\n1\nLow\nFalling edge\n\n\n2\n1\n0\nHigh\nFalling edge\n\n\n3\n1\n1\nHigh\nRising edge\n\n\n\nMode 0 is by far the most common default; mismatched modes between master and slave are a frequent cause of a first-try SPI link reading garbage.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "SPI"
+    ]
+  },
+  {
+    "objectID": "protocols/spi.html#calculator-throughput",
+    "href": "protocols/spi.html#calculator-throughput",
+    "title": "SPI",
+    "section": "Calculator: throughput",
+    "text": "Calculator: throughput\n\n\n\nIgnores per-transaction overhead (CS setup/hold time, any gaps between bytes) — real throughput on a given MCU is usually somewhat lower, especially for many small transfers where that overhead repeats.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "SPI"
+    ]
+  },
+  {
+    "objectID": "protocols/spi.html#implementing-it-in-circuit",
+    "href": "protocols/spi.html#implementing-it-in-circuit",
+    "title": "SPI",
+    "section": "Implementing it in circuit",
+    "text": "Implementing it in circuit\nNo arbitration, no error checking, so signal integrity is entirely on you. Unlike I2C or CAN, nothing in the protocol itself detects a corrupted bit — a marginal signal just produces wrong data with no indication anything went wrong. That makes trace length and clock speed a real trade-off: fine at a few MHz over several centimeters of board trace, but pushing tens of MHz over more than a few centimeters (or any real cable) risks reflections without proper termination or controlled impedance traces.\nEvery device needs its own CS line. Fan-out gets expensive fast — five SPI slaves means five CS pins from the master, even though MOSI/MISO/SCK are shared. Some parts support “daisy-chaining” (each device forwards data to the next), which trades pin count for more complex framing.\nSeries termination resistors (typically 22–33 Ω, placed close to the driving pin) are a cheap, common fix for ringing on SCK or MOSI when trace lengths get long relative to the clock’s rise time — worth having as an option in the layout even if unpopulated on the first spin.\nKeep clock and data lines length-matched at higher speeds, and away from noisy switching signals (like a nearby buck converter’s switch node) — SPI has no error correction to fall back on if coupled noise corrupts a bit.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "SPI"
+    ]
+  },
+  {
+    "objectID": "protocols/rs232-rs485.html",
+    "href": "protocols/rs232-rs485.html",
+    "title": "RS-232 and RS-485",
+    "section": "",
+    "text": "Both are electrical standards for carrying UART-style framed data over a cable — neither defines the byte framing itself (that’s still start/data/parity/stop bits, as on the UART page). What they define is how the 1s and 0s are represented as voltages on the wire, and that choice determines cable length, noise immunity, and whether more than two devices can share a bus.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "RS-232 and RS-485"
+    ]
+  },
+  {
+    "objectID": "protocols/rs232-rs485.html#rs-232-single-ended-point-to-point",
+    "href": "protocols/rs232-rs485.html#rs-232-single-ended-point-to-point",
+    "title": "RS-232 and RS-485",
+    "section": "RS-232: single-ended, point-to-point",
+    "text": "RS-232: single-ended, point-to-point\nLogic levels are inverted and much larger than TTL: a valid “1” (mark) is −3 V to −15 V, a valid “0” (space) is +3 V to +15 V, with ±5 V to ±12 V the common real-world range. That wide swing is why it can’t come straight off a microcontroller pin — it needs a dedicated line driver/receiver chip (the MAX232 family is the classic choice) to convert between TTL and RS-232 levels, generating the negative supply internally from charge-pump capacitors.\nPoint-to-point only — one transmitter, one receiver, traditionally a DB9 connector. Reliable to roughly 15 m / 50 ft at modest baud rates; longer runs need RS-422 or RS-485 instead.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "RS-232 and RS-485"
+    ]
+  },
+  {
+    "objectID": "protocols/rs232-rs485.html#rs-485-differential-multi-drop",
+    "href": "protocols/rs232-rs485.html#rs-485-differential-multi-drop",
+    "title": "RS-232 and RS-485",
+    "section": "RS-485: differential, multi-drop",
+    "text": "RS-485: differential, multi-drop\nInstead of one signal wire referenced to ground, RS-485 uses a twisted pair (A/B, sometimes called D+/D−) carrying the same signal as a voltage difference between the two wires. Noise picked up by the cable tends to hit both wires equally and cancels out at the differential receiver — this is why RS-485 tolerates much longer cable runs and noisier environments than single-ended RS-232 or TTL.\nMultiple transmitters and receivers can share one bus (up to 32 standard-load devices, more with modern reduced-load transceivers), which is why it’s the usual choice for a chain of sensors or a Modbus network. Since UART itself has no arbitration, RS-485 multi-drop networks need a protocol layer above it (like Modbus) to make sure only one device drives the bus at a time.\n\nTermination and biasing — the part people get wrong\nTwo things a working RS-485 bus needs that a point-to-point link doesn’t:\n120 Ω termination resistors at both physical ends of the bus (matching the cable’s characteristic impedance), and nowhere in between. Terminating every node, or terminating only one end, causes reflections that corrupt data at higher baud rates or longer cable lengths.\nFail-safe biasing — a pull-up on the A line and a pull-down on the B line (typically 560 Ω–650 Ω, sized with the termination resistors to keep the idle differential voltage above the receiver’s threshold, around 200 mV) so the bus reads a defined idle state when no device is actively driving it. Without this, an idle bus can float into the undefined region between logic states and receivers may see noise as random bit errors. Some transceiver ICs include this internally; many don’t.\nDistance and speed trade off directly: roughly 10 Mbps at a few meters down to about 100 kbps at 1200 m, per the standard’s typical guidance — check the specific transceiver’s datasheet for its real numbers.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "RS-232 and RS-485"
+    ]
+  },
+  {
+    "objectID": "protocols/rs232-rs485.html#comparison",
+    "href": "protocols/rs232-rs485.html#comparison",
+    "title": "RS-232 and RS-485",
+    "section": "Comparison",
+    "text": "Comparison\n\n\n\n\n\n\n\n\n\n\nTTL UART\nRS-232\nRS-485\n\n\n\n\nSignaling\nSingle-ended, 0–3.3/5 V\nSingle-ended, ±3–15 V\nDifferential\n\n\nDevices per bus\n2\n2\nUp to 32+\n\n\nTypical max distance\n~1 m\n~15 m\n~1200 m\n\n\nNeeds external transceiver\nNo\nYes (e.g. MAX232)\nYes (e.g. MAX485)\n\n\nNeeds termination\nNo\nNo\nYes, both ends",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "RS-232 and RS-485"
+    ]
+  },
+  {
+    "objectID": "protocols/uart.html",
+    "href": "protocols/uart.html",
+    "title": "UART",
+    "section": "",
+    "text": "A Universal Asynchronous Receiver/Transmitter sends bytes with no shared clock line — timing is agreed in advance (the baud rate) and each byte is framed with start/stop bits so the receiver can find the edges on its own.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "UART"
+    ]
+  },
+  {
+    "objectID": "protocols/uart.html#framing",
+    "href": "protocols/uart.html#framing",
+    "title": "UART",
+    "section": "Framing",
+    "text": "Framing\nIdle line sits high. A frame is: one start bit (line pulled low), 5–9 data bits (LSB first), an optional parity bit, then one or more stop bits (line released high):\n\\[\n\\text{frame bits} = 1 + \\text{data bits} + [\\text{parity?} 1 : 0] + \\text{stop bits}\n\\]\nBoth ends must agree on baud rate, data bits, parity, and stop bits beforehand — there’s no negotiation. Get any of the four wrong and you get garbage or nothing.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "UART"
+    ]
+  },
+  {
+    "objectID": "protocols/uart.html#calculator-bit-time-and-frame-time",
+    "href": "protocols/uart.html#calculator-bit-time-and-frame-time",
+    "title": "UART",
+    "section": "Calculator: bit time and frame time",
+    "text": "Calculator: bit time and frame time",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "UART"
+    ]
+  },
+  {
+    "objectID": "protocols/uart.html#implementing-it-in-circuit",
+    "href": "protocols/uart.html#implementing-it-in-circuit",
+    "title": "UART",
+    "section": "Implementing it in circuit",
+    "text": "Implementing it in circuit\nVoltage levels first. A microcontroller’s UART pins swing between 0 V and its logic supply (3.3 V or 5 V) — that’s TTL/CMOS-level UART, not RS-232 (see the next page). Connecting a 5 V UART TX directly into a 3.3 V-only RX pin can overstress the input; check the receiving device’s absolute maximum, and add a level shifter or a simple resistor divider if there’s any doubt.\nTX goes to RX. Obvious once stated, a common wiring mistake otherwise — device A’s TX connects to device B’s RX, and vice versa. Boards labeled from the device’s own perspective (a USB-serial adapter’s “TX” is what it transmits) make this easy to get backwards.\nCommon ground is mandatory. UART is single-ended — the receiver decides high/low relative to its own ground pin. If the two devices don’t share a ground reference (separate power supplies, long cable runs), add a ground wire alongside the signal wires, or use an isolated UART transceiver if the two sides genuinely need to float independently.\nCable length and speed trade off. Bare TTL-level UART over an unshielded wire is only reliable for short runs (tens of centimeters to maybe a meter, more at lower baud rates) before ringing and noise pickup cause errors — for anything longer, convert to RS-232 or RS-485 at the electrical layer instead of pushing raw TTL levels down a long cable.",
+    "crumbs": [
+      "Notebook",
+      "Protocols",
+      "UART"
     ]
   },
   {
