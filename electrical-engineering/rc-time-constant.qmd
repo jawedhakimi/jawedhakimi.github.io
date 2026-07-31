@@ -30,6 +30,7 @@ Charging case, starting from 0 V.
 
 ```{=html}
 <div id="rc-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
 <script>
 Calc.create({
   root: "rc-calc",

@@ -28,6 +28,7 @@ Leave a value at 0 to exclude that resistor (treated as not present).
 
 ```{=html}
 <div id="rseries-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
 <script>
 Calc.create({
   root: "rseries-calc",

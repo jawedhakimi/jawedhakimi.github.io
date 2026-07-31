@@ -28,6 +28,7 @@ Enter a supply voltage and resistance to get current and dissipated power.
 
 ```{=html}
 <div id="ohms-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
 <script>
 Calc.create({
   root: "ohms-calc",

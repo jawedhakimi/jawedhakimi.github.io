@@ -34,6 +34,7 @@ Valid roughly for $l > 0.4r$. Below that, it undercorrects and a full Nagaoka-co
 
 ```{=html}
 <div id="solenoid-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
 <script>
 Calc.create({
   root: "solenoid-calc",

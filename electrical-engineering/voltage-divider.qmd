@@ -28,6 +28,7 @@ Set load resistance very high (default) to see the unloaded case.
 
 ```{=html}
 <div id="vdiv-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
 <script>
 Calc.create({
   root: "vdiv-calc",

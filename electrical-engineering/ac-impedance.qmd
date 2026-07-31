@@ -34,6 +34,7 @@ This hits a minimum, $|Z| = R$, at the resonant frequency where $X_L = X_C$.
 
 ```{=html}
 <div id="z-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
 <script>
 Calc.create({
   root: "z-calc",

@@ -74,7 +74,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
-<script src="../assets/js/calc-engine.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
@@ -322,6 +321,7 @@ V_{out} = V_{in} \cdot \frac{R_2 \| R_L}{R_1 + (R_2 \| R_L)}, \qquad R_2 \| R_L 
 <h2 class="anchored" data-anchor-id="calculator">Calculator</h2>
 <p>Set load resistance very high (default) to see the unloaded case.</p>
 <div id="vdiv-calc"></div>
+<script src="../assets/js/calc-engine.js"></script>
 <script>
 Calc.create({
   root: "vdiv-calc",

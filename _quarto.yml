@@ -37,8 +37,6 @@ format:
   html:
     theme: [cosmo, custom.scss]
     css: assets/css/styles.css
-    include-in-header:
-      - text: '<script src="/assets/js/calc-engine.js"></script>'
     toc: true
     number-sections: false
     smooth-scroll: true
