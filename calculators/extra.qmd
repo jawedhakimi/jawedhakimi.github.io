@@ -1,0 +1,100 @@
+---
+title: "Extra"
+subtitle: "Calculators"
+toc: true
+---
+
+A couple of general-purpose calculators that don't have a notebook chapter behind them (yet).
+
+## 4-band resistor color code
+
+```{=html}
+<div id="calc-resistor-code"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+(function () {
+  var digitColors = [
+    { value: "black", label: "Black (0)" },
+    { value: "brown", label: "Brown (1)" },
+    { value: "red", label: "Red (2)" },
+    { value: "orange", label: "Orange (3)" },
+    { value: "yellow", label: "Yellow (4)" },
+    { value: "green", label: "Green (5)" },
+    { value: "blue", label: "Blue (6)" },
+    { value: "violet", label: "Violet (7)" },
+    { value: "gray", label: "Gray (8)" },
+    { value: "white", label: "White (9)" }
+  ];
+  var multiplierColors = digitColors.concat([
+    { value: "gold", label: "Gold (×0.1)" },
+    { value: "silver", label: "Silver (×0.01)" }
+  ]);
+  var toleranceColors = [
+    { value: "brown", label: "Brown (±1%)" },
+    { value: "red", label: "Red (±2%)" },
+    { value: "green", label: "Green (±0.5%)" },
+    { value: "blue", label: "Blue (±0.25%)" },
+    { value: "violet", label: "Violet (±0.1%)" },
+    { value: "gray", label: "Gray (±0.05%)" },
+    { value: "gold", label: "Gold (±5%)" },
+    { value: "silver", label: "Silver (±10%)" }
+  ];
+  var digitValue = { black: 0, brown: 1, red: 2, orange: 3, yellow: 4, green: 5, blue: 6, violet: 7, gray: 8, white: 9 };
+  var multiplierExp = { black: 0, brown: 1, red: 2, orange: 3, yellow: 4, green: 5, blue: 6, violet: 7, gray: 8, white: 9, gold: -1, silver: -2 };
+  var toleranceValue = { brown: 1, red: 2, green: 0.5, blue: 0.25, violet: 0.1, gray: 0.05, gold: 5, silver: 10 };
+
+  function formatOhms(ohms) {
+    if (ohms >= 1e6) return (ohms / 1e6).toFixed(3).replace(/\.?0+$/, "") + " MΩ";
+    if (ohms >= 1e3) return (ohms / 1e3).toFixed(3).replace(/\.?0+$/, "") + " kΩ";
+    return ohms.toFixed(2).replace(/\.?0+$/, "") + " Ω";
+  }
+
+  Calc.create({
+    root: "calc-resistor-code",
+    inputs: [
+      { id: "b1", label: "Band 1", type: "select", value: "brown", options: digitColors },
+      { id: "b2", label: "Band 2", type: "select", value: "black", options: digitColors },
+      { id: "b3", label: "Band 3 (multiplier)", type: "select", value: "red", options: multiplierColors },
+      { id: "b4", label: "Band 4 (tolerance)", type: "select", value: "gold", options: toleranceColors }
+    ],
+    outputs: [
+      { id: "value", label: "Resistance" },
+      { id: "tol", label: "Tolerance" }
+    ],
+    compute: function (v) {
+      var digits = digitValue[v.b1] * 10 + digitValue[v.b2];
+      var ohms = digits * Math.pow(10, multiplierExp[v.b3]);
+      var tol = toleranceValue[v.b4];
+      return { value: formatOhms(ohms), tol: "±" + tol + "%" };
+    }
+  });
+})();
+</script>
+```
+
+## Capacitor charge and stored energy
+
+```{=html}
+<div id="calc-cap-energy"></div>
+<script>
+Calc.create({
+  root: "calc-cap-energy",
+  inputs: [
+    { id: "C", label: "Capacitance (µF)", value: 100, min: 0, step: 1 },
+    { id: "V", label: "Voltage (V)", value: 12, min: 0, step: 0.1 }
+  ],
+  outputs: [
+    { id: "Q", label: "Charge Q = CV" },
+    { id: "E", label: "Energy E = ½CV²" }
+  ],
+  compute: function (v) {
+    var C = v.C * 1e-6;
+    var Q = C * v.V;
+    var E = 0.5 * C * v.V * v.V;
+    var Qtxt = Math.abs(Q) < 1e-3 ? (Q * 1e6).toFixed(2) + " µC" : (Q * 1000).toFixed(3) + " mC";
+    var Etxt = Math.abs(E) < 1e-3 ? (E * 1e6).toFixed(2) + " µJ" : (E * 1000).toFixed(3) + " mJ";
+    return { Q: Qtxt, E: Etxt };
+  }
+});
+</script>
+```

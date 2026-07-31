@@ -1,82 +1,44 @@
 ---
 title: "The Bench Notebook"
-subtitle: "Notes on hardware, worked out in full"
 page-layout: full
 toc: false
+sidebar: false
 ---
 
-A running notebook of what I'm learning — electrical engineering fundamentals, magnetics, power electronics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.
+::: {.hero}
+A hardware engineer's running notes — the math behind circuits and components, small browser-based tools for the bench, and every calculator from the notebook in one place.
+:::
 
-::: {.card-grid}
+::: {.card-grid .part-grid}
 
 ::: {.card .cat-ee}
-[Electrical engineering]{.tag}
+[Read]{.tag}
 
-### Basics
+### Notebook
 
-Ohm's law, series/parallel resistance, voltage dividers, RC charging, and R/L/C impedance — five notes, each with a calculator.
+Electrical engineering fundamentals, magnetics, components, power electronics, ICs, microcontrollers, and software — written out with the math that backs each result.
 
-[Open chapter →](electrical-engineering/index.qmd){.open}
-:::
-
-::: {.card .cat-magnetics}
-[Magnetics]{.tag}
-
-### Solenoid inductance
-
-Deriving inductance from Ampere's law, then correcting for a finite coil with Wheeler's formula. Includes a live calculator.
-
-[Open note →](magnetics/solenoid.qmd){.open}
-:::
-
-::: {.card .cat-components}
-[Components]{.tag}
-
-### Discrete semiconductors
-
-Diodes, Zener and Schottky diodes, BJTs, MOSFETs, and thyristors — how each works, the equations, and a calculator for each.
-
-[Open chapter →](components/index.qmd){.open}
+[Browse the notebook →](notebook.qmd){.open}
 :::
 
 ::: {.card .cat-power}
-[Power electronics]{.tag}
+[Use]{.tag}
 
-### Buck, boost, buck-boost, filters
+### Tools
 
-Duty cycle, inductor selection, and output filtering for the three core DC-DC topologies, plus RC/LC filter design.
+Browser-based utilities for the bench: a Web Serial terminal, a raw file sender for simple bootloaders, more as they get built.
 
-[Open chapter →](power-electronics/index.qmd){.open}
+[Open tools →](tools/index.qmd){.open}
 :::
 
-::: {.card .cat-ic .disabled}
-[Integrated circuits]{.tag}
+::: {.card .cat-mcu}
+[Compute]{.tag}
 
-### Op-amp noise budgets
+### Calculators
 
-Working through input-referred noise for a transimpedance front end.
+Every calculator from the notebook, grouped by topic, plus a few extras — no derivation, just the number you need.
 
-[Coming soon]{.badge}
-:::
-
-::: {.card .cat-mcu .disabled}
-[Microcontrollers]{.tag}
-
-### Timer/PWM resolution
-
-Choosing prescaler and ARR values for a target frequency and duty resolution.
-
-[Coming soon]{.badge}
-:::
-
-::: {.card .cat-sw .disabled}
-[Software]{.tag}
-
-### Fixed-point vs. float on MCUs
-
-When Q-format fixed point actually beats software float on a Cortex-M0.
-
-[Coming soon]{.badge}
+[Open calculators →](calculators/index.qmd){.open}
 :::
 
 :::

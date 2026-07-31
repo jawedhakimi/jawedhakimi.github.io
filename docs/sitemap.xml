@@ -2,94 +2,134 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://jawedhakimi.github.io/electrical-engineering/rc-time-constant.html</loc>
-    <lastmod>2026-07-31T21:17:47.105Z</lastmod>
+    <lastmod>2026-07-31T21:29:44.129Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/electrical-engineering/ohms-law.html</loc>
-    <lastmod>2026-07-31T21:17:47.104Z</lastmod>
+    <lastmod>2026-07-31T21:29:44.128Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/electrical-engineering/voltage-divider.html</loc>
-    <lastmod>2026-07-31T21:17:47.105Z</lastmod>
+    <lastmod>2026-07-31T21:29:44.129Z</lastmod>
   </url>
   <url>
-    <loc>https://jawedhakimi.github.io/about.html</loc>
-    <lastmod>2026-07-31T21:17:47.103Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/power-electronics/buck-boost-converter.html</loc>
-    <lastmod>2026-07-31T21:17:47.112Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/power-electronics/lc-filter-design.html</loc>
-    <lastmod>2026-07-31T21:17:47.112Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/index.html</loc>
-    <lastmod>2026-07-31T21:17:47.102Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/software/index.html</loc>
-    <lastmod>2026-07-31T21:17:47.115Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/components/zener-schottky-diodes.html</loc>
-    <lastmod>2026-07-31T21:17:47.109Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/components/index.html</loc>
-    <lastmod>2026-07-31T21:17:47.108Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/components/diodes.html</loc>
-    <lastmod>2026-07-31T21:17:47.109Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/microcontrollers/index.html</loc>
-    <lastmod>2026-07-31T21:17:47.114Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/components/mosfet.html</loc>
-    <lastmod>2026-07-31T21:17:47.110Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/components/bjt.html</loc>
-    <lastmod>2026-07-31T21:17:47.109Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/components/thyristors.html</loc>
-    <lastmod>2026-07-31T21:17:47.110Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/integrated-circuits/index.html</loc>
-    <lastmod>2026-07-31T21:17:47.113Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/magnetics/solenoid.html</loc>
-    <lastmod>2026-07-31T21:17:47.107Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/power-electronics/buck-converter.html</loc>
-    <lastmod>2026-07-31T21:17:47.111Z</lastmod>
-  </url>
-  <url>
-    <loc>https://jawedhakimi.github.io/power-electronics/index.html</loc>
-    <lastmod>2026-07-31T21:17:47.111Z</lastmod>
+    <loc>https://jawedhakimi.github.io/notebook.html</loc>
+    <lastmod>2026-07-31T21:29:44.125Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/power-electronics/boost-converter.html</loc>
-    <lastmod>2026-07-31T21:17:47.112Z</lastmod>
+    <lastmod>2026-07-31T21:29:44.135Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/power-electronics/index.html</loc>
+    <lastmod>2026-07-31T21:29:44.134Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/power-electronics/buck-converter.html</loc>
+    <lastmod>2026-07-31T21:29:44.134Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/magnetics/solenoid.html</loc>
+    <lastmod>2026-07-31T21:29:44.130Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/tools/programmer.html</loc>
+    <lastmod>2026-07-31T21:29:44.140Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/calculators/extra.html</loc>
+    <lastmod>2026-07-31T21:29:44.143Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/calculators/components.html</loc>
+    <lastmod>2026-07-31T21:29:44.142Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/calculators/power-electronics.html</loc>
+    <lastmod>2026-07-31T21:29:44.142Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/software/index.html</loc>
+    <lastmod>2026-07-31T21:29:44.139Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/components/zener-schottky-diodes.html</loc>
+    <lastmod>2026-07-31T21:29:44.132Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/components/index.html</loc>
+    <lastmod>2026-07-31T21:29:44.131Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/components/diodes.html</loc>
+    <lastmod>2026-07-31T21:29:44.132Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/microcontrollers/index.html</loc>
+    <lastmod>2026-07-31T21:29:44.138Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/components/mosfet.html</loc>
+    <lastmod>2026-07-31T21:29:44.133Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/components/bjt.html</loc>
+    <lastmod>2026-07-31T21:29:44.132Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/components/thyristors.html</loc>
+    <lastmod>2026-07-31T21:29:44.133Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/integrated-circuits/index.html</loc>
+    <lastmod>2026-07-31T21:29:44.137Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/calculators/magnetics.html</loc>
+    <lastmod>2026-07-31T21:29:44.142Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/calculators/index.html</loc>
+    <lastmod>2026-07-31T21:29:44.141Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/calculators/electrical-basics.html</loc>
+    <lastmod>2026-07-31T21:29:44.141Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/tools/serial-monitor.html</loc>
+    <lastmod>2026-07-31T21:29:44.140Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/tools/index.html</loc>
+    <lastmod>2026-07-31T21:29:44.139Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/index.html</loc>
+    <lastmod>2026-07-31T21:29:44.124Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/power-electronics/lc-filter-design.html</loc>
+    <lastmod>2026-07-31T21:29:44.136Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/power-electronics/buck-boost-converter.html</loc>
+    <lastmod>2026-07-31T21:29:44.135Z</lastmod>
+  </url>
+  <url>
+    <loc>https://jawedhakimi.github.io/about.html</loc>
+    <lastmod>2026-07-31T21:29:44.126Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/electrical-engineering/series-parallel-resistance.html</loc>
-    <lastmod>2026-07-31T21:17:47.105Z</lastmod>
+    <lastmod>2026-07-31T21:29:44.129Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/electrical-engineering/index.html</loc>
-    <lastmod>2026-07-31T21:17:47.104Z</lastmod>
+    <lastmod>2026-07-31T21:29:44.128Z</lastmod>
   </url>
   <url>
     <loc>https://jawedhakimi.github.io/electrical-engineering/ac-impedance.html</loc>
-    <lastmod>2026-07-31T21:17:47.106Z</lastmod>
+    <lastmod>2026-07-31T21:29:44.130Z</lastmod>
   </url>
 </urlset>

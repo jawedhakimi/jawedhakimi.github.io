@@ -14,14 +14,29 @@
 
     var row = el("div", "row");
     var inputEls = {};
+    var inputTypes = {};
     (config.inputs || []).forEach(function (inp) {
       var wrap = el("div");
       var label = el("label", null, inp.label);
-      var input = el("input");
-      input.type = "number";
-      input.value = inp.value;
-      if (inp.min !== undefined) input.min = inp.min;
-      if (inp.step !== undefined) input.step = inp.step;
+      var input;
+      inputTypes[inp.id] = inp.type || "number";
+      if (inp.type === "select") {
+        input = document.createElement("select");
+        (inp.options || []).forEach(function (opt) {
+          var o = document.createElement("option");
+          var isObj = typeof opt === "object" && opt !== null;
+          o.value = isObj ? opt.value : opt;
+          o.textContent = isObj ? opt.label : opt;
+          input.appendChild(o);
+        });
+        if (inp.value !== undefined) input.value = inp.value;
+      } else {
+        input = el("input");
+        input.type = "number";
+        input.value = inp.value;
+        if (inp.min !== undefined) input.min = inp.min;
+        if (inp.step !== undefined) input.step = inp.step;
+      }
       inputEls[inp.id] = input;
       wrap.appendChild(label);
       wrap.appendChild(input);
@@ -45,7 +60,7 @@
     function recompute() {
       var values = {};
       Object.keys(inputEls).forEach(function (id) {
-        values[id] = parseFloat(inputEls[id].value) || 0;
+        values[id] = inputTypes[id] === "select" ? inputEls[id].value : (parseFloat(inputEls[id].value) || 0);
       });
       var results = {};
       try {

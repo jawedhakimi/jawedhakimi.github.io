@@ -1,0 +1,167 @@
+---
+title: "Power electronics"
+subtitle: "Calculators"
+toc: true
+---
+
+## Buck converter
+
+<p class="calc-context">Full derivation: [Buck converter](../power-electronics/buck-converter.qmd).</p>
+
+```{=html}
+<div id="calc-buck"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "calc-buck",
+  inputs: [
+    { id: "Vin", label: "Vin (V)", value: 12, min: 0.01, step: 0.1 },
+    { id: "Vout", label: "Vout (V)", value: 5, min: 0.01, step: 0.1 },
+    { id: "fsw", label: "fsw (kHz)", value: 500, min: 1, step: 10 },
+    { id: "Iout", label: "Iout (A)", value: 2, min: 0.001, step: 0.1 },
+    { id: "ripplePct", label: "Ripple (% of Iout)", value: 30, min: 1, step: 1 },
+    { id: "Vripple", label: "Target Vripple (mV)", value: 50, min: 1, step: 1 }
+  ],
+  outputs: [
+    { id: "D", label: "Duty cycle D" },
+    { id: "dIL", label: "ΔIL" },
+    { id: "L", label: "L required" },
+    { id: "Cout", label: "Cout required" }
+  ],
+  compute: function (v) {
+    if (v.Vin <= 0 || v.Vout > v.Vin) return { D: "invalid", dIL: "-", L: "-", Cout: "-" };
+    var D = v.Vout / v.Vin;
+    var fsw = v.fsw * 1000;
+    var dIL = (v.ripplePct / 100) * v.Iout;
+    var L = dIL > 0 ? (v.Vout * (1 - D)) / (fsw * dIL) : 0;
+    var Cout = v.Vripple > 0 ? dIL / (8 * fsw * (v.Vripple / 1000)) : 0;
+    return { D: D.toFixed(3), dIL: dIL.toFixed(3) + " A", L: (L * 1e6).toFixed(2) + " µH", Cout: (Cout * 1e6).toFixed(2) + " µF" };
+  }
+});
+</script>
+```
+
+## Boost converter
+
+<p class="calc-context">Full derivation: [Boost converter](../power-electronics/boost-converter.qmd).</p>
+
+```{=html}
+<div id="calc-boost"></div>
+<script>
+Calc.create({
+  root: "calc-boost",
+  inputs: [
+    { id: "Vin", label: "Vin (V)", value: 5, min: 0.01, step: 0.1 },
+    { id: "Vout", label: "Vout (V)", value: 12, min: 0.01, step: 0.1 },
+    { id: "fsw", label: "fsw (kHz)", value: 500, min: 1, step: 10 },
+    { id: "Iout", label: "Iout (A)", value: 1, min: 0.001, step: 0.1 },
+    { id: "ripplePct", label: "Ripple (% of IL,avg)", value: 30, min: 1, step: 1 }
+  ],
+  outputs: [
+    { id: "D", label: "Duty cycle D" },
+    { id: "ILavg", label: "IL,avg" },
+    { id: "dIL", label: "ΔIL" },
+    { id: "L", label: "L required" }
+  ],
+  compute: function (v) {
+    if (v.Vout <= v.Vin || v.Vin <= 0) return { D: "invalid", ILavg: "-", dIL: "-", L: "-" };
+    var D = 1 - v.Vin / v.Vout;
+    var fsw = v.fsw * 1000;
+    var ILavg = v.Iout / (1 - D);
+    var dIL = (v.ripplePct / 100) * ILavg;
+    var L = dIL > 0 ? (v.Vin * D) / (fsw * dIL) : 0;
+    return { D: D.toFixed(3), ILavg: ILavg.toFixed(3) + " A", dIL: dIL.toFixed(3) + " A", L: (L * 1e6).toFixed(2) + " µH" };
+  }
+});
+</script>
+```
+
+## Buck-boost converter
+
+<p class="calc-context">Full derivation: [Buck-boost converter](../power-electronics/buck-boost-converter.qmd).</p>
+
+```{=html}
+<div id="calc-buckboost"></div>
+<script>
+Calc.create({
+  root: "calc-buckboost",
+  inputs: [
+    { id: "Vin", label: "Vin (V)", value: 12, min: 0.01, step: 0.1 },
+    { id: "Vout", label: "|Vout| (V)", value: 12, min: 0.01, step: 0.1 },
+    { id: "fsw", label: "fsw (kHz)", value: 500, min: 1, step: 10 },
+    { id: "Iout", label: "Iout (A)", value: 1, min: 0.001, step: 0.1 },
+    { id: "ripplePct", label: "Ripple (% of IL,avg)", value: 30, min: 1, step: 1 }
+  ],
+  outputs: [
+    { id: "D", label: "Duty cycle D" },
+    { id: "ILavg", label: "IL,avg" },
+    { id: "dIL", label: "ΔIL" },
+    { id: "L", label: "L required" }
+  ],
+  compute: function (v) {
+    if (v.Vin <= 0 || v.Vout < 0) return { D: "invalid", ILavg: "-", dIL: "-", L: "-" };
+    var D = v.Vout / (v.Vin + v.Vout);
+    var fsw = v.fsw * 1000;
+    var ILavg = v.Iout / (1 - D);
+    var dIL = (v.ripplePct / 100) * ILavg;
+    var L = dIL > 0 ? (v.Vin * D) / (fsw * dIL) : 0;
+    return { D: D.toFixed(3), ILavg: ILavg.toFixed(3) + " A", dIL: dIL.toFixed(3) + " A", L: (L * 1e6).toFixed(2) + " µH" };
+  }
+});
+</script>
+```
+
+## RC low-pass filter
+
+<p class="calc-context">Full derivation: [LC and RC filter design](../power-electronics/lc-filter-design.qmd).</p>
+
+```{=html}
+<div id="calc-rcfilter"></div>
+<script>
+Calc.create({
+  root: "calc-rcfilter",
+  inputs: [
+    { id: "R", label: "R (kΩ)", value: 1.6, min: 0.001, step: 0.1 },
+    { id: "C", label: "C (nF)", value: 100, min: 0.001, step: 1 }
+  ],
+  outputs: [
+    { id: "fc", label: "Cutoff fc" }
+  ],
+  compute: function (v) {
+    var R = v.R * 1000;
+    var C = v.C * 1e-9;
+    var fc = R > 0 && C > 0 ? 1 / (2 * Math.PI * R * C) : 0;
+    var fcTxt = fc >= 1000 ? (fc / 1000).toFixed(2) + " kHz" : fc.toFixed(1) + " Hz";
+    return { fc: fcTxt };
+  }
+});
+</script>
+```
+
+## LC low-pass filter
+
+<p class="calc-context">Same page as above — full derivation: [LC and RC filter design](../power-electronics/lc-filter-design.qmd).</p>
+
+```{=html}
+<div id="calc-lcfilter"></div>
+<script>
+Calc.create({
+  root: "calc-lcfilter",
+  inputs: [
+    { id: "fc", label: "Target fc (kHz)", value: 100, min: 0.001, step: 1 },
+    { id: "Z0", label: "Z0 (Ω)", value: 10, min: 0.001, step: 0.5 }
+  ],
+  outputs: [
+    { id: "L", label: "L" },
+    { id: "C", label: "C" }
+  ],
+  compute: function (v) {
+    var fc = v.fc * 1000;
+    if (fc <= 0 || v.Z0 <= 0) return { L: "-", C: "-" };
+    var L = v.Z0 / (2 * Math.PI * fc);
+    var C = 1 / (2 * Math.PI * fc * v.Z0);
+    return { L: (L * 1e6).toFixed(2) + " µH", C: (C * 1e6).toFixed(3) + " µF" };
+  }
+});
+</script>
+```

@@ -1,0 +1,159 @@
+---
+title: "Electrical engineering basics"
+subtitle: "Calculators"
+toc: true
+---
+
+## Ohm's law and power
+
+<p class="calc-context">Voltage and resistance in, current and power out. Full derivation: [Ohm's law and power](../electrical-engineering/ohms-law.qmd).</p>
+
+```{=html}
+<div id="calc-ohms"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "calc-ohms",
+  inputs: [
+    { id: "V", label: "Voltage V (V)", value: 5, min: 0, step: 0.1 },
+    { id: "R", label: "Resistance R (Ω)", value: 220, min: 0.01, step: 1 }
+  ],
+  outputs: [
+    { id: "I", label: "Current I" },
+    { id: "P", label: "Power P" }
+  ],
+  compute: function (v) {
+    if (v.R <= 0) return { I: "-", P: "-" };
+    var I = v.V / v.R;
+    var P = v.V * I;
+    var Itxt = Math.abs(I) < 1 ? (I * 1000).toFixed(2) + " mA" : I.toFixed(3) + " A";
+    var Ptxt = Math.abs(P) < 1 ? (P * 1000).toFixed(2) + " mW" : P.toFixed(3) + " W";
+    return { I: Itxt, P: Ptxt };
+  }
+});
+</script>
+```
+
+## Series and parallel resistance
+
+<p class="calc-context">Leave a value at 0 to exclude that resistor. Full derivation: [Series and parallel resistance](../electrical-engineering/series-parallel-resistance.qmd).</p>
+
+```{=html}
+<div id="calc-rseries"></div>
+<script>
+Calc.create({
+  root: "calc-rseries",
+  inputs: [
+    { id: "R1", label: "R1 (Ω)", value: 100, min: 0, step: 1 },
+    { id: "R2", label: "R2 (Ω)", value: 220, min: 0, step: 1 },
+    { id: "R3", label: "R3 (Ω)", value: 0, min: 0, step: 1 }
+  ],
+  outputs: [
+    { id: "series", label: "R series" },
+    { id: "parallel", label: "R parallel" }
+  ],
+  compute: function (v) {
+    var rs = [v.R1, v.R2, v.R3].filter(function (r) { return r > 0; });
+    if (rs.length === 0) return { series: "-", parallel: "-" };
+    var sum = rs.reduce(function (a, b) { return a + b; }, 0);
+    var invSum = rs.reduce(function (a, b) { return a + 1 / b; }, 0);
+    var par = invSum > 0 ? 1 / invSum : 0;
+    return { series: sum.toFixed(2) + " Ω", parallel: par.toFixed(2) + " Ω" };
+  }
+});
+</script>
+```
+
+## Voltage divider
+
+<p class="calc-context">Set load RL very high for the unloaded case. Full derivation: [Voltage divider](../electrical-engineering/voltage-divider.qmd).</p>
+
+```{=html}
+<div id="calc-vdiv"></div>
+<script>
+Calc.create({
+  root: "calc-vdiv",
+  inputs: [
+    { id: "Vin", label: "Vin (V)", value: 5, min: 0, step: 0.1 },
+    { id: "R1", label: "R1 (Ω)", value: 1000, min: 0.01, step: 10 },
+    { id: "R2", label: "R2 (Ω)", value: 1000, min: 0.01, step: 10 },
+    { id: "RL", label: "Load RL (Ω)", value: 1000000, min: 0.01, step: 100 }
+  ],
+  outputs: [
+    { id: "vout", label: "Vout" },
+    { id: "r2eff", label: "R2 || RL" }
+  ],
+  compute: function (v) {
+    if (v.R1 <= 0 || v.R2 <= 0 || v.RL <= 0) return { vout: "-", r2eff: "-" };
+    var r2eff = (v.R2 * v.RL) / (v.R2 + v.RL);
+    var vout = v.Vin * (r2eff / (v.R1 + r2eff));
+    return { vout: vout.toFixed(3) + " V", r2eff: r2eff.toFixed(1) + " Ω" };
+  }
+});
+</script>
+```
+
+## RC charging and time constant
+
+<p class="calc-context">Charging case, starting from 0 V. Full derivation: [RC charging and time constant](../electrical-engineering/rc-time-constant.qmd).</p>
+
+```{=html}
+<div id="calc-rc"></div>
+<script>
+Calc.create({
+  root: "calc-rc",
+  inputs: [
+    { id: "R", label: "R (kΩ)", value: 10, min: 0.001, step: 0.1 },
+    { id: "C", label: "C (µF)", value: 100, min: 0.001, step: 1 },
+    { id: "Vs", label: "Vs (V)", value: 5, min: 0, step: 0.1 },
+    { id: "t", label: "t (ms)", value: 1, min: 0, step: 0.1 }
+  ],
+  outputs: [
+    { id: "tau", label: "Time constant τ" },
+    { id: "vt", label: "V(t)" }
+  ],
+  compute: function (v) {
+    var R = v.R * 1000;
+    var C = v.C * 1e-6;
+    var t = v.t / 1000;
+    var tau = R * C;
+    var vt = tau > 0 ? v.Vs * (1 - Math.exp(-t / tau)) : 0;
+    var tauTxt = tau >= 1 ? tau.toFixed(3) + " s" : (tau * 1000).toFixed(2) + " ms";
+    return { tau: tauTxt, vt: vt.toFixed(3) + " V" };
+  }
+});
+</script>
+```
+
+## Impedance of R, L, C
+
+<p class="calc-context">Series RLC magnitude. Full derivation: [Impedance of R, L, C](../electrical-engineering/ac-impedance.qmd).</p>
+
+```{=html}
+<div id="calc-z"></div>
+<script>
+Calc.create({
+  root: "calc-z",
+  inputs: [
+    { id: "R", label: "R (Ω)", value: 50, min: 0, step: 1 },
+    { id: "L", label: "L (mH)", value: 10, min: 0, step: 0.1 },
+    { id: "C", label: "C (µF)", value: 1, min: 0.0001, step: 0.1 },
+    { id: "f", label: "f (Hz)", value: 1000, min: 0.01, step: 10 }
+  ],
+  outputs: [
+    { id: "xl", label: "XL" },
+    { id: "xc", label: "XC" },
+    { id: "z", label: "|Z| series" }
+  ],
+  compute: function (v) {
+    var w = 2 * Math.PI * v.f;
+    var L = v.L / 1000;
+    var C = v.C * 1e-6;
+    var XL = w * L;
+    var XC = C > 0 ? 1 / (w * C) : 0;
+    var Z = Math.sqrt(v.R * v.R + (XL - XC) * (XL - XC));
+    return { xl: XL.toFixed(2) + " Ω", xc: XC.toFixed(2) + " Ω", z: Z.toFixed(2) + " Ω" };
+  }
+});
+</script>
+```

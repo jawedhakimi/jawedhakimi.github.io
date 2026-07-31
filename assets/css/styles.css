@@ -31,7 +31,69 @@
 .calc .out .num { font-size: 22px; font-weight: 600; }
 .calc .out .lbl { font-size: 12px; color: #5f5e5a; }
 
+.hero {
+  font-family: -apple-system, sans-serif;
+  font-size: 1.1rem;
+  color: #5f5e5a;
+  max-width: 620px;
+  line-height: 1.6;
+  margin: 0.5rem 0 0.5rem;
+}
+
 .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 2rem; }
+.card-grid.part-grid { grid-template-columns: repeat(3, 1fr); }
+.card-grid.part-grid .card h3 { font-size: 24px; }
+
+.terminal {
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 13px;
+  border-radius: 6px;
+  padding: 1rem;
+  height: 320px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin: 1rem 0;
+}
+.tool-panel {
+  border: 1px solid #ded9cc;
+  background: #fff;
+  padding: 1.5rem 1.75rem;
+  margin: 1.5rem 0;
+  font-family: -apple-system, sans-serif;
+  border-radius: 6px;
+}
+.tool-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-bottom: 1rem; }
+.tool-row label { font-size: 13px; color: #5f5e5a; }
+.tool-row select, .tool-row input[type="text"] {
+  padding: 6px 8px; border: 1px solid #ded9cc; border-radius: 4px; font-size: 13px; font-family: inherit;
+}
+.tool-row input[type="text"] { flex: 1; min-width: 160px; }
+.tool-btn {
+  padding: 7px 14px; border: 1px solid #ded9cc; border-radius: 4px; background: #fff;
+  font-size: 13px; font-family: inherit; cursor: pointer;
+}
+.tool-btn:hover { border-color: #0c447c; color: #0c447c; }
+.tool-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.status-pill {
+  display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: #5f5e5a;
+  border: 1px solid #ded9cc; border-radius: 12px; padding: 3px 10px;
+}
+.status-dot { width: 8px; height: 8px; border-radius: 50%; background: #b45309; display: inline-block; }
+.status-pill.connected .status-dot { background: #3b6d11; }
+.progress-bar {
+  height: 8px; background: #ede8da; border-radius: 4px; overflow: hidden; margin: 0.75rem 0;
+}
+.progress-bar-fill { height: 100%; background: #185fa5; width: 0%; }
+.browser-note {
+  font-size: 13px; color: #5f5e5a; background: #faf6ea; border: 1px solid #ded9cc;
+  border-radius: 6px; padding: 0.75rem 1rem; margin: 1rem 0;
+}
+.calc-context {
+  font-size: 13px; color: #5f5e5a; margin: 0 0 0.5rem;
+}
 .card-grid .card {
   border: 1px solid #ded9cc;
   border-top: 4px solid #ded9cc;

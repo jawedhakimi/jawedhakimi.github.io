@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>MOSFETs – The Bench Notebook</title>
+<title>Notebook – The Bench Notebook</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,23 +29,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-c05bbb0916541a480437f18b83651770.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-c05bbb0916541a480437f18b83651770.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -75,37 +75,8 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
-
-<link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body class="nav-sidebar docked nav-fixed quarto-light">
@@ -115,7 +86,7 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">The Bench Notebook</span>
     </a>
   </div>
@@ -126,19 +97,19 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../notebook.html" aria-current="page"> 
+    <a class="nav-link active" href="./notebook.html" aria-current="page"> 
 <span class="menu-text">Notebook</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tools/index.html"> 
+    <a class="nav-link" href="./tools/index.html"> 
 <span class="menu-text">Tools</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../calculators/index.html"> 
+    <a class="nav-link" href="./calculators/index.html"> 
 <span class="menu-text">Calculators</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../about.html"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -152,21 +123,21 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../components/index.html">Components</a></li><li class="breadcrumb-item"><a href="../components/mosfet.html">MOSFETs</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./notebook.html">Notebook</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../notebook.html" class="sidebar-item-text sidebar-link">
+  <a href="./notebook.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Notebook</span></a>
   </div>
 </li>
@@ -181,37 +152,37 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../electrical-engineering/index.html" class="sidebar-item-text sidebar-link">
+  <a href="./electrical-engineering/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Electrical engineering basics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../electrical-engineering/ohms-law.html" class="sidebar-item-text sidebar-link">
+  <a href="./electrical-engineering/ohms-law.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Ohm’s law and power</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link">
+  <a href="./electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Series and parallel resistance</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../electrical-engineering/voltage-divider.html" class="sidebar-item-text sidebar-link">
+  <a href="./electrical-engineering/voltage-divider.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Voltage divider</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../electrical-engineering/rc-time-constant.html" class="sidebar-item-text sidebar-link">
+  <a href="./electrical-engineering/rc-time-constant.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">RC charging and time constant</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../electrical-engineering/ac-impedance.html" class="sidebar-item-text sidebar-link">
+  <a href="./electrical-engineering/ac-impedance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Impedance of R, L, C</span></a>
   </div>
 </li>
@@ -228,7 +199,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../magnetics/solenoid.html" class="sidebar-item-text sidebar-link">
+  <a href="./magnetics/solenoid.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Single-layer air-core solenoid: inductance</span></a>
   </div>
 </li>
@@ -245,37 +216,37 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../components/index.html" class="sidebar-item-text sidebar-link">
+  <a href="./components/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Components</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../components/diodes.html" class="sidebar-item-text sidebar-link">
+  <a href="./components/diodes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Diodes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../components/zener-schottky-diodes.html" class="sidebar-item-text sidebar-link">
+  <a href="./components/zener-schottky-diodes.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Zener and Schottky diodes</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../components/bjt.html" class="sidebar-item-text sidebar-link">
+  <a href="./components/bjt.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Bipolar junction transistors (BJT)</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../components/mosfet.html" class="sidebar-item-text sidebar-link active">
+  <a href="./components/mosfet.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">MOSFETs</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../components/thyristors.html" class="sidebar-item-text sidebar-link">
+  <a href="./components/thyristors.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Thyristors (SCR / TRIAC)</span></a>
   </div>
 </li>
@@ -292,31 +263,31 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../power-electronics/index.html" class="sidebar-item-text sidebar-link">
+  <a href="./power-electronics/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Power electronics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../power-electronics/buck-converter.html" class="sidebar-item-text sidebar-link">
+  <a href="./power-electronics/buck-converter.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Buck converter</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../power-electronics/boost-converter.html" class="sidebar-item-text sidebar-link">
+  <a href="./power-electronics/boost-converter.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Boost converter</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../power-electronics/buck-boost-converter.html" class="sidebar-item-text sidebar-link">
+  <a href="./power-electronics/buck-boost-converter.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Buck-boost converter</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../power-electronics/lc-filter-design.html" class="sidebar-item-text sidebar-link">
+  <a href="./power-electronics/lc-filter-design.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">LC and RC filter design</span></a>
   </div>
 </li>
@@ -333,7 +304,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../integrated-circuits/index.html" class="sidebar-item-text sidebar-link">
+  <a href="./integrated-circuits/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Integrated circuits</span></a>
   </div>
 </li>
@@ -350,7 +321,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../microcontrollers/index.html" class="sidebar-item-text sidebar-link">
+  <a href="./microcontrollers/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Microcontrollers</span></a>
   </div>
 </li>
@@ -367,7 +338,7 @@ window.Quarto = {
       <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../software/index.html" class="sidebar-item-text sidebar-link">
+  <a href="./software/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Software</span></a>
   </div>
 </li>
@@ -378,30 +349,19 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#enhancement-vs.-depletion-n-vs.-p-channel" id="toc-enhancement-vs.-depletion-n-vs.-p-channel" class="nav-link active" data-scroll-target="#enhancement-vs.-depletion-n-vs.-p-channel">Enhancement vs.&nbsp;depletion, N vs.&nbsp;P channel</a></li>
-  <li><a href="#regions-of-operation" id="toc-regions-of-operation" class="nav-link" data-scroll-target="#regions-of-operation">Regions of operation</a></li>
-  <li><a href="#on-resistance-and-conduction-loss" id="toc-on-resistance-and-conduction-loss" class="nav-link" data-scroll-target="#on-resistance-and-conduction-loss">On-resistance and conduction loss</a></li>
-  <li><a href="#calculator-conduction-loss" id="toc-calculator-conduction-loss" class="nav-link" data-scroll-target="#calculator-conduction-loss">Calculator: conduction loss</a></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page-right" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../components/index.html">Components</a></li><li class="breadcrumb-item"><a href="../components/mosfet.html">MOSFETs</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">MOSFETs</h1>
-<p class="subtitle lead">Components</p>
+<h1 class="title">Notebook</h1>
+<p class="subtitle lead">Notes on hardware, worked out in full</p>
 </div>
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page-right">
 
     
   
@@ -413,60 +373,67 @@ window.Quarto = {
 </header>
 
 
-<p>A voltage on an insulated gate creates (or removes) a conductive channel between source and drain — no gate current flows in steady state, which is the main practical difference from a BJT’s current-controlled base.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="../assets/img/mosfet-nmos-symbol-curves.png" class="img-fluid figure-img"></p>
-<figcaption>Fig. 2 — N-channel enhancement MOSFET symbol, and output characteristics for several gate-source voltages.</figcaption>
-</figure>
+<p>A running notebook of what I’m learning — electrical engineering fundamentals, magnetics, components, power electronics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers. For just the calculators without the derivations, see the <a href="./calculators/index.html">Calculators</a> section.</p>
+<div class="card-grid">
+<div class="card cat-ee">
+<p><span class="tag">Electrical engineering</span></p>
+<section id="basics" class="level3">
+<h3 class="anchored" data-anchor-id="basics">Basics</h3>
+<p>Ohm’s law, series/parallel resistance, voltage dividers, RC charging, and R/L/C impedance — five notes, each with a calculator.</p>
+<p><a href="./electrical-engineering/index.html" class="open">Open chapter →</a></p>
+</section>
 </div>
-<section id="enhancement-vs.-depletion-n-vs.-p-channel" class="level2">
-<h2 class="anchored" data-anchor-id="enhancement-vs.-depletion-n-vs.-p-channel">Enhancement vs.&nbsp;depletion, N vs.&nbsp;P channel</h2>
-<p>Enhancement-mode devices (the vast majority in use today) are off at <span class="math inline">\(V_{GS}=0\)</span> and need gate voltage past a threshold to turn on — safer as a default state, which is why they dominate. Depletion-mode devices are on at <span class="math inline">\(V_{GS}=0\)</span> and need gate voltage to turn off. N-channel conducts with electrons and needs positive <span class="math inline">\(V_{GS}\)</span>; P-channel conducts with holes and needs negative <span class="math inline">\(V_{GS}\)</span>. N-channel is preferred where possible — electron mobility gives lower on-resistance for the same die area.</p>
+<div class="card cat-magnetics">
+<p><span class="tag">Magnetics</span></p>
+<section id="solenoid-inductance" class="level3">
+<h3 class="anchored" data-anchor-id="solenoid-inductance">Solenoid inductance</h3>
+<p>Deriving inductance from Ampere’s law, then correcting for a finite coil with Wheeler’s formula. Includes a live calculator.</p>
+<p><a href="./magnetics/solenoid.html" class="open">Open note →</a></p>
 </section>
-<section id="regions-of-operation" class="level2">
-<h2 class="anchored" data-anchor-id="regions-of-operation">Regions of operation</h2>
-<p>Let <span class="math inline">\(V_{ov} = V_{GS} - V_{th}\)</span> (the “overdrive” voltage). Using the simple square-law model:</p>
-<ul>
-<li><strong>Cutoff</strong>: <span class="math inline">\(V_{GS} &lt; V_{th}\)</span>, no channel, <span class="math inline">\(I_D = 0\)</span>.</li>
-<li><strong>Triode / linear</strong>: <span class="math inline">\(V_{DS} &lt; V_{ov}\)</span>, behaves like a voltage-controlled resistor: <span class="math inline">\(I_D = k\left(V_{ov}V_{DS} - \frac{V_{DS}^2}{2}\right)\)</span></li>
-<li><strong>Saturation</strong>: <span class="math inline">\(V_{DS} \geq V_{ov}\)</span>, current roughly flat (ideally independent of <span class="math inline">\(V_{DS}\)</span>): <span class="math inline">\(I_D \approx \frac{k}{2}V_{ov}^2\)</span></li>
-</ul>
-<p>Power MOSFETs are almost always operated either fully in triode (as a low-resistance switch) or fully off — the region in between is where switching loss happens, and a well-designed switching circuit spends as little time there as possible.</p>
+</div>
+<div class="card cat-components">
+<p><span class="tag">Components</span></p>
+<section id="discrete-semiconductors" class="level3">
+<h3 class="anchored" data-anchor-id="discrete-semiconductors">Discrete semiconductors</h3>
+<p>Diodes, Zener and Schottky diodes, BJTs, MOSFETs, and thyristors — how each works, the equations, and a calculator for each.</p>
+<p><a href="./components/index.html" class="open">Open chapter →</a></p>
 </section>
-<section id="on-resistance-and-conduction-loss" class="level2">
-<h2 class="anchored" data-anchor-id="on-resistance-and-conduction-loss">On-resistance and conduction loss</h2>
-<p>For a MOSFET used as a switch, the datasheet parameter that matters most is <span class="math inline">\(R_{DS(on)}\)</span> — resistance while fully on. Conduction power loss follows directly:</p>
-<p><span class="math display">\[
-P_{cond} = I_{RMS}^2 \cdot R_{DS(on)}
-\]</span></p>
-<p><span class="math inline">\(R_{DS(on)}\)</span> rises with temperature (typically 30–50% higher at 125°C than at 25°C) and with gate drive that’s lower than the datasheet test condition — both worth checking against the datasheet curves, not just the headline number.</p>
+</div>
+<div class="card cat-power">
+<p><span class="tag">Power electronics</span></p>
+<section id="buck-boost-buck-boost-filters" class="level3">
+<h3 class="anchored" data-anchor-id="buck-boost-buck-boost-filters">Buck, boost, buck-boost, filters</h3>
+<p>Duty cycle, inductor selection, and output filtering for the three core DC-DC topologies, plus RC/LC filter design.</p>
+<p><a href="./power-electronics/index.html" class="open">Open chapter →</a></p>
 </section>
-<section id="calculator-conduction-loss" class="level2">
-<h2 class="anchored" data-anchor-id="calculator-conduction-loss">Calculator: conduction loss</h2>
-<div id="mosfet-loss-calc"></div>
-<script src="../assets/js/calc-engine.js"></script>
-<script>
-Calc.create({
-  root: "mosfet-loss-calc",
-  inputs: [
-    { id: "Rds", label: "Rds(on) (mΩ)", value: 20, min: 0.001, step: 1 },
-    { id: "Irms", label: "Irms (A)", value: 3, min: 0, step: 0.1 }
-  ],
-  outputs: [
-    { id: "P", label: "Conduction loss" }
-  ],
-  compute: function (v) {
-    var R = v.Rds / 1000;
-    var P = v.Irms * v.Irms * R;
-    return { P: (P * 1000).toFixed(1) + " mW" };
-  }
-});
-</script>
-<p>Switching loss — the energy lost transitioning through the linear region on every turn-on/turn-off — depends on gate charge <span class="math inline">\(Q_g\)</span>, drive strength, and switching frequency, and generally dominates conduction loss at higher frequencies. Worth its own page once it’s next in the queue.</p>
+</div>
+<div class="card cat-ic disabled">
+<p><span class="tag">Integrated circuits</span></p>
+<section id="op-amp-noise-budgets" class="level3">
+<h3 class="anchored" data-anchor-id="op-amp-noise-budgets">Op-amp noise budgets</h3>
+<p>Working through input-referred noise for a transimpedance front end.</p>
+<p><span class="badge">Coming soon</span></p>
+</section>
+</div>
+<div class="card cat-mcu disabled">
+<p><span class="tag">Microcontrollers</span></p>
+<section id="timerpwm-resolution" class="level3">
+<h3 class="anchored" data-anchor-id="timerpwm-resolution">Timer/PWM resolution</h3>
+<p>Choosing prescaler and ARR values for a target frequency and duty resolution.</p>
+<p><span class="badge">Coming soon</span></p>
+</section>
+</div>
+<div class="card cat-sw disabled">
+<p><span class="tag">Software</span></p>
+<section id="fixed-point-vs.-float-on-mcus" class="level3">
+<h3 class="anchored" data-anchor-id="fixed-point-vs.-float-on-mcus">Fixed-point vs.&nbsp;float on MCUs</h3>
+<p>When Q-format fixed point actually beats software float on a Cortex-M0.</p>
+<p><span class="badge">Coming soon</span></p>
+</section>
+</div>
+</div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -874,5 +841,5 @@ Calc.create({
 
 
 
-<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

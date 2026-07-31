@@ -1,0 +1,160 @@
+---
+title: "Serial file sender"
+subtitle: "Tools"
+toc: false
+---
+
+Sends a local file as raw bytes over a Web Serial connection, with a progress bar. This is the useful 10% of a "programmer" that's generic across hardware: getting bytes out the USB port reliably. It does **not** implement any chip-specific flashing protocol (STK500, avrdude's protocols, DFU, ESP32's ROM bootloader handshake, and so on) — those are stateful protocols with their own framing and handshakes, specific to each target. What this covers is the common case underneath: a simple UART bootloader that just wants the raw image streamed in, or any other device where you need to push a known byte sequence out a serial port from the browser.
+
+```{=html}
+<div class="browser-note" id="browser-support-note">
+Checking browser support…
+</div>
+
+<div class="tool-panel">
+  <div class="tool-row">
+    <span class="status-pill" id="status-pill"><span class="status-dot"></span><span id="status-text">Disconnected</span></span>
+    <label for="baud-select">Baud</label>
+    <select id="baud-select">
+      <option>9600</option>
+      <option>19200</option>
+      <option>38400</option>
+      <option>57600</option>
+      <option selected>115200</option>
+      <option>230400</option>
+    </select>
+    <button class="tool-btn" id="connect-btn">Connect</button>
+    <button class="tool-btn" id="disconnect-btn" disabled>Disconnect</button>
+  </div>
+
+  <div class="tool-row">
+    <input type="file" id="file-input" disabled>
+    <label for="chunk-size">Chunk size (bytes)</label>
+    <select id="chunk-size">
+      <option value="64">64</option>
+      <option value="128" selected>128</option>
+      <option value="256">256</option>
+      <option value="512">512</option>
+    </select>
+    <button class="tool-btn" id="send-btn" disabled>Send file</button>
+  </div>
+
+  <div class="progress-bar"><div class="progress-bar-fill" id="progress-fill"></div></div>
+  <div id="progress-text" style="font-size:12px;color:#5f5e5a;">No file sent yet.</div>
+
+  <div class="terminal" id="terminal" style="height:160px;"></div>
+</div>
+
+<script>
+(function () {
+  var terminalEl = document.getElementById("terminal");
+  var statusPill = document.getElementById("status-pill");
+  var statusText = document.getElementById("status-text");
+  var connectBtn = document.getElementById("connect-btn");
+  var disconnectBtn = document.getElementById("disconnect-btn");
+  var fileInput = document.getElementById("file-input");
+  var sendBtn = document.getElementById("send-btn");
+  var baudSelect = document.getElementById("baud-select");
+  var chunkSizeSelect = document.getElementById("chunk-size");
+  var progressFill = document.getElementById("progress-fill");
+  var progressText = document.getElementById("progress-text");
+  var supportNote = document.getElementById("browser-support-note");
+
+  var port = null;
+  var selectedFile = null;
+
+  function supported() {
+    return "serial" in navigator;
+  }
+
+  if (supported()) {
+    supportNote.textContent = "Web Serial is supported in this browser. Connect, choose a file, then send.";
+  } else {
+    supportNote.textContent = "This browser doesn't support the Web Serial API. Use desktop Chrome or Edge.";
+    connectBtn.disabled = true;
+  }
+
+  function log(text) {
+    terminalEl.textContent += text + "\n";
+    terminalEl.scrollTop = terminalEl.scrollHeight;
+  }
+
+  function setConnected(isConnected) {
+    connectBtn.disabled = isConnected;
+    disconnectBtn.disabled = !isConnected;
+    fileInput.disabled = !isConnected;
+    sendBtn.disabled = !isConnected || !selectedFile;
+    baudSelect.disabled = isConnected;
+    statusText.textContent = isConnected ? "Connected" : "Disconnected";
+    if (isConnected) {
+      statusPill.classList.add("connected");
+    } else {
+      statusPill.classList.remove("connected");
+    }
+  }
+
+  async function connect() {
+    if (!supported()) return;
+    try {
+      port = await navigator.serial.requestPort();
+      await port.open({ baudRate: parseInt(baudSelect.value, 10) });
+      setConnected(true);
+      log("[connected at " + baudSelect.value + " baud]");
+    } catch (err) {
+      log("[connect failed] " + err);
+      port = null;
+    }
+  }
+
+  async function disconnect() {
+    try {
+      if (port) {
+        await port.close();
+        port = null;
+      }
+    } catch (err) {
+      log("[disconnect error] " + err);
+    }
+    setConnected(false);
+    log("[disconnected]");
+  }
+
+  fileInput.addEventListener("change", function () {
+    selectedFile = fileInput.files[0] || null;
+    sendBtn.disabled = !port || !selectedFile;
+    if (selectedFile) {
+      progressText.textContent = selectedFile.name + " — " + selectedFile.size + " bytes, ready to send.";
+    }
+  });
+
+  async function sendFile() {
+    if (!port || !selectedFile) return;
+    var writer = port.writable.getWriter();
+    try {
+      var buffer = await selectedFile.arrayBuffer();
+      var bytes = new Uint8Array(buffer);
+      var chunkSize = parseInt(chunkSizeSelect.value, 10);
+      var sent = 0;
+      log("[sending " + bytes.length + " bytes in " + chunkSize + "-byte chunks]");
+      for (var i = 0; i < bytes.length; i += chunkSize) {
+        var chunk = bytes.slice(i, i + chunkSize);
+        await writer.write(chunk);
+        sent += chunk.length;
+        var pct = Math.round((sent / bytes.length) * 100);
+        progressFill.style.width = pct + "%";
+        progressText.textContent = sent + " / " + bytes.length + " bytes sent (" + pct + "%)";
+      }
+      log("[done, " + sent + " bytes sent]");
+    } catch (err) {
+      log("[send error] " + err);
+    } finally {
+      writer.releaseLock();
+    }
+  }
+
+  connectBtn.addEventListener("click", connect);
+  disconnectBtn.addEventListener("click", disconnect);
+  sendBtn.addEventListener("click", sendFile);
+})();
+</script>
+```

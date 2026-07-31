@@ -1,0 +1,195 @@
+---
+title: "Serial monitor"
+subtitle: "Tools"
+toc: false
+---
+
+Connects to a serial device over USB using the Web Serial API and shows incoming data live, with a line to send data back — the same job as the Arduino IDE's serial monitor or a terminal program like screen/PuTTY, without leaving the browser.
+
+```{=html}
+<div class="browser-note" id="browser-support-note">
+Checking browser support…
+</div>
+
+<div class="tool-panel">
+  <div class="tool-row">
+    <span class="status-pill" id="status-pill"><span class="status-dot"></span><span id="status-text">Disconnected</span></span>
+    <label for="baud-select">Baud</label>
+    <select id="baud-select">
+      <option>300</option>
+      <option>1200</option>
+      <option>2400</option>
+      <option>4800</option>
+      <option>9600</option>
+      <option selected>115200</option>
+      <option>230400</option>
+      <option>460800</option>
+      <option>921600</option>
+    </select>
+    <button class="tool-btn" id="connect-btn">Connect</button>
+    <button class="tool-btn" id="disconnect-btn" disabled>Disconnect</button>
+    <button class="tool-btn" id="clear-btn">Clear</button>
+    <label><input type="checkbox" id="autoscroll-check" checked> Autoscroll</label>
+    <label><input type="checkbox" id="timestamp-check"> Timestamps</label>
+  </div>
+
+  <div class="terminal" id="terminal"></div>
+
+  <div class="tool-row">
+    <input type="text" id="send-input" placeholder="Type a line to send" disabled>
+    <select id="line-ending">
+      <option value="\n" selected>\n</option>
+      <option value="\r\n">\r\n</option>
+      <option value="\r">\r</option>
+      <option value="">none</option>
+    </select>
+    <button class="tool-btn" id="send-btn" disabled>Send</button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var terminalEl = document.getElementById("terminal");
+  var statusPill = document.getElementById("status-pill");
+  var statusText = document.getElementById("status-text");
+  var connectBtn = document.getElementById("connect-btn");
+  var disconnectBtn = document.getElementById("disconnect-btn");
+  var clearBtn = document.getElementById("clear-btn");
+  var sendInput = document.getElementById("send-input");
+  var sendBtn = document.getElementById("send-btn");
+  var baudSelect = document.getElementById("baud-select");
+  var lineEndingSelect = document.getElementById("line-ending");
+  var autoscrollCheck = document.getElementById("autoscroll-check");
+  var timestampCheck = document.getElementById("timestamp-check");
+  var supportNote = document.getElementById("browser-support-note");
+
+  var port = null;
+  var reader = null;
+  var writer = null;
+  var readableStreamClosed = null;
+  var writableStreamClosed = null;
+  var keepReading = false;
+
+  function supported() {
+    return "serial" in navigator;
+  }
+
+  if (supported()) {
+    supportNote.textContent = "Web Serial is supported in this browser. Click Connect and pick your device.";
+  } else {
+    supportNote.textContent = "This browser doesn't support the Web Serial API. Use desktop Chrome or Edge.";
+    connectBtn.disabled = true;
+  }
+
+  function log(text) {
+    var ts = timestampCheck.checked ? "[" + new Date().toLocaleTimeString() + "] " : "";
+    terminalEl.textContent += ts + text;
+    if (autoscrollCheck.checked) {
+      terminalEl.scrollTop = terminalEl.scrollHeight;
+    }
+  }
+
+  function setConnected(isConnected) {
+    connectBtn.disabled = isConnected;
+    disconnectBtn.disabled = !isConnected;
+    sendInput.disabled = !isConnected;
+    sendBtn.disabled = !isConnected;
+    baudSelect.disabled = isConnected;
+    statusText.textContent = isConnected ? "Connected" : "Disconnected";
+    if (isConnected) {
+      statusPill.classList.add("connected");
+    } else {
+      statusPill.classList.remove("connected");
+    }
+  }
+
+  async function readLoop() {
+    try {
+      while (keepReading) {
+        var result = await reader.read();
+        if (result.done) break;
+        log(result.value);
+      }
+    } catch (err) {
+      log("\n[read error] " + err + "\n");
+    }
+  }
+
+  async function connect() {
+    if (!supported()) return;
+    try {
+      port = await navigator.serial.requestPort();
+      await port.open({ baudRate: parseInt(baudSelect.value, 10) });
+
+      var textDecoder = new TextDecoderStream();
+      readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
+      reader = textDecoder.readable.getReader();
+
+      var textEncoder = new TextEncoderStream();
+      writableStreamClosed = textEncoder.readable.pipeTo(port.writable);
+      writer = textEncoder.writable.getWriter();
+
+      keepReading = true;
+      setConnected(true);
+      log("[connected at " + baudSelect.value + " baud]\n");
+      readLoop();
+    } catch (err) {
+      log("[connect failed] " + err + "\n");
+      port = null;
+    }
+  }
+
+  async function disconnect() {
+    keepReading = false;
+    try {
+      if (reader) {
+        await reader.cancel();
+        await readableStreamClosed.catch(function () {});
+        reader = null;
+      }
+      if (writer) {
+        await writer.close();
+        await writableStreamClosed.catch(function () {});
+        writer = null;
+      }
+      if (port) {
+        await port.close();
+        port = null;
+      }
+    } catch (err) {
+      log("[disconnect error] " + err + "\n");
+    }
+    setConnected(false);
+    log("[disconnected]\n");
+  }
+
+  async function send() {
+    if (!writer) return;
+    var text = sendInput.value;
+    var ending = lineEndingSelect.value;
+    try {
+      await writer.write(text + ending);
+      log("> " + text + "\n");
+      sendInput.value = "";
+    } catch (err) {
+      log("[send error] " + err + "\n");
+    }
+  }
+
+  connectBtn.addEventListener("click", connect);
+  disconnectBtn.addEventListener("click", disconnect);
+  clearBtn.addEventListener("click", function () { terminalEl.textContent = ""; });
+  sendBtn.addEventListener("click", send);
+  sendInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") send();
+  });
+
+  if (supported() && navigator.serial) {
+    navigator.serial.addEventListener("disconnect", function () {
+      log("[device unplugged]\n");
+      setConnected(false);
+    });
+  }
+})();
+</script>
+```

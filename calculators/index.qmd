@@ -1,0 +1,12 @@
+---
+title: "Calculators"
+toc: false
+---
+
+Every calculator from the notebook, grouped by topic, plus a few extras — just the calculator, no derivation. Each one links back to its full write-up in the Notebook if you want the math behind it.
+
+- [Electrical engineering basics](electrical-basics.qmd) — Ohm's law, series/parallel resistance, voltage divider, RC time constant, R/L/C impedance.
+- [Magnetics](magnetics.qmd) — solenoid inductance.
+- [Components](components.qmd) — diode series resistor, Zener regulator, BJT bias point, MOSFET conduction loss, SCR phase control.
+- [Power electronics](power-electronics.qmd) — buck, boost, buck-boost, RC/LC filter design.
+- [Extra](extra.qmd) — resistor color code, capacitor charge and energy. Not in the notebook (yet).

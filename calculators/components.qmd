@@ -1,0 +1,151 @@
+---
+title: "Components"
+subtitle: "Calculators"
+toc: true
+---
+
+## Diode / LED series resistor
+
+<p class="calc-context">Full derivation: [Diodes](../components/diodes.qmd).</p>
+
+```{=html}
+<div id="calc-diode-r"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "calc-diode-r",
+  inputs: [
+    { id: "Vs", label: "Supply (V)", value: 5, min: 0, step: 0.1 },
+    { id: "Vf", label: "Diode Vf (V)", value: 2, min: 0, step: 0.05 },
+    { id: "If", label: "Target If (mA)", value: 20, min: 0.01, step: 1 }
+  ],
+  outputs: [
+    { id: "R", label: "Series R" },
+    { id: "P", label: "Resistor power" }
+  ],
+  compute: function (v) {
+    var drop = v.Vs - v.Vf;
+    if (drop <= 0 || v.If <= 0) return { R: "invalid", P: "-" };
+    var I = v.If / 1000;
+    var R = drop / I;
+    var P = drop * I;
+    return { R: R.toFixed(1) + " Ω", P: (P * 1000).toFixed(1) + " mW" };
+  }
+});
+</script>
+```
+
+## Zener shunt regulator
+
+<p class="calc-context">Full derivation: [Zener and Schottky diodes](../components/zener-schottky-diodes.qmd).</p>
+
+```{=html}
+<div id="calc-zener"></div>
+<script>
+Calc.create({
+  root: "calc-zener",
+  inputs: [
+    { id: "Vin", label: "Vin (V)", value: 12, min: 0, step: 0.1 },
+    { id: "Vz", label: "Vz (V)", value: 5.1, min: 0, step: 0.1 },
+    { id: "Iz", label: "Zener current (mA)", value: 10, min: 0.01, step: 1 },
+    { id: "Iload", label: "Load current (mA)", value: 5, min: 0, step: 1 }
+  ],
+  outputs: [
+    { id: "R", label: "Series R" },
+    { id: "P", label: "Zener power" }
+  ],
+  compute: function (v) {
+    var drop = v.Vin - v.Vz;
+    var Itotal = (v.Iz + v.Iload) / 1000;
+    if (drop <= 0 || Itotal <= 0) return { R: "invalid", P: "-" };
+    var R = drop / Itotal;
+    var Pz = v.Vz * (v.Iz / 1000);
+    return { R: R.toFixed(1) + " Ω", P: (Pz * 1000).toFixed(1) + " mW" };
+  }
+});
+</script>
+```
+
+## BJT voltage-divider bias
+
+<p class="calc-context">Full derivation: [Bipolar junction transistors](../components/bjt.qmd).</p>
+
+```{=html}
+<div id="calc-bjt"></div>
+<script>
+Calc.create({
+  root: "calc-bjt",
+  inputs: [
+    { id: "Vcc", label: "Vcc (V)", value: 12, min: 0, step: 0.1 },
+    { id: "R1", label: "R1 (kΩ)", value: 22, min: 0.01, step: 1 },
+    { id: "R2", label: "R2 (kΩ)", value: 4.7, min: 0.01, step: 0.1 },
+    { id: "Rc", label: "Rc (kΩ)", value: 2.2, min: 0, step: 0.1 },
+    { id: "Re", label: "Re (kΩ)", value: 1, min: 0.01, step: 0.1 }
+  ],
+  outputs: [
+    { id: "Vb", label: "VB" },
+    { id: "Ie", label: "IE" },
+    { id: "Vce", label: "VCE" }
+  ],
+  compute: function (v) {
+    if (v.R1 + v.R2 <= 0 || v.Re <= 0) return { Vb: "-", Ie: "-", Vce: "-" };
+    var Vb = v.Vcc * (v.R2 / (v.R1 + v.R2));
+    var Ie_mA = (Vb - 0.7) / v.Re;
+    if (Ie_mA < 0) return { Vb: Vb.toFixed(2) + " V", Ie: "cutoff", Vce: "-" };
+    var Vce = v.Vcc - Ie_mA * (v.Rc + v.Re);
+    return { Vb: Vb.toFixed(2) + " V", Ie: Ie_mA.toFixed(2) + " mA", Vce: Vce.toFixed(2) + " V" };
+  }
+});
+</script>
+```
+
+## MOSFET conduction loss
+
+<p class="calc-context">Full derivation: [MOSFETs](../components/mosfet.qmd).</p>
+
+```{=html}
+<div id="calc-mosfet"></div>
+<script>
+Calc.create({
+  root: "calc-mosfet",
+  inputs: [
+    { id: "Rds", label: "Rds(on) (mΩ)", value: 20, min: 0.001, step: 1 },
+    { id: "Irms", label: "Irms (A)", value: 3, min: 0, step: 0.1 }
+  ],
+  outputs: [
+    { id: "P", label: "Conduction loss" }
+  ],
+  compute: function (v) {
+    var R = v.Rds / 1000;
+    var P = v.Irms * v.Irms * R;
+    return { P: (P * 1000).toFixed(1) + " mW" };
+  }
+});
+</script>
+```
+
+## SCR phase control
+
+<p class="calc-context">Full derivation: [Thyristors](../components/thyristors.qmd).</p>
+
+```{=html}
+<div id="calc-scr"></div>
+<script>
+Calc.create({
+  root: "calc-scr",
+  inputs: [
+    { id: "Vrms", label: "Vin RMS (V)", value: 230, min: 0, step: 1 },
+    { id: "alphaDeg", label: "Firing angle α (deg)", value: 90, min: 0, step: 1 }
+  ],
+  outputs: [
+    { id: "Vout", label: "Output Vrms" }
+  ],
+  compute: function (v) {
+    var alpha = v.alphaDeg * Math.PI / 180;
+    if (alpha < 0 || alpha > Math.PI) return { Vout: "0–180° only" };
+    var factor = Math.sqrt(Math.max(0, 1 - alpha / Math.PI + Math.sin(2 * alpha) / (2 * Math.PI)));
+    return { Vout: (v.Vrms * factor).toFixed(1) + " V" };
+  }
+});
+</script>
+```

@@ -47,11 +47,11 @@ ul.task-list li input[type="checkbox"] {
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="site_libs/bootstrap/bootstrap-c05bbb0916541a480437f18b83651770.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -79,273 +79,62 @@ ul.task-list li input[type="checkbox"] {
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
-<body class="nav-sidebar docked quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">The Bench Notebook</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
-    </div>
-  </nav>
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">The Bench Notebook</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./notebook.html"> 
+<span class="menu-text">Notebook</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tools/index.html"> 
+<span class="menu-text">Tools</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./calculators/index.html"> 
+<span class="menu-text">Calculators</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="./">The Bench Notebook</a> 
-    </div>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">The Bench Notebook</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">About</span></a>
-  </div>
-</li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Electrical engineering basics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Electrical engineering basics</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/ohms-law.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Ohm’s law and power</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/series-parallel-resistance.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Series and parallel resistance</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/voltage-divider.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Voltage divider</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/rc-time-constant.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">RC charging and time constant</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./electrical-engineering/ac-impedance.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Impedance of R, L, C</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Magnetics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./magnetics/solenoid.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Single-layer air-core solenoid: inductance</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Components</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./components/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Components</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./components/diodes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Diodes</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./components/zener-schottky-diodes.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Zener and Schottky diodes</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./components/bjt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Bipolar junction transistors (BJT)</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./components/mosfet.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">MOSFETs</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./components/thyristors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Thyristors (SCR / TRIAC)</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Power electronics</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./power-electronics/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Power electronics</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./power-electronics/buck-converter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Buck converter</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./power-electronics/boost-converter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Boost converter</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./power-electronics/buck-boost-converter.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Buck-boost converter</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./power-electronics/lc-filter-design.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">LC and RC filter design</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Integrated circuits</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./integrated-circuits/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Integrated circuits</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Microcontrollers</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./microcontrollers/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Microcontrollers</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Software</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./software/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Software</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content column-page-right" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">The Bench Notebook</h1>
-<p class="subtitle lead">Notes on hardware, worked out in full</p>
 </div>
 
 
 
-<div class="quarto-title-meta column-page-right">
+<div class="quarto-title-meta column-page">
 
     
   
@@ -357,62 +146,32 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>A running notebook of what I’m learning — electrical engineering fundamentals, magnetics, power electronics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.</p>
-<div class="card-grid">
+<div class="hero">
+<p>A hardware engineer’s running notes — the math behind circuits and components, small browser-based tools for the bench, and every calculator from the notebook in one place.</p>
+</div>
+<div class="card-grid part-grid">
 <div class="card cat-ee">
-<p><span class="tag">Electrical engineering</span></p>
-<section id="basics" class="level3">
-<h3 class="anchored" data-anchor-id="basics">Basics</h3>
-<p>Ohm’s law, series/parallel resistance, voltage dividers, RC charging, and R/L/C impedance — five notes, each with a calculator.</p>
-<p><a href="./electrical-engineering/index.html" class="open">Open chapter →</a></p>
-</section>
-</div>
-<div class="card cat-magnetics">
-<p><span class="tag">Magnetics</span></p>
-<section id="solenoid-inductance" class="level3">
-<h3 class="anchored" data-anchor-id="solenoid-inductance">Solenoid inductance</h3>
-<p>Deriving inductance from Ampere’s law, then correcting for a finite coil with Wheeler’s formula. Includes a live calculator.</p>
-<p><a href="./magnetics/solenoid.html" class="open">Open note →</a></p>
-</section>
-</div>
-<div class="card cat-components">
-<p><span class="tag">Components</span></p>
-<section id="discrete-semiconductors" class="level3">
-<h3 class="anchored" data-anchor-id="discrete-semiconductors">Discrete semiconductors</h3>
-<p>Diodes, Zener and Schottky diodes, BJTs, MOSFETs, and thyristors — how each works, the equations, and a calculator for each.</p>
-<p><a href="./components/index.html" class="open">Open chapter →</a></p>
+<p><span class="tag">Read</span></p>
+<section id="notebook" class="level3">
+<h3 class="anchored" data-anchor-id="notebook">Notebook</h3>
+<p>Electrical engineering fundamentals, magnetics, components, power electronics, ICs, microcontrollers, and software — written out with the math that backs each result.</p>
+<p><a href="./notebook.html" class="open">Browse the notebook →</a></p>
 </section>
 </div>
 <div class="card cat-power">
-<p><span class="tag">Power electronics</span></p>
-<section id="buck-boost-buck-boost-filters" class="level3">
-<h3 class="anchored" data-anchor-id="buck-boost-buck-boost-filters">Buck, boost, buck-boost, filters</h3>
-<p>Duty cycle, inductor selection, and output filtering for the three core DC-DC topologies, plus RC/LC filter design.</p>
-<p><a href="./power-electronics/index.html" class="open">Open chapter →</a></p>
+<p><span class="tag">Use</span></p>
+<section id="tools" class="level3">
+<h3 class="anchored" data-anchor-id="tools">Tools</h3>
+<p>Browser-based utilities for the bench: a Web Serial terminal, a raw file sender for simple bootloaders, more as they get built.</p>
+<p><a href="./tools/index.html" class="open">Open tools →</a></p>
 </section>
 </div>
-<div class="card cat-ic disabled">
-<p><span class="tag">Integrated circuits</span></p>
-<section id="op-amp-noise-budgets" class="level3">
-<h3 class="anchored" data-anchor-id="op-amp-noise-budgets">Op-amp noise budgets</h3>
-<p>Working through input-referred noise for a transimpedance front end.</p>
-<p><span class="badge">Coming soon</span></p>
-</section>
-</div>
-<div class="card cat-mcu disabled">
-<p><span class="tag">Microcontrollers</span></p>
-<section id="timerpwm-resolution" class="level3">
-<h3 class="anchored" data-anchor-id="timerpwm-resolution">Timer/PWM resolution</h3>
-<p>Choosing prescaler and ARR values for a target frequency and duty resolution.</p>
-<p><span class="badge">Coming soon</span></p>
-</section>
-</div>
-<div class="card cat-sw disabled">
-<p><span class="tag">Software</span></p>
-<section id="fixed-point-vs.-float-on-mcus" class="level3">
-<h3 class="anchored" data-anchor-id="fixed-point-vs.-float-on-mcus">Fixed-point vs.&nbsp;float on MCUs</h3>
-<p>When Q-format fixed point actually beats software float on a Cortex-M0.</p>
-<p><span class="badge">Coming soon</span></p>
+<div class="card cat-mcu">
+<p><span class="tag">Compute</span></p>
+<section id="calculators" class="level3">
+<h3 class="anchored" data-anchor-id="calculators">Calculators</h3>
+<p>Every calculator from the notebook, grouped by topic, plus a few extras — no derivation, just the number you need.</p>
+<p><a href="./calculators/index.html" class="open">Open calculators →</a></p>
 </section>
 </div>
 </div>

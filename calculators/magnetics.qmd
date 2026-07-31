@@ -1,0 +1,43 @@
+---
+title: "Magnetics"
+subtitle: "Calculators"
+toc: true
+---
+
+## Solenoid inductance
+
+<p class="calc-context">Ideal (infinite) vs. Wheeler's finite-coil approximation. Full derivation: [Single-layer air-core solenoid](../magnetics/solenoid.qmd).</p>
+
+```{=html}
+<div id="calc-solenoid"></div>
+<script src="../assets/js/calc-engine.js"></script>
+<script>
+Calc.create({
+  root: "calc-solenoid",
+  inputs: [
+    { id: "N", label: "Turns N", value: 50, min: 1, step: 1 },
+    { id: "r", label: "Radius r (cm)", value: 1.5, min: 0.1, step: 0.1 },
+    { id: "l", label: "Length l (cm)", value: 4, min: 0.1, step: 0.1 }
+  ],
+  outputs: [
+    { id: "ideal", label: "Ideal L" },
+    { id: "wheeler", label: "Wheeler L" },
+    { id: "ratio", label: "Ideal / Wheeler" }
+  ],
+  compute: function (v) {
+    var MU0 = 4 * Math.PI * 1e-7;
+    var rM = v.r / 100, lM = v.l / 100;
+    var A = Math.PI * rM * rM;
+    var lIdealUH = (lM > 0 ? (MU0 * v.N * v.N * A) / lM : 0) * 1e6;
+    var rIn = v.r / 2.54, lIn = v.l / 2.54;
+    var denom = 9 * rIn + 10 * lIn;
+    var lWheelerUH = denom > 0 ? (rIn * rIn * v.N * v.N) / denom : 0;
+    return {
+      ideal: lIdealUH.toFixed(2) + " uH",
+      wheeler: lWheelerUH.toFixed(2) + " uH",
+      ratio: lWheelerUH > 0 ? (lIdealUH / lWheelerUH).toFixed(2) + "x" : "-"
+    };
+  }
+});
+</script>
+```

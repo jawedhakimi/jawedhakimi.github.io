@@ -5,49 +5,78 @@ project:
 website:
   title: "The Bench Notebook"
   site-url: "https://jawedhakimi.github.io"
-  navbar: false
-  sidebar:
-    style: docked
-    background: light
+  navbar:
+    left:
+      - text: "Notebook"
+        href: notebook.qmd
+      - text: "Tools"
+        href: tools/index.qmd
+      - text: "Calculators"
+        href: calculators/index.qmd
+      - text: "About"
+        href: about.qmd
     search: true
-    contents:
-      - index.qmd
-      - about.qmd
-      - section: "Electrical engineering basics"
-        contents:
-          - electrical-engineering/index.qmd
-          - electrical-engineering/ohms-law.qmd
-          - electrical-engineering/series-parallel-resistance.qmd
-          - electrical-engineering/voltage-divider.qmd
-          - electrical-engineering/rc-time-constant.qmd
-          - electrical-engineering/ac-impedance.qmd
-      - section: "Magnetics"
-        contents:
-          - magnetics/solenoid.qmd
-      - section: "Components"
-        contents:
-          - components/index.qmd
-          - components/diodes.qmd
-          - components/zener-schottky-diodes.qmd
-          - components/bjt.qmd
-          - components/mosfet.qmd
-          - components/thyristors.qmd
-      - section: "Power electronics"
-        contents:
-          - power-electronics/index.qmd
-          - power-electronics/buck-converter.qmd
-          - power-electronics/boost-converter.qmd
-          - power-electronics/buck-boost-converter.qmd
-          - power-electronics/lc-filter-design.qmd
-      - section: "Integrated circuits"
-        contents:
-          - integrated-circuits/index.qmd
-      - section: "Microcontrollers"
-        contents:
-          - microcontrollers/index.qmd
-      - section: "Software"
-        contents:
-          - software/index.qmd
+  sidebar:
+    - id: notebook
+      title: "Notebook"
+      style: docked
+      background: light
+      contents:
+        - notebook.qmd
+        - section: "Electrical engineering basics"
+          contents:
+            - electrical-engineering/index.qmd
+            - electrical-engineering/ohms-law.qmd
+            - electrical-engineering/series-parallel-resistance.qmd
+            - electrical-engineering/voltage-divider.qmd
+            - electrical-engineering/rc-time-constant.qmd
+            - electrical-engineering/ac-impedance.qmd
+        - section: "Magnetics"
+          contents:
+            - magnetics/solenoid.qmd
+        - section: "Components"
+          contents:
+            - components/index.qmd
+            - components/diodes.qmd
+            - components/zener-schottky-diodes.qmd
+            - components/bjt.qmd
+            - components/mosfet.qmd
+            - components/thyristors.qmd
+        - section: "Power electronics"
+          contents:
+            - power-electronics/index.qmd
+            - power-electronics/buck-converter.qmd
+            - power-electronics/boost-converter.qmd
+            - power-electronics/buck-boost-converter.qmd
+            - power-electronics/lc-filter-design.qmd
+        - section: "Integrated circuits"
+          contents:
+            - integrated-circuits/index.qmd
+        - section: "Microcontrollers"
+          contents:
+            - microcontrollers/index.qmd
+        - section: "Software"
+          contents:
+            - software/index.qmd
+    - id: tools
+      title: "Tools"
+      style: docked
+      background: light
+      contents:
+        - tools/index.qmd
+        - tools/serial-monitor.qmd
+        - tools/programmer.qmd
+    - id: calculators
+      title: "Calculators"
+      style: docked
+      background: light
+      contents:
+        - calculators/index.qmd
+        - calculators/electrical-basics.qmd
+        - calculators/magnetics.qmd
+        - calculators/components.qmd
+        - calculators/power-electronics.qmd
+        - calculators/extra.qmd
 
 format:
   html:

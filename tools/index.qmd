@@ -1,0 +1,15 @@
+---
+title: "Tools"
+toc: false
+---
+
+Small browser-based utilities that talk directly to hardware over USB — no app to install, no drivers beyond what your OS already has for a USB-serial adapter.
+
+```{=html}
+<div class="browser-note">
+These use the <strong>Web Serial API</strong>, which currently only works in Chrome, Edge, or another Chromium-based browser on desktop, over HTTPS. It will not work in Firefox, Safari, or any mobile browser — the page will tell you if your browser isn't supported.
+</div>
+```
+
+- [Serial monitor](serial-monitor.qmd) — connect to a serial device, watch incoming data live, send lines back.
+- [Serial file sender](programmer.qmd) — send a file as raw bytes over a serial connection, with a progress bar. Useful for simple UART bootloaders that expect a raw byte stream; it does not implement chip-specific flashing protocols (STK500, DFU, and similar).
