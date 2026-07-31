@@ -1,0 +1,56 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "The Bench Notebook",
+    "section": "",
+    "text": "A running notebook of what I’m learning — magnetics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.\n\n\nMagnetics\n\nSolenoid inductance\nDeriving inductance from Ampere’s law, then correcting for a finite coil with Wheeler’s formula. Includes a live calculator.\nOpen note →\n\n\n\nIntegrated circuits\n\nOp-amp noise budgets\nWorking through input-referred noise for a transimpedance front end.\nComing soon\n\n\n\nMicrocontrollers\n\nTimer/PWM resolution\nChoosing prescaler and ARR values for a target frequency and duty resolution.\nComing soon\n\n\n\nSoftware\n\nFixed-point vs. float on MCUs\nWhen Q-format fixed point actually beats software float on a Cortex-M0.\nComing soon",
+    "crumbs": [
+      "The Bench Notebook"
+    ]
+  },
+  {
+    "objectID": "magnetics/solenoid.html",
+    "href": "magnetics/solenoid.html",
+    "title": "Single-layer air-core solenoid: inductance",
+    "section": "",
+    "text": "A quick derivation of solenoid inductance from first principles, then the practical correction engineers actually use, with a calculator to try real turn counts and dimensions.",
+    "crumbs": [
+      "Magnetics",
+      "Single-layer air-core solenoid: inductance"
+    ]
+  },
+  {
+    "objectID": "magnetics/solenoid.html#the-ideal-case",
+    "href": "magnetics/solenoid.html#the-ideal-case",
+    "title": "Single-layer air-core solenoid: inductance",
+    "section": "The ideal case",
+    "text": "The ideal case\nTreating the coil as infinitely long, Ampere’s law gives a uniform field inside: \\(B = \\mu_0 n I\\), where \\(n = N / l\\) is turns per unit length. Flux linkage through all \\(N\\) turns gives:\n\\[\nL_{ideal} = \\mu_0 N^2 \\frac{\\pi r^2}{l}\n\\]\nThis overestimates inductance for any real, finite coil — it ignores fringing at the ends.\n\n\n\nFig. 1 — field concentrated inside the winding, with fringing paths returning outside.",
+    "crumbs": [
+      "Magnetics",
+      "Single-layer air-core solenoid: inductance"
+    ]
+  },
+  {
+    "objectID": "magnetics/solenoid.html#wheelers-correction",
+    "href": "magnetics/solenoid.html#wheelers-correction",
+    "title": "Single-layer air-core solenoid: inductance",
+    "section": "Wheeler’s correction",
+    "text": "Wheeler’s correction\nFor a real single-layer coil where length isn’t much greater than radius, Wheeler’s 1928 approximation is the standard practical formula (\\(r\\), \\(l\\) in inches, result in \\(\\mu H\\)):\n\\[\nL_{\\mu H} \\approx \\frac{r^2 N^2}{9r + 10l}\n\\]\nValid roughly for \\(l &gt; 0.4r\\). Below that, it undercorrects and a full Nagaoka-coefficient treatment is needed.\n\n\n\nFig. 2 — field strength rising with current, fringing appearing at the ends.",
+    "crumbs": [
+      "Magnetics",
+      "Single-layer air-core solenoid: inductance"
+    ]
+  },
+  {
+    "objectID": "magnetics/solenoid.html#calculator",
+    "href": "magnetics/solenoid.html#calculator",
+    "title": "Single-layer air-core solenoid: inductance",
+    "section": "Calculator",
+    "text": "Calculator\n\n  \n    \n      Turns N\n      \n    \n    \n      Radius r (cm)\n      \n    \n    \n      Length l (cm)\n      \n    \n  \n  \n    -Ideal L\n    -Wheeler L\n    -Ideal / Wheeler",
+    "crumbs": [
+      "Magnetics",
+      "Single-layer air-core solenoid: inductance"
+    ]
+  }
+]

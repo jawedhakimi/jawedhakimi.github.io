@@ -1,0 +1,52 @@
+---
+title: "The Bench Notebook"
+subtitle: "Notes on hardware, worked out in full"
+page-layout: full
+toc: false
+---
+
+A running notebook of what I'm learning — magnetics, ICs, microcontrollers, and the software around them — written out with the math that backs each result, and small calculators to play with the numbers.
+
+::: {.card-grid}
+
+::: {.card}
+[Magnetics]{.tag}
+
+### Solenoid inductance
+
+Deriving inductance from Ampere's law, then correcting for a finite coil with Wheeler's formula. Includes a live calculator.
+
+[Open note →](magnetics/solenoid.qmd){.open}
+:::
+
+::: {.card .disabled}
+[Integrated circuits]{.tag}
+
+### Op-amp noise budgets
+
+Working through input-referred noise for a transimpedance front end.
+
+[Coming soon]{.badge}
+:::
+
+::: {.card .disabled}
+[Microcontrollers]{.tag}
+
+### Timer/PWM resolution
+
+Choosing prescaler and ARR values for a target frequency and duty resolution.
+
+[Coming soon]{.badge}
+:::
+
+::: {.card .disabled}
+[Software]{.tag}
+
+### Fixed-point vs. float on MCUs
+
+When Q-format fixed point actually beats software float on a Cortex-M0.
+
+[Coming soon]{.badge}
+:::
+
+:::

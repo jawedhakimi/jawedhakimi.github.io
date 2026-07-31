@@ -1,0 +1,29 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "The Bench Notebook"
+  site-url: "https://jawedhakimi.github.io"
+  navbar: false
+  sidebar:
+    style: docked
+    background: light
+    search: true
+    contents:
+      - index.qmd
+      - section: "Magnetics"
+        contents:
+          - magnetics/solenoid.qmd
+
+format:
+  html:
+    theme: [cosmo, custom.scss]
+    css: styles.css
+    toc: true
+    number-sections: false
+    smooth-scroll: true
+    grid:
+      sidebar-width: 220px
+      body-width: 760px
+      margin-width: 200px
