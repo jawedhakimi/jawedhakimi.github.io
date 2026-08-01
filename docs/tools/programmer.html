@@ -183,9 +183,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Sends a local file as raw bytes over a Web Serial connection, with a progress bar. This is the useful 10% of a “programmer” that’s generic across hardware: getting bytes out the USB port reliably. It does <strong>not</strong> implement any chip-specific flashing protocol (STK500, avrdude’s protocols, DFU, ESP32’s ROM bootloader handshake, and so on) — those are stateful protocols with their own framing and handshakes, specific to each target. What this covers is the common case underneath: a simple UART bootloader that just wants the raw image streamed in, or any other device where you need to push a known byte sequence out a serial port from the browser.</p>
-<div class="browser-note" id="browser-support-note">
-Checking browser support…
-</div>
+<div class="browser-note" id="browser-support-note" style="display:none;"></div>
 
 <div class="tool-panel">
   <div class="tool-row">
@@ -243,10 +241,9 @@ Checking browser support…
     return "serial" in navigator;
   }
 
-  if (supported()) {
-    supportNote.textContent = "Web Serial is supported in this browser. Connect, choose a file, then send.";
-  } else {
+  if (!supported()) {
     supportNote.textContent = "This browser doesn't support the Web Serial API. Use desktop Chrome or Edge.";
+    supportNote.style.display = "block";
     connectBtn.disabled = true;
   }
 

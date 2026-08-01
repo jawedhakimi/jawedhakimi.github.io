@@ -183,13 +183,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>Connects to a serial device over USB using the Web Serial API and shows incoming data live, with a line to send data back — the same job as the Arduino IDE’s serial monitor or a terminal program like screen/PuTTY, without leaving the browser.</p>
-<div class="browser-note" id="browser-support-note">
-Checking browser support…
-</div>
-
-<div class="browser-note">
-If it connects but nothing shows up: many ESP32/Arduino boards hold themselves in reset until DTR/RTS are released, which this page now does automatically on connect. If it's still silent, try the <strong>Reset board</strong> button below, and double-check the baud rate matches what the device is actually running.
-</div>
+<div class="browser-note" id="browser-support-note" style="display:none;"></div>
 
 <div class="tool-panel">
   <div class="tool-row">
@@ -258,10 +252,9 @@ If it connects but nothing shows up: many ESP32/Arduino boards hold themselves i
     return "serial" in navigator;
   }
 
-  if (supported()) {
-    supportNote.textContent = "Web Serial is supported in this browser. Click Connect and pick your device.";
-  } else {
+  if (!supported()) {
     supportNote.textContent = "This browser doesn't support the Web Serial API. Use desktop Chrome or Edge.";
+    supportNote.style.display = "block";
     connectBtn.disabled = true;
   }
 
