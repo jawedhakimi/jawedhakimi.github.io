@@ -1520,7 +1520,7 @@
     "href": "tools/serial-monitor.html",
     "title": "Serial monitor",
     "section": "",
-    "text": "Connects to a serial device over USB using the Web Serial API and shows incoming data live, with a line to send data back — the same job as the Arduino IDE’s serial monitor or a terminal program like screen/PuTTY, without leaving the browser.\n\nChecking browser support…\n\n\n\n  \n    Disconnected\n    Baud\n    \n      300\n      1200\n      2400\n      4800\n      9600\n      115200\n      230400\n      460800\n      921600\n    \n    Connect\n    Disconnect\n    Clear\n     Autoscroll\n     Timestamps\n  \n\n  \n\n  \n    \n    \n      \\n\n      \\r\\n\n      \\r\n      none\n    \n    Send",
+    "text": "Connects to a serial device over USB using the Web Serial API and shows incoming data live, with a line to send data back — the same job as the Arduino IDE’s serial monitor or a terminal program like screen/PuTTY, without leaving the browser.\n\nChecking browser support…\n\n\n\nIf it connects but nothing shows up: many ESP32/Arduino boards hold themselves in reset until DTR/RTS are released, which this page now does automatically on connect. If it's still silent, try the Reset board button below, and double-check the baud rate matches what the device is actually running.\n\n\n\n  \n    Disconnected\n    Baud\n    \n      300\n      1200\n      2400\n      4800\n      9600\n      115200\n      230400\n      460800\n      921600\n    \n    Connect\n    Disconnect\n    Reset board\n    Clear\n     Autoscroll\n     Timestamps\n  \n\n  \n\n  \n    \n    \n      \\n\n      \\r\\n\n      \\r\n      none\n    \n    Send",
     "crumbs": [
       "Tools",
       "Serial monitor"

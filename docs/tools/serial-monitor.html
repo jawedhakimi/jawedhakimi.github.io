@@ -187,6 +187,10 @@ ul.task-list li input[type="checkbox"] {
 Checking browser support…
 </div>
 
+<div class="browser-note">
+If it connects but nothing shows up: many ESP32/Arduino boards hold themselves in reset until DTR/RTS are released, which this page now does automatically on connect. If it's still silent, try the <strong>Reset board</strong> button below, and double-check the baud rate matches what the device is actually running.
+</div>
+
 <div class="tool-panel">
   <div class="tool-row">
     <span class="status-pill" id="status-pill"><span class="status-dot"></span><span id="status-text">Disconnected</span></span>
@@ -204,6 +208,7 @@ Checking browser support…
     </select>
     <button class="tool-btn" id="connect-btn">Connect</button>
     <button class="tool-btn" id="disconnect-btn" disabled="">Disconnect</button>
+    <button class="tool-btn" id="reset-btn" disabled="">Reset board</button>
     <button class="tool-btn" id="clear-btn">Clear</button>
     <label><input type="checkbox" id="autoscroll-check" checked=""> Autoscroll</label>
     <label><input type="checkbox" id="timestamp-check"> Timestamps</label>
@@ -214,10 +219,10 @@ Checking browser support…
   <div class="tool-row">
     <input type="text" id="send-input" placeholder="Type a line to send" disabled="">
     <select id="line-ending">
-      <option value="\n" selected="">\n</option>
-      <option value="\r\n">\r\n</option>
-      <option value="\r">\r</option>
-      <option value="">none</option>
+      <option value="n" selected="">\n</option>
+      <option value="rn">\r\n</option>
+      <option value="r">\r</option>
+      <option value="none">none</option>
     </select>
     <button class="tool-btn" id="send-btn" disabled="">Send</button>
   </div>
@@ -230,6 +235,7 @@ Checking browser support…
   var statusText = document.getElementById("status-text");
   var connectBtn = document.getElementById("connect-btn");
   var disconnectBtn = document.getElementById("disconnect-btn");
+  var resetBtn = document.getElementById("reset-btn");
   var clearBtn = document.getElementById("clear-btn");
   var sendInput = document.getElementById("send-input");
   var sendBtn = document.getElementById("send-btn");
@@ -238,6 +244,8 @@ Checking browser support…
   var autoscrollCheck = document.getElementById("autoscroll-check");
   var timestampCheck = document.getElementById("timestamp-check");
   var supportNote = document.getElementById("browser-support-note");
+
+  var lineEndingMap = { n: "\n", rn: "\r\n", r: "\r", none: "" };
 
   var port = null;
   var reader = null;
@@ -268,6 +276,7 @@ Checking browser support…
   function setConnected(isConnected) {
     connectBtn.disabled = isConnected;
     disconnectBtn.disabled = !isConnected;
+    resetBtn.disabled = !isConnected;
     sendInput.disabled = !isConnected;
     sendBtn.disabled = !isConnected;
     baudSelect.disabled = isConnected;
@@ -291,11 +300,26 @@ Checking browser support…
     }
   }
 
+  async function releaseResetSignals() {
+    // Many ESP32/Arduino boards wire DTR/RTS into an auto-reset circuit
+    // (DTR -> GPIO0/BOOT, RTS -> EN/RESET through capacitors). If the
+    // browser leaves either asserted after opening the port, the board
+    // can sit held in reset and never actually run its program, which
+    // looks exactly like "connected but silent." Not all platforms
+    // support setSignals, so this is best-effort and never fatal.
+    try {
+      await port.setSignals({ dataTerminalReady: false, requestToSend: false });
+    } catch (err) {
+      log("[note] couldn't set DTR/RTS (" + err + ") — if the bus stays silent, try Reset board.\n");
+    }
+  }
+
   async function connect() {
     if (!supported()) return;
     try {
       port = await navigator.serial.requestPort();
       await port.open({ baudRate: parseInt(baudSelect.value, 10) });
+      await releaseResetSignals();
 
       var textDecoder = new TextDecoderStream();
       readableStreamClosed = port.readable.pipeTo(textDecoder.writable);
@@ -307,11 +331,23 @@ Checking browser support…
 
       keepReading = true;
       setConnected(true);
-      log("[connected at " + baudSelect.value + " baud]\n");
+      log("[connected at " + baudSelect.value + " baud, waiting for data…]\n");
       readLoop();
     } catch (err) {
       log("[connect failed] " + err + "\n");
       port = null;
+    }
+  }
+
+  async function resetBoard() {
+    if (!port) return;
+    try {
+      await port.setSignals({ requestToSend: true });
+      await new Promise(function (resolve) { setTimeout(resolve, 150); });
+      await port.setSignals({ requestToSend: false });
+      log("[reset pulse sent]\n");
+    } catch (err) {
+      log("[reset failed] " + err + "\n");
     }
   }
 
@@ -342,7 +378,7 @@ Checking browser support…
   async function send() {
     if (!writer) return;
     var text = sendInput.value;
-    var ending = lineEndingSelect.value;
+    var ending = lineEndingMap[lineEndingSelect.value];
     try {
       await writer.write(text + ending);
       log("> " + text + "\n");
@@ -354,6 +390,7 @@ Checking browser support…
 
   connectBtn.addEventListener("click", connect);
   disconnectBtn.addEventListener("click", disconnect);
+  resetBtn.addEventListener("click", resetBoard);
   clearBtn.addEventListener("click", function () { terminalEl.textContent = ""; });
   sendBtn.addEventListener("click", send);
   sendInput.addEventListener("keydown", function (e) {

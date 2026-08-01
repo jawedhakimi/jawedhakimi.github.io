@@ -274,6 +274,13 @@ Checking browser support…
     try {
       port = await navigator.serial.requestPort();
       await port.open({ baudRate: parseInt(baudSelect.value, 10) });
+      try {
+        // Release DTR/RTS in case the target's auto-reset circuit is
+        // holding it in reset — see the serial monitor page for why.
+        await port.setSignals({ dataTerminalReady: false, requestToSend: false });
+      } catch (sigErr) {
+        log("[note] couldn't set DTR/RTS (" + sigErr + ")");
+      }
       setConnected(true);
       log("[connected at " + baudSelect.value + " baud]");
     } catch (err) {
